@@ -18,21 +18,47 @@
 - [x] 前后端分离
 - [x] 分片上传
 - [x] 快速上传已存在的文件
-- [ ] hls播放  
 
+- [x] 文件夹共享
+- [x] 重命名
+- [x] 批量下载
 
-
-- [ ] 转码，剪辑（ffmpeg）
-- [ ] 部分网站的视频下载 （you-get）
-- [ ] 定时采集任务
-
-
+- [ ] URL资源嗅探下载
+- [ ] 共享资源的编辑和版本控制的协调
 ***
 
 # 使用
-1. 直接下载release的jar包和sql文件 
-2. 导入sql文件
-3. 以 Java -jar xxx.jar --ip=局域网ip即可 
-4. 如果对数据库链接名字密码不满意也可以另外在args里指定 
+``` Shell
+java -jar netstorage-0.0.1-SNAPSHOT.jar --ip=192.168.1.121 --server.tomcat.basedir=/mnts1/HomeStorage/ --tempDir=/mnts1/HomeStorage/temp/
+```
+首先运行jar包 以上参数参考自己的硬盘和局域网情况和数据库情况  然后运行sql文件 然后把静态资源扔到nginx 设置反向代理,设置如下，浏览器输入http://{IP}
+```
+server {
+    listen       80;
+    # 服务器名称
+    server_name  localhost;
+    proxy_connect_timeout 600;
 
-# 插件 
+    proxy_read_timeout 600;
+
+    proxy_send_timeout 600;
+    # 路径配置
+    location / {
+        # 相对路径配置，基于nginx启动的位置
+        root   /usr/local/dist;
+        index  index.html;
+        
+        try_files $uri $uri/ @router;  
+    }
+    
+    location @router {
+        rewrite (static/.*)$ /$1   redirect;
+        rewrite ^.*$   /index.html  last;
+     }
+  
+     location /api/ {
+        #  反向代理
+        proxy_pass http://127.0.0.1:8020/;
+     }
+}
+```
