@@ -25,8 +25,8 @@ public interface Aria2Service {
     Boolean start(String id, User user);
 
     //完成
-    Boolean finish(String gid, String filePath);
+    Boolean finish(String gid);
 
     Boolean cancel(String gid,User user);
-
+    String getSimpleDetail(String gid);
 }

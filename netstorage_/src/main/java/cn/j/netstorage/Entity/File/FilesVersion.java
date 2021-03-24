@@ -17,22 +17,30 @@ import java.util.Set;
 public class FilesVersion {
     @Id
     @GeneratedValue
-    private Long GroupId;
+    private Long id;
+
     @Column
-    private String GroupName;
-    @Column
-    private double version;
-    @Column
-    private String Desc_;
+    private String parentName;
+
+    @ManyToOne
+    private User user;
+
+    @ManyToOne
+    private User uploadUser;
+
     @Column
     private Date UpdateDate;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinColumn(name = "originFile")
-    private Set<OriginFile> originFileSet;
+    @OneToOne
+    private Files files;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinColumn(name = "user")
-    private Set<User> users;
+    @Column
+    private String operation;
+
+    enum operation{
+        Rename("Rename"),Delete("delete"),Upload("upload");
+        private String operation;
+         operation(String operation){this.operation=operation;}
+    }
 
 }

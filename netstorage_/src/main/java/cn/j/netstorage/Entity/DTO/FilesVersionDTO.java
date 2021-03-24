@@ -22,15 +22,6 @@ public class FilesVersionDTO {
 
     }
 
-    public FilesVersionDTO ConvertFileVersionDTO(FilesVersion version){
-        FilesVersionDTO versionDTO=new FilesVersionDTO();
-        versionDTO.desc_=version.getDesc_();
-        versionDTO.GroupId=version.getGroupId();
-        versionDTO.GroupName=version.getGroupName();
-        versionDTO.updateTime=version.getUpdateDate();
-        versionDTO.version=version.getVersion();
-        return versionDTO;
-    }
 
     public void Add(FilesVersionDTO filesVersionDTO){
         if (this.children==null){
@@ -38,20 +29,6 @@ public class FilesVersionDTO {
             this.children.add(filesVersionDTO);
         }else{
             this.children.add(filesVersionDTO);
-        }
-    }
-
-    public FilesVersion ConvertFilesVersion(){
-        FilesVersion filesVersion=new FilesVersion();
-        filesVersion.setVersion(this.version);
-        filesVersion.setGroupName(this.GroupName);
-        filesVersion.setUpdateDate(this.updateTime);
-        return filesVersion;
-    }
-
-    public void CheckChildren(){
-        if (this.children==null){
-            this.children= Collections.emptyList();
         }
     }
 }

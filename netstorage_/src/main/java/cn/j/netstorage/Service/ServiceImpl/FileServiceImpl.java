@@ -5,15 +5,15 @@ import cn.j.netstorage.Entity.DTO.OriginFileDTO;
 import cn.j.netstorage.Entity.File.Files;
 import cn.j.netstorage.Entity.File.HardDiskDevice;
 import cn.j.netstorage.Entity.File.OriginFile;
-import cn.j.netstorage.Entity.Folder;
+import cn.j.netstorage.Entity.Folder.Folder;
+import cn.j.netstorage.Entity.Folder.FolderPermission;
 import cn.j.netstorage.Entity.Type;
 import cn.j.netstorage.Entity.User.User;
+import cn.j.netstorage.Mapper.*;
 import cn.j.netstorage.Mapper.FileMapper;
-import cn.j.netstorage.Mapper.HardDeviceMapper;
-import cn.j.netstorage.Mapper.OriginFileMapper;
-import cn.j.netstorage.Mapper.UserMapper;
 import cn.j.netstorage.Service.FileService2;
 import cn.j.netstorage.Service.FilesService;
+import cn.j.netstorage.Service.FolderService;
 import cn.j.netstorage.Service.UserService;
 import cn.j.netstorage.tool.FilesUtil;
 import cn.j.netstorage.tool.HashCodeUtil;
@@ -26,7 +26,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
-import java.text.DecimalFormat;
 import java.util.*;
 
 @Service
@@ -49,6 +48,8 @@ public class FileServiceImpl implements FilesService {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    FolderService folderService;
 
     @Override
     public Boolean insertFile() {
@@ -61,12 +62,13 @@ public class FileServiceImpl implements FilesService {
         //如果没有直接查
 
         User user = userService.getUser(uid);
-        Folder folder = fileService2.getFolder(user, path);
+        Folder folder = folderService.folders(user, path);
         if (folder != null) {
-            user = folder.getOriginUser().iterator().next();
+            user = folder.getOriginUser();
         } else {
             user = FilesUtil.setUser(uid);
         }
+
         List<FilesDTO> files1 = new ArrayList<>();
         fileMapper.findAllByParentNameAndUser_uidAndType(path, (user.getUid()), Type.Folder.getType()).forEach((value) -> {
             FilesDTO filesDTO = new FilesDTO(value);
@@ -100,9 +102,9 @@ public class FileServiceImpl implements FilesService {
         Files file = files.get(0);
         String path = file.getParentName() + file.getSelfName() + "/";
         User user = userService.getUser(uid);
-        Folder folder = fileService2.getFolder(file);
+        Folder folder = folderService.folders(user, path);
         if (folder != null) {
-            return UserFile(path, folder.getOriginUser().iterator().next().getUid());
+            return UserFile(path, folder.getOriginUser().getUid());
         } else {
             return UserFile(path, uid);
         }
@@ -137,12 +139,40 @@ public class FileServiceImpl implements FilesService {
     @Override
     public FilesDTO getFilesById(long fid) {
         Optional<Files> files = fileMapper.findById(fid);
-        return new FilesDTO(files.orElse(null));
+        return new FilesDTO(files.get());
     }
+
 
     @Override
     public OriginFile findByParentNameAndAndUserAndAndSelfName(String parentName, User user, String selfName) {
-        Files files = fileMapper.findByParentNameAndAndUserAndAndSelfName(parentName, user, selfName);
+        Folder folder=folderService.folders(user,parentName);
+        Files files = null;
+
+        if (folder==null)
+            files = fileMapper.findByParentNameAndUserAndSelfName(parentName, user, selfName);
+        else{
+            boolean res=false;
+            for (FolderPermission folderPermission : folder.getPermissions()) {
+                if (folderPermission.getPermissionName().equals("预览")) {
+                    res = true;
+                    break;
+                }
+            }
+            if (!res)
+                return null;
+            else
+                files = fileMapper.findByParentNameAndUserAndSelfName(parentName, folder.getOriginUser(), selfName);
+
+        }
+
+        if (files==null)
+            return null;
+
+        /*
+        检查权限
+         */
+        if (Type.Video.getType().equals(files.getType()))
+            fileService2.addVisitRecord(user,files);
         return files.getOriginFile() != null ? new ArrayList<OriginFile>(files.getOriginFile()).get(0) : new OriginFile();
     }
 

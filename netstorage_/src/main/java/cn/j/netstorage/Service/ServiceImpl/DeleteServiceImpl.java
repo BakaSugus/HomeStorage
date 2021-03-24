@@ -13,13 +13,11 @@ import cn.j.netstorage.Service.FileService2;
 import cn.j.netstorage.Service.FilesService;
 import cn.j.netstorage.Service.OriginFileService;
 import lombok.NonNull;
-import org.hibernate.sql.Delete;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 @Service

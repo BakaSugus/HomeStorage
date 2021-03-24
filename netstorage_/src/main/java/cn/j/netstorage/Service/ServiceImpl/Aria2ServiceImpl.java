@@ -11,13 +11,16 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import okhttp3.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.URLDecoder;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 @Service
 public class Aria2ServiceImpl implements Aria2Service {
@@ -61,27 +64,91 @@ public class Aria2ServiceImpl implements Aria2Service {
         return jsonObject;
     }
 
+//    private String getUrl(String url) {
+//        OkHttpClient okHttpClient = new OkHttpClient();
+//        final Request request = new Request.Builder()
+//                .url(url)
+//                .build();
+//        Call call = okHttpClient.newCall(request);
+//        try {
+//            Response response = call.execute();
+//            if (response.isRedirect()){
+//                String redirect=response.header("Location");
+//                response.close();
+//                return getUrl(redirect);
+//            }
+//            return url;
+//        } catch (IOException ex) {
+//            ex.printStackTrace();
+//        }
+//        return null;
+//    }
+
     @Override
     public Boolean download(String url, String path, User user) {
-        //todo addUri
         JsonObject jsonObject = commonJson(METHOD_ADD_URI, tellParams(tellParams(url)));
         try {
             Response response = post(jsonObject);
             String res = parse(response);
             if (!StringUtils.hasText(res))
                 return false;
-            String fileName = url.substring(url.lastIndexOf("/") + 1);
             Aria2File file = new Aria2File();
-            file.setName(URLDecoder.decode(fileName, "UTF-8"));
             file.setPath(path);
             file.setUser(user);
             file.setGid(res);
+            file.setType("URI");
+            file.setName(url.substring(url.lastIndexOf("/") + 1));
             return ariaMapper.save(file).getId() != 0;
         } catch (Exception e) {
             e.printStackTrace();
         }
         return false;
     }
+
+    public Map<String, List<String>> getTorrentDetail(String gid) {
+//        aria2.tellStatus
+        System.out.println(gid);
+        Map<String, List<String>> map = new LinkedHashMap<>();
+        Response response = post(commonJson("aria2.tellStatus", tellParams(gid)));
+        try {
+            Gson gson = new GsonBuilder().disableHtmlEscaping().create();
+            JsonObject jsonObject = gson.fromJson(response.body().string(), JsonObject.class).getAsJsonObject("result");
+            if (jsonObject.has("bittorrent")) {
+                JsonObject bittorrent = jsonObject.getAsJsonObject("bittorrent");
+                String info = bittorrent.getAsJsonObject("info").getAsJsonObject("name").getAsString();
+                List<String> names = map.getOrDefault(info, new ArrayList<>());
+                JsonArray jsonArray = jsonObject.getAsJsonArray("files");
+                for (int i = 0; i < jsonArray.size(); i++) {
+                    JsonObject object = jsonArray.get(i).getAsJsonObject();
+                    names.add(object.get("path").getAsString());
+                }
+                map.put(info, names);
+                return map;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return map;
+    }
+
+    public String getSimpleDetail(String gid) {
+        Response response = post(commonJson("aria2.tellStatus", tellParams(gid)));
+
+        JsonObject jsonObject = null;
+        try {
+            Gson gson = new GsonBuilder().disableHtmlEscaping().create();
+
+            jsonObject = gson.fromJson(response.body().string(), JsonObject.class).getAsJsonObject("result");
+            JsonArray jsonArray = jsonObject.getAsJsonArray("files");
+            JsonObject object = jsonArray.get(0).getAsJsonObject();
+            String res = object.get("path").getAsString();
+            return res;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 
     @Override
     public Boolean download(Long fid, String path, User user) {
@@ -123,18 +190,40 @@ public class Aria2ServiceImpl implements Aria2Service {
         return true;
     }
 
-    @Override
-    public Boolean finish(String gid, String filePath) {
-        if (!StringUtils.hasText(gid) || !StringUtils.hasText(filePath))
-            return false;
-        File file = new File(filePath);
-        if (!file.exists())
-            return false;
+    @Value("${aria2}")
+    String aria2;
 
+    @Override
+    public Boolean finish(String gid) {
+        System.out.println("finish:" + gid);
+        if (!StringUtils.hasText(gid))
+            return false;
+        File file = null;
         Aria2File task = ariaMapper.findByGid(gid);
+        if (task == null) return false;
+
         User user = task.getUser();
         String path = task.getPath();
-        return uploadService.exist_upload(file.getAbsolutePath(), path, user);
+
+        if ("TORRENT".equals(task.getType())) {
+            Map<String, List<String>> map = getTorrentDetail(gid);
+            for (String s : map.keySet()) {
+                List<String> paths = map.get(s);
+                for (String p : paths) {
+                    File f = new File(aria2 + "/" + p);
+                    if (f.exists()) {
+                        return uploadService.multi_exist_upload(s, path, f.getName(), f.getAbsolutePath() + p, user);
+                    }
+                }
+            }
+        } else {
+            file = new File(aria2 + "/" + getSimpleDetail(gid));
+            System.out.println(file.exists());
+            if (!file.exists())
+                return false;
+            return uploadService.exist_upload(file.getAbsolutePath(), file.getName(), path, user);
+        }
+        return false;
     }
 
     @Override
@@ -171,7 +260,12 @@ public class Aria2ServiceImpl implements Aria2Service {
         MediaType JSON = MediaType.parse("application/json; charset=utf-8");
 
         RequestBody formBody = RequestBody.create(JSON, jsonObject.toString());
-        OkHttpClient okHttpClient = new OkHttpClient();
+        OkHttpClient okHttpClient =
+                new OkHttpClient.Builder()
+                        .connectTimeout(10, TimeUnit.SECONDS)
+                        .readTimeout(20, TimeUnit.SECONDS)
+                        .build();
+
         final Request request = new Request.Builder()
                 .url(url)
                 .post(formBody)
@@ -207,6 +301,8 @@ public class Aria2ServiceImpl implements Aria2Service {
                     object.addProperty("name", files.get(strings.lastIndexOf(object.get("gid").getAsString())).getName());
                     jsonArray.add(object);
                 }
+//                System.out.println(object);
+
             }
         } catch (IOException e) {
             e.printStackTrace();

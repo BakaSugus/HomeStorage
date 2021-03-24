@@ -3,19 +3,21 @@ package cn.j.netstorage.Service.ServiceImpl;
 import cn.j.netstorage.Entity.DTO.FilesDTO;
 import cn.j.netstorage.Entity.File.Files;
 import cn.j.netstorage.Entity.File.OriginFile;
-import cn.j.netstorage.Entity.Folder;
+import cn.j.netstorage.Entity.Folder.Folder;
 import cn.j.netstorage.Entity.Type;
 import cn.j.netstorage.Entity.User.User;
+import cn.j.netstorage.Entity.VisitRecord;
 import cn.j.netstorage.Mapper.FileMapper;
 import cn.j.netstorage.Mapper.FolderMapper;
+import cn.j.netstorage.Mapper.RecordMapper;
 import cn.j.netstorage.Service.FileService2;
+import cn.j.netstorage.Service.FolderService;
 import cn.j.netstorage.Service.UserService;
 import cn.j.netstorage.tool.FilesUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.*;
-import java.nio.ByteBuffer;
 import java.util.*;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
@@ -31,11 +33,18 @@ public class FilesServiceImpl implements FileService2 {
 
     @Autowired
     FolderMapper folderMapper;
+    @Autowired
+    FolderService folderService;
 
 
     @Override
     public Boolean save(Files files) {
         return fileMapper.save(files).getFid() != 0;
+    }
+
+    @Override
+    public Files saveAndGet(Files files) {
+        return fileMapper.save(files);
     }
 
     @Override
@@ -59,6 +68,11 @@ public class FilesServiceImpl implements FileService2 {
             return false;
         }
         return true;
+    }
+
+    @Override
+    public List<Files> get(String path, String name, User user){
+        return fileMapper.findAllBySelfNameAndUserAndParentName(name,user,path);
     }
 
     @Override
@@ -100,17 +114,13 @@ public class FilesServiceImpl implements FileService2 {
         return fileMapper.findAllBySelfNameLikeAndUserAndParentName(likeName, user, parentName).size();
     }
 
-    @Override
-    public Folder getFolder(Files files) {
-        return folderMapper.findByFiles(files);
-    }
 
     public List<FilesDTO> folders(User user) {
         List<FilesDTO> filesDto = new ArrayList<>();
-        List<Folder> list = folderMapper.findByUsers(user);
+        List<Folder> list = folderMapper.findByShareUser(user);
         for (Folder f :
                 list) {
-            filesDto.add(new FilesDTO(f.getFiles().iterator().next()));
+            filesDto.add(new FilesDTO(f.getFolder()));
         }
         return filesDto;
     }
@@ -124,14 +134,7 @@ public class FilesServiceImpl implements FileService2 {
         return true;
     }
 
-    public Folder getFolder(Long id) {
-        return folderMapper.findById(id).get();
-    }
 
-    @Override
-    public Folder getFolder(User user, String FolderName) {
-        return folderMapper.findByUsersAndFolderPath(user, FolderName);
-    }
 
     @Override
     public Boolean RenameFile(User user, Long fid, String targetName) {
@@ -193,11 +196,29 @@ public class FilesServiceImpl implements FileService2 {
         return;
     }
 
+    @Autowired
+    RecordMapper recordMapper;
+
+    @Override
+    public boolean addVisitRecord(User user, Files files) {
+        VisitRecord record = new VisitRecord();
+        record.setFiles(files);
+        record.setTime(System.currentTimeMillis());
+        record.setType(files.getType());
+        record.setUser(user);
+        return recordMapper.save(record).getId() != 0;
+    }
+
+    @Override
+    public Files getFiles(String path, String selfName, User user) {
+        return fileMapper.findAllBySelfNameAndUserAndParentName(selfName,user,path).get(0);
+    }
+
     public void zipEntry(String location, Files files, ZipOutputStream zipOutputStream) {
         //此处查是不是共享文件夹
-        Folder folder = getFolder(files);
-        User user = folder == null || folder.getOriginUser() == null || folder.getOriginUser().size() < 1 ?
-                files.getUser().get(0) : folder.getOriginUser().iterator().next();
+        Folder folder = folderService.folders(files);
+        User user = folder == null || folder.getOriginUser() == null ?
+                files.getUser().get(0) : folder.getOriginUser();
         //此处查子文件和子文件夹
         List<Files> anySonFiles = fileMapper.findByParentNameLikeAndUser(files.getParentName() + files.getSelfName() + "/", user);
         for (int i = 0; i < anySonFiles.size(); i++) {
@@ -221,34 +242,5 @@ public class FilesServiceImpl implements FileService2 {
                 ex.printStackTrace();
             }
         }
-    }
-
-    @Override
-    public boolean shareFolder(Long fid, User user) {
-        Files files = files(fid).get(0);
-        if (files == null) {
-            return false;
-        }
-        if (!files.getType().equals(Type.Folder.getType())) {
-            return false;
-        }
-
-        Folder folder = getFolder(files);
-        List<User> users = null;
-        if (folder == null) {
-            folder = new Folder();
-            users = new ArrayList<>();
-        } else {
-            users = folder.getUsers();
-        }
-
-        folder.setFiles(FilesUtil.convert(files));
-        folder.setFolderPath(files.getParentName() + files.getSelfName() + "/");
-        folder.setOriginUser(new HashSet<>(files.getUser()));
-
-        users.add(user);
-        folder.setUsers(users);
-
-        return folderMapper.save(folder).getId() != 0;
     }
 }

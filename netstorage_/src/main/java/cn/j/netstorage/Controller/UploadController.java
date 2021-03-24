@@ -1,6 +1,7 @@
 package cn.j.netstorage.Controller;
 
 import cn.j.netstorage.Entity.User.User;
+import cn.j.netstorage.Service.OssService;
 import cn.j.netstorage.Service.UploadService;
 import cn.j.netstorage.Service.UserService;
 import cn.j.netstorage.tool.ResultBuilder;
@@ -50,7 +51,7 @@ public class UploadController {
                                            @RequestParam("path") String parentName) {
         User user = userService.getUser(SecurityUtils.getSubject().getPrincipal().toString());
         Boolean result = uploadService.checkMd5AndTransfer(md5, parentName, fileName, user);
-        return new ResultBuilder(result, result ? StatusCode.SUCCESS : StatusCode.FALL);
+        return new ResultBuilder<>(result, result ? StatusCode.SUCCESS : StatusCode.FALL);
     }
 
     @PostMapping("common_upload")
@@ -67,5 +68,16 @@ public class UploadController {
 
         }
         return new ResultBuilder(StatusCode.SUCCESS);
+    }
+
+    @Autowired
+    private OssService ossService;
+
+    @PostMapping()
+    public ResultBuilder OssUpload(String name, Long id) {
+        Object object = SecurityUtils.getSubject().getPrincipal();
+        if (object == null)
+            return new ResultBuilder<>(StatusCode.FALL);
+        return new ResultBuilder<>(ossService.upload(userService.getUser(object.toString()),name,id),StatusCode.SUCCESS);
     }
 }

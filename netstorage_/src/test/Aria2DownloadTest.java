@@ -21,8 +21,9 @@ public class Aria2DownloadTest {
 
     @Test
     public void addTorrent() {
-        System.out.println(aria2Service.getActive(FilesUtil.setUser(6L)));
-        System.out.println(aria2Service.getStopped(FilesUtil.setUser(6L)));
-        System.out.println(aria2Service.getWaiting(FilesUtil.setUser(6L)));
+        aria2Service.getSimpleDetail("2476e5f8e945506c");
+//        System.out.println(aria2Service.getActive(FilesUtil.setUser(6L)));
+//        System.out.println(aria2Service.getStopped(FilesUtil.setUser(6L)));
+//        System.out.println(aria2Service.getWaiting(FilesUtil.setUser(6L)));
     }
 }

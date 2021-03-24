@@ -3,18 +3,15 @@ package cn.j.netstorage.Service.ServiceImpl;
 import cn.j.netstorage.Entity.File.Files;
 import cn.j.netstorage.Entity.File.HardDiskDevice;
 import cn.j.netstorage.Entity.File.OriginFile;
-import cn.j.netstorage.Entity.Folder;
+import cn.j.netstorage.Entity.Folder.Folder;
 import cn.j.netstorage.Entity.Type;
 import cn.j.netstorage.Entity.User.User;
 import cn.j.netstorage.Service.*;
 import cn.j.netstorage.tool.FileData;
 import cn.j.netstorage.tool.FilesUtil;
-import cn.j.netstorage.tool.HashCodeUtil;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.json.GsonJsonParser;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
@@ -23,6 +20,8 @@ import java.io.*;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+
+import static org.thymeleaf.util.StringUtils.append;
 
 @Service
 public class UploadServiceImpl implements UploadService {
@@ -39,6 +38,10 @@ public class UploadServiceImpl implements UploadService {
     @Autowired
     FilesService filesService;
 
+    @Autowired
+    FolderService folderService;
+
+
     @Override
     public Boolean common_upload(MultipartFile uploadFile, String storagePath, User user) {
 
@@ -49,8 +52,10 @@ public class UploadServiceImpl implements UploadService {
 
         String path = new File(hardDiskDevice.getFolderName() + "/" + uploadFile.getOriginalFilename()).getAbsolutePath();
         try {
+            String ossKey = "/" + type.getType() + "/" + uploadFile.getName();
             OriginFile originFile = originFileService.originFile(uploadFile, hardDiskDevice);
 
+            originFile.setOssKey(ossKey);
             uploadFile.transferTo(new File(path));
             //写原始文件
             originFile = originFileService.saveOriginFile(originFile);
@@ -66,6 +71,7 @@ public class UploadServiceImpl implements UploadService {
 
             Files files = fileService2.file(finalName, originFile, storagePath, user);
             fileService2.save(files);
+
             if (files.getFid() == 0) return false;
         } catch (IOException e) {
             e.printStackTrace();
@@ -97,7 +103,7 @@ public class UploadServiceImpl implements UploadService {
     public Boolean slice_upload(MultipartFile file, int size, String fileName, String dst, String storagePath, int currentIndex, User user) {
         String tmpName = fileName + ".part" + currentIndex;
         try {
-            File tempFolder=new File("/Temp");
+            File tempFolder = new File("/Temp");
             if (!tempFolder.exists())
                 tempFolder.mkdirs();
             File part = new File(tempFolder.getAbsolutePath() + "/" + tmpName);
@@ -105,7 +111,7 @@ public class UploadServiceImpl implements UploadService {
                 file.transferTo(part);
             }
             if (size == currentIndex) {
-                merge_upload(fileName, tempFolder.getAbsolutePath()+"/", storagePath, 1, size, user);
+                merge_upload(fileName, tempFolder.getAbsolutePath() + "/", storagePath, 1, size, user);
             }
         } catch (IOException ex) {
             ex.printStackTrace();
@@ -115,9 +121,59 @@ public class UploadServiceImpl implements UploadService {
     }
 
     @Override
-    public Boolean exist_upload(String filePath, String storagePath, User user) {
-        return null;
+    public Boolean exist_upload(String filePath, String selfName, String storagePath, User user) {
+        if (!StringUtils.hasText(filePath) || !StringUtils.hasText(selfName) || !StringUtils.hasText(storagePath) || user == null)
+            return false;
+        File file = new File(filePath);
+        if (!file.exists())
+            return false;
+        String fileName = file.getName();
+
+        Type type = Type.getInstance(fileName.substring(fileName.lastIndexOf(".")));
+
+        HardDiskDevice hardDiskDevice = hardDeviceService.get(type);
+
+        File newFile = new File(hardDiskDevice.getFolderName() + "/" +
+                +System.currentTimeMillis()
+                + fileName.substring(fileName.lastIndexOf(".")));
+
+        Boolean removeRes = file.renameTo(newFile);
+//        System.out.println("transfer result:"+removeRes);
+        if (!removeRes)
+            return false;
+
+        OriginFile originFile = null;
+        String ossKey = "/" + type.getType() + "/" + newFile.getName();
+        try {
+            originFile = originFileService.originFile(newFile, hardDiskDevice);
+            originFile.setOssKey(ossKey);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+        originFile = originFileService.saveOriginFile(originFile);
+
+        if (originFile.getOid() == 0) return false;
+        //Files插入
+        Folder folder = folderService.folders(user, storagePath);
+
+        User owner_user = null;
+        //user是上传者 owner是拥有者, files里的user应该是拥有者 file_version里的应该是上传者和拥有者
+        if (folder != null) {
+            owner_user = folder.getOriginUser();
+        }
+
+        Files files = getFinalName(owner_user, user, storagePath, fileName, type, originFile);
+//        System.out.println("files:"+files);
+        if (files == null) return false;
+        afterProcess(files);
+        files = fileService2.saveAndGet(files);
+        if (files.getFid() != 0) filesVersionService.add(user, files);
+        return files.getFid() != 0;
     }
+
+    @Autowired
+    FilesVersionService filesVersionService;
 
     @Override
     public Boolean merge_upload(String fileName, String diskPath, String storagePath, int start, int end, User user) {
@@ -163,8 +219,10 @@ public class UploadServiceImpl implements UploadService {
 
         //OriginFile 插入
         OriginFile originFile = null;
+        String ossKey = "/" + type.getType() + "/" + newFile.getName();
         try {
             originFile = originFileService.originFile(newFile, hardDiskDevice);
+            originFile.setOssKey(ossKey);
         } catch (IOException e) {
             e.printStackTrace();
             return false;
@@ -173,47 +231,35 @@ public class UploadServiceImpl implements UploadService {
 
         if (originFile.getOid() == 0) return false;
         //Files插入
-        Folder folder = fileService2.getFolder(user, storagePath);
+        Folder folder = folderService.folders(user, storagePath);
+        User owner_user = null;
+        //user是上传者 owner是拥有者, files里的user应该是拥有者 file_version里的应该是上传者和拥有者
         if (folder != null) {
-            user = folder.getOriginUser().iterator().next();
+            owner_user = folder.getOriginUser();
         }
 
-        String finalName = this.getFinalFilesName(storagePath, fileName, type, user);
-
-        Files files = fileService2.file(finalName, originFile, storagePath, user);
+        Files files = getFinalName(owner_user, user, storagePath, fileName, type, originFile);
+        if (files == null) return false;
         afterProcess(files);
-        fileService2.save(files);
-
+        files = fileService2.saveAndGet(files);
+        //加入文件上传记录
+        if (files.getFid() != 0) filesVersionService.add(user, files);
+        //是否备份
         return files.getFid() != 0;
     }
 
-//    @Override
-//    public Boolean merge_upload(String fileName, String diskPath, String storagePath, int start, int end, User user) {
-//        //OriginFile 插入
-//        OriginFile originFile = null;
-//        try {
-//            originFile = originFileService.originFile(newFile, hardDiskDevice);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//            return false;
-//        }
-//        originFile = originFileService.saveOriginFile(originFile);
-//
-//        if (originFile.getOid() == 0) return false;
-//        //Files插入
-//        Folder folder = fileService2.getFolder(user, storagePath);
-//        if (folder != null) {
-//            user = folder.getOriginUser().iterator().next();
-//        }
-//
-//        String finalName = this.getFinalFilesName(storagePath, fileName, type, user);
-//
-//        Files files = fileService2.file(finalName, originFile, storagePath, user);
-//        afterProcess(files);
-//        fileService2.save(files);
-//
-//        return files.getFid() != 0;
-//    }
+    private Files getFinalName(User owner_user, User user, String storagePath, String fileName, Type type, OriginFile originFile) {
+        Files files = null;
+        if (owner_user == user || owner_user == null) {
+            String finalName = this.getFinalFilesName(storagePath, fileName, type, user);
+            files = fileService2.file(finalName, originFile, storagePath, user);
+        } else {
+            String finalName = this.getFinalFilesName(storagePath, fileName, type, user);
+            files = fileService2.file(finalName, originFile, storagePath, owner_user);
+        }
+        return files;
+    }
+
 
     @Override
     public Boolean checkMd5AndTransfer(String md5, String parentName, String selfName, User user) {
@@ -253,4 +299,27 @@ public class UploadServiceImpl implements UploadService {
         }
         return finalName;
     }
+
+    @Override
+    public Boolean multi_exist_upload(String taskName, String storagePath, String name, String filePath, User user) {
+        if (user == null || !StringUtils.hasText(taskName) || StringUtils.hasText(storagePath) || StringUtils.hasText(filePath))
+            return false;
+
+        List<Files> files = fileService2.get(storagePath, taskName, user);
+        if (files == null || files.size() == 0) common_upload_Folder(create(FilesUtil.append(storagePath, taskName), name, user));
+
+        return exist_upload(filePath, name, FilesUtil.append(storagePath, taskName), user);
+    }
+
+    public Files create(String parent, String selfName, User user) {
+        Files files = new Files();
+        files.setType(Type.Folder.getType());
+        files.setCreateDate(new Date());
+        files.setParentName(parent);
+        files.setSelfName(selfName);
+        files.setUser(Collections.singletonList(user));
+        return files;
+    }
+
+
 }

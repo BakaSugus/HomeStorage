@@ -4,10 +4,20 @@ import cn.j.netstorage.Entity.File.Files;
 import cn.j.netstorage.Entity.File.OriginFile;
 import cn.j.netstorage.Entity.User.User;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.util.StringUtils;
 
 import java.util.*;
 
 public class FilesUtil {
+
+    public static String append(String parent, String son) {
+        if (!parent.endsWith("/"))
+            parent += "/";
+        if (StringUtils.hasText(son))
+            parent += son;
+        return parent;
+    }
+
     public static String[] getFileNameAndExt(String fileName) {
         String[] strings = new String[3];
         strings[0] = "false";

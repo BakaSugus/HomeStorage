@@ -26,11 +26,14 @@ public class OriginFile {
     @JoinColumn(name = "hardDiskDevice")
     private Set<HardDiskDevice> hardDiskDevice;
 
-    public String getPath(){
-        return new ArrayList<>(this.hardDiskDevice).get(0).getFolderName()+"/"+this.fileName;
+    @Column
+    private String ossKey;
+
+    public String getPath() {
+        return new ArrayList<>(this.hardDiskDevice).get(0).getFolderName() + "/" + this.fileName;
     }
 
-    public String getCustomPath(){
-        return new ArrayList<>(this.hardDiskDevice).get(0).getCustomName()+"/"+this.fileName;
+    public String getCustomPath() {
+        return new ArrayList<>(this.hardDiskDevice).get(0).getCustomName() + "/" + this.fileName;
     }
 }

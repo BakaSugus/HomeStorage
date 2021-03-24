@@ -5,6 +5,8 @@ import cn.j.netstorage.Service.Aria2Service;
 import cn.j.netstorage.Service.UserService;
 import cn.j.netstorage.tool.ResultBuilder;
 import cn.j.netstorage.tool.StatusCode;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,25 +24,35 @@ public class AriaController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("/all")
+    @GetMapping("/active")
     public String Active() {
         Object object = SecurityUtils.getSubject().getPrincipal();
         if (object == null)
             return null;
-        User user=userService.getUser(object.toString());
-        JsonObject jsonObject=new JsonObject();
-        jsonObject.add("active",aria2Service.getActive(user));
-        jsonObject.add("stopped",aria2Service.getStopped(user));
-        jsonObject.add("waited",aria2Service.getWaiting(user));
-        return jsonObject.toString();
+        User user = userService.getUser(object.toString());
+        return new GsonBuilder().disableHtmlEscaping().create().toJson(aria2Service.getActive(user));
     }
 
-
-
+    @GetMapping("/stop")
+    public String Stop() {
+        Object object = SecurityUtils.getSubject().getPrincipal();
+        if (object == null)
+            return null;
+        User user = userService.getUser(object.toString());
+        return new GsonBuilder().disableHtmlEscaping().create().toJson(aria2Service.getStopped(user));
+    }
+    @GetMapping("/wait")
+    public String getWait() {
+        Object object = SecurityUtils.getSubject().getPrincipal();
+        if (object == null)
+            return null;
+        User user = userService.getUser(object.toString());
+        return new GsonBuilder().disableHtmlEscaping().create().toJson(aria2Service.getWaiting(user));
+    }
     @GetMapping("/finish")
-    public ResultBuilder Finish(String path, String name, String gid) {
-        return null;
-//        return new ResultBuilder<>(aria2Service.finish(gid,path),StatusCode.SUCCESS);
+    public ResultBuilder Finish(String gid) {
+        Boolean res = aria2Service.finish(gid);
+        return new ResultBuilder<>(res, StatusCode.SUCCESS);
     }
 
     @PostMapping("/addUri")
@@ -74,5 +86,4 @@ public class AriaController {
             return new ResultBuilder(StatusCode.FALL);
         return new ResultBuilder<>(aria2Service.cancel(gid, userService.getUser(object.toString())), StatusCode.SUCCESS);
     }
-
 }

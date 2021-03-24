@@ -1,15 +1,10 @@
 package cn.j.netstorage.Service.ServiceImpl;
 
 import cn.j.netstorage.Entity.File.Files;
-import cn.j.netstorage.Entity.Folder;
+import cn.j.netstorage.Entity.Folder.Folder;
 import cn.j.netstorage.Entity.Type;
 import cn.j.netstorage.Entity.User.User;
-import cn.j.netstorage.Entity.plugin.Plugin;
-import cn.j.netstorage.Mapper.HttpMapper;
-import cn.j.netstorage.Service.FileService2;
-import cn.j.netstorage.Service.FilesService;
-import cn.j.netstorage.Service.PluginService;
-import cn.j.netstorage.Service.UploadService;
+import cn.j.netstorage.Service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,6 +23,10 @@ public class PluginServiceImpl implements PluginService {
     @Autowired
     private UploadService uploadService;
 
+    @Autowired
+    FolderService folderService;
+
+
     @Override
     public Boolean transferFiles(String file, String fileName, Long id, String diskName, User user) {
         File f = new File(file);
@@ -40,7 +39,7 @@ public class PluginServiceImpl implements PluginService {
             return false;
         //检查是不是共享文件夹 如果是共享文件夹就交由folder插入文件处理 如果不是就检测是不是统一的用户
 
-        Folder folder = fileService2.getFolder(user, files.getParentName());
+        Folder folder = folderService.folders(user, files.getParentName());
 
         if (folder!=null){
             //todo folder插入文件处理 整合版本控制

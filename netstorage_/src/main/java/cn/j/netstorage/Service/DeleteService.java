@@ -1,10 +1,7 @@
 package cn.j.netstorage.Service;
 
 import cn.j.netstorage.Entity.DTO.DeleteDTOs;
-import cn.j.netstorage.Entity.Folder;
 import cn.j.netstorage.Entity.User.User;
-
-import java.util.List;
 
 public interface DeleteService {
 

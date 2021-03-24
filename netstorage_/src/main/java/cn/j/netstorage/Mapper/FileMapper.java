@@ -14,7 +14,7 @@ public interface FileMapper extends JpaRepository<Files, Long> {
 
     List<Files> findAllByParentNameAndUser_uidAndTypeNot(String parentName, long uid, String type);
 
-    Files findByParentNameAndAndUserAndAndSelfName(String parentName, User user, String selfName);
+    Files findByParentNameAndUserAndSelfName(String parentName, User user, String selfName);
 
     Integer deleteAllByFidIsOrParentNameIsLikeAndUser(Long fid, String parentName, User user);
 

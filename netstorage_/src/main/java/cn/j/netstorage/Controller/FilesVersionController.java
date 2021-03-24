@@ -31,66 +31,12 @@ public class FilesVersionController {
     @Autowired
     private FilesService filesService;
 
-    @GetMapping("/FileVersionControlList")
-    public ResultBuilder<List<FilesVersionDTO>> listFilesVersion() {
-        Long id = userService.getUser(SecurityUtils.getSubject().getPrincipal().toString()).getUid();
-        return new ResultBuilder<>(filesVersionService.filesVersionList(id), StatusCode.SUCCESS);
-    }
 
-    @GetMapping("/FileVersion")
-    public ResultBuilder getOneFileVersion(String GroupName){
-        User user= userService.getUser(SecurityUtils.getSubject().getPrincipal().toString());
-        return new ResultBuilder<List<FilesVersionDTO>>(filesVersionService.GetFileVersionByGroupName(user,GroupName),StatusCode.SUCCESS);
-    }
-
-    @PostMapping("/updateVersion")
-    public ResultBuilder<Boolean> updateVersion(@RequestParam("upload") MultipartFile multipartFile, FilesVersion filesVersion) {
-        User user = userService.getUser(SecurityUtils.getSubject().getPrincipal().toString());
-        filesVersion.setUsers(Collections.singleton(user));
-        System.out.println(filesVersion.getDesc_());
-        return new ResultBuilder<>(filesVersionService.add(filesVersion, multipartFile), StatusCode.SUCCESS);
-    }
-
-    @PostMapping("/delete")
-    public ResultBuilder<Boolean> deleteFilesVersionControl(@RequestBody TreeMap<String,String> map) {
-        if (map.containsKey("groupId")){
-            Long id = userService.getUser(SecurityUtils.getSubject().getPrincipal().toString()).getUid();
-            FilesVersion filesVersion = filesVersionService.GetFileVersionByGroupId(Long.valueOf(map.get("groupId")));
-            for (User user :
-                    filesVersion.getUsers()) {
-                if (user.getUid() == id)
-                    return new ResultBuilder<>(filesVersionService.delete(filesVersion), StatusCode.SUCCESS);
-            }
-        }
-        return new ResultBuilder<>(false, StatusCode.FALL);
-    }
-
-    @PostMapping("/insertFilesVersionControl")
-    public ResultBuilder<Boolean> insertFilesVersionControl(@RequestBody String fid) {
-        String id = new Gson().fromJson(fid, HashMap.class).get("fid").toString();
-        Boolean result = false;
-        if (StringUtils.isEmpty(id)) {
-            return new ResultBuilder<>(result, StatusCode.FALL);
-        }
-        Files files = filesService.findByFid(Long.valueOf(id));
-
-        FilesVersion filesVersion = new FilesVersion();
-        User user = userService.getUser(SecurityUtils.getSubject().getPrincipal().toString());
-        OriginFile originFile = files.getOriginFile().size() != 0 ?
-                new ArrayList<OriginFile>(files.getOriginFile()).get(0) : null;
-
-        if (originFile == null) {
-            return new ResultBuilder<>(result, StatusCode.FALL);
-        }
-        if (files.getOriginFile() != null && files.getOriginFile().size() > 0) {
-            filesVersion.setOriginFileSet(Collections.singleton(originFile));
-            filesVersion.setDesc_("默认版本描述");
-            filesVersion.setGroupName(files.getParentName() + files.getSelfName());
-            filesVersion.setVersion(1d);
-            filesVersion.setUpdateDate(new Date());
-            filesVersion.setUsers(Collections.singleton(user));
-            return new ResultBuilder<>(filesVersionService.createFileVersionControl(filesVersion), StatusCode.SUCCESS);
-        }
-        return new ResultBuilder<>(result, StatusCode.FALL);
+    @GetMapping("/uploadhistory")
+    public ResultBuilder get(String path, String selfName) {
+        Object obj = SecurityUtils.getSubject().getPrincipal();
+        if (obj == null)
+            return new ResultBuilder(StatusCode.FALL);
+        return new ResultBuilder<>(filesVersionService.get(path, selfName, userService.getUser(obj.toString())), StatusCode.SUCCESS);
     }
 }

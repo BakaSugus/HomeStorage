@@ -31,5 +31,8 @@ public class Aria2File {
     @ManyToOne(fetch = FetchType.EAGER)
     private User user;//任务所属
 
+    @Column
+    private String type;
+
 
 }

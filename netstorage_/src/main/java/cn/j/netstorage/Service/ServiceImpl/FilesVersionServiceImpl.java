@@ -1,114 +1,102 @@
 package cn.j.netstorage.Service.ServiceImpl;
 
-import cn.j.netstorage.Entity.DTO.FilesVersionDTO;
+import cn.j.netstorage.Entity.File.Files;
 import cn.j.netstorage.Entity.File.FilesVersion;
-import cn.j.netstorage.Entity.File.HardDiskDevice;
-import cn.j.netstorage.Entity.File.OriginFile;
+import cn.j.netstorage.Entity.Folder.Folder;
 import cn.j.netstorage.Entity.User.User;
 import cn.j.netstorage.Mapper.FilesVersionMapper;
-import cn.j.netstorage.Mapper.HardDeviceMapper;
-import cn.j.netstorage.Mapper.OriginFileMapper;
+import cn.j.netstorage.Service.FileService2;
+import cn.j.netstorage.Service.FilesService;
 import cn.j.netstorage.Service.FilesVersionService;
-import cn.j.netstorage.tool.FilesUtil;
-import cn.j.netstorage.tool.HashCodeUtil;
+import cn.j.netstorage.Service.FolderService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Example;
-import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.*;
 
 @Service
 public class FilesVersionServiceImpl implements FilesVersionService {
     @Autowired
+    private FileService2 fileService2;
+    @Autowired
+    private FilesService filesService;
+    @Autowired
+    private FolderService folderService;
+    @Autowired
     FilesVersionMapper filesVersionMapper;
-    @Autowired
-    OriginFileMapper originFileMapper;
-    @Autowired
-    HardDeviceMapper hardDeviceMapper;
 
     @Override
-    public Boolean createFileVersionControl(FilesVersion filesVersion) {
-        filesVersion = filesVersionMapper.save(filesVersion);
-        System.out.println(filesVersion.getGroupId());
-        return filesVersion.getGroupId() != 0;
+    public boolean add(User upload, Files files) {
+        if (files == null) return false;
+        FilesVersion fileVersion = new FilesVersion();
+        if (files.getUser().get(0) == upload) {
+            fileVersion.setUser(upload);
+            fileVersion.setUploadUser(upload);
+        } else {
+            fileVersion.setUser(files.getUser().get(0));
+            fileVersion.setUploadUser(upload);
+        }
+        fileVersion.setUpdateDate(new Date());
+        fileVersion.setFiles(files);
+        fileVersion.setParentName(files.getParentName());
+        return filesVersionMapper.save(fileVersion).getId() != 0;
     }
 
     @Override
-    public Boolean delete(FilesVersion filesVersion) {
-        try {
-            filesVersionMapper.delete(filesVersion);
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    public boolean delete(Files files, User user) {
         return false;
     }
 
     @Override
-    public List<FilesVersionDTO> filesVersionList(Long uid) {
-        List<FilesVersion> versionList=filesVersionMapper.findAllByUsers(FilesUtil.setUser(uid));
-        HashMap<String,FilesVersionDTO> hashMap=new HashMap<>();
-        for (FilesVersion version:versionList) {
-            if (hashMap.containsKey(version.getGroupName())){
-                FilesVersionDTO filesVersionDTO=new FilesVersionDTO();
-                hashMap.get(version.getGroupName()).Add(filesVersionDTO.ConvertFileVersionDTO(version));
-            }else{
-                FilesVersionDTO filesVersionDTO=new FilesVersionDTO();
-                hashMap.put(version.getGroupName(),filesVersionDTO.ConvertFileVersionDTO(version));
-            }
-        }
-        hashMap.values().forEach(FilesVersionDTO::CheckChildren);
-        return new ArrayList<FilesVersionDTO>(hashMap.values());
+    public List<FilesVersion> all(User user) {
+        return filesVersionMapper.findAllByUser(user);
     }
 
     @Override
-    public Boolean add(FilesVersion filesVersion, MultipartFile multipartFile) {
-        try {
-            String ext = FilesUtil.getExt(filesVersion.getGroupName());
-            OriginFile originFile = new OriginFile();
-            String originName=(System.currentTimeMillis() + ext);
-            originFile.setFileName(originName);
-            originFile.setMd5(HashCodeUtil.getHashCode(multipartFile));
-            List<HardDiskDevice> hardDiskDevices = hardDeviceMapper.findAll();
-            HardDiskDevice hardDiskDevice= hardDiskDevices.get(new Random().nextInt(hardDiskDevices.size()));
-            originFile.setHardDiskDevice(Collections.singleton(hardDiskDevice));
-            originFile.setSize(multipartFile.getSize());
-            originFile=originFileMapper.save(originFile);
-            multipartFile.transferTo(new File(hardDiskDevice.getFolderName()+"/"+originName));
-
-            filesVersion.setUpdateDate(new Date());
-            filesVersion.setOriginFileSet(Collections.singleton(originFile));
-
-            filesVersion = filesVersionMapper.save(filesVersion);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return filesVersion.getGroupId() != 0;
+    public List<FilesVersion> folder(User user, String path) {
+        return filesVersionMapper.findAllByParentNameAndUser(path, user);
     }
 
     @Override
-    public FilesVersion GetFileVersionByGroupId(Long GroupId) {
-        return filesVersionMapper.findById(GroupId).orElse(null);
+    public FilesVersion get(User user, Files files) {
+        return filesVersionMapper.findByFilesAndUser(files, user);
     }
 
     @Override
-    public List<FilesVersionDTO> GetFileVersionByGroupName(User user, String GroupName) {
-        FilesVersion filesVersion=new FilesVersion();
-        filesVersion.setGroupName(GroupName);
+    public FilesVersion get(User user, Long fid) {
+        Files files = new Files();
+        files.setFid(fid);
+        return get(user, files);
+    }
 
-        Example<FilesVersion> example = Example.of(
-                filesVersion,
-                ExampleMatcher.matching().withIgnorePaths("group_id", "version", "update_date", "desc_"));
-        List<FilesVersion> filesVersions=filesVersionMapper.findAll(example);
-        List<FilesVersionDTO> filesVersionDTOS=new ArrayList<>();
+    @Override
+    public FilesVersion get(Long id) {
+        return filesVersionMapper.getOne(id);
+    }
 
-        for (FilesVersion version : filesVersions) {
-            filesVersionDTOS.add(new FilesVersionDTO().ConvertFileVersionDTO(version));
-        }
-        return filesVersionDTOS;
+    @Override
+    public FilesVersion get(String path, String selfName, User user) {
+        Files files=fileService2.getFiles(path,selfName,user);
+        if (files==null)
+            return null;
+
+        if (files.getUser().get(0)==user)
+            return get(user,files);
+
+        Folder folder=folderService.folders(files);
+        if (folder==null)
+            return null;
+        //todo 检查权限
+        return null;
+    }
+
+    @Override
+    public boolean saveLog(Files files, User user) {
+        return false;
+    }
+
+    @Override
+    public boolean saveLog(String parentName, String selfName, User user) {
+        return false;
     }
 }
