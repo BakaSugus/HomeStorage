@@ -13,10 +13,12 @@
 - [x] 重命名
 - [x] 批量下载
 - [x] http下载
-- [ ] 播放历史
+- [x] 播放历史(已完成，差前端)
+- [x] 云存储对接显示（差前端交互）
+- [x] 共享资源的编辑和版本控制的协调(已完成，差前端)
 - [ ] office文件预览
 - [ ] torrent下载
-- [ ] 共享资源的编辑和版本控制的协调
+- [ ] 容灾备份
 ***
 # 截图
 ![image](https://github.com/BakaSugus/HomeStorage/blob/main/Picture/首页.jpg)
