@@ -5,45 +5,45 @@ CREATE TABLE `hibernate_sequence` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
-CREATE TABLE if NOT EXISTS `t_aria2` (
-  `gid` varchar(255) NOT NULL,
-  `name` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`gid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+# CREATE TABLE if NOT EXISTS `t_aria2` (
+#   `gid` varchar(255) NOT NULL,
+#   `name` varchar(255) DEFAULT NULL,
+#   PRIMARY KEY (`gid`)
+# ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE if NOT EXISTS  `t_device` (
-  `id` bigint(20) NOT NULL,
-  `custom_name` varchar(255) DEFAULT NULL,
-  `device_name` varchar(255) DEFAULT NULL,
-  `size` bigint(20) DEFAULT NULL,
-  `folder_name` varchar(255) DEFAULT NULL,
-  `rules` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+# CREATE TABLE if NOT EXISTS  `t_device` (
+#   `id` bigint(20) NOT NULL,
+#   `custom_name` varchar(255) DEFAULT NULL,
+#   `device_name` varchar(255) DEFAULT NULL,
+#   `size` bigint(20) DEFAULT NULL,
+#   `folder_name` varchar(255) DEFAULT NULL,
+#   `rules` varchar(255) DEFAULT NULL,
+#   PRIMARY KEY (`id`)
+# ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE if NOT EXISTS  `t_files` (
-  `fid` bigint(20) NOT NULL,
-  `create_date` datetime DEFAULT NULL,
-  `is_dir` smallint(6) DEFAULT NULL,
-  `parent_name` varchar(255) DEFAULT NULL,
-  `self_name` varchar(255) DEFAULT NULL,
-  `type` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`fid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+# CREATE TABLE if NOT EXISTS  `t_files` (
+#   `fid` bigint(20) NOT NULL,
+#   `create_date` datetime DEFAULT NULL,
+#   `is_dir` smallint(6) DEFAULT NULL,
+#   `parent_name` varchar(255) DEFAULT NULL,
+#   `self_name` varchar(255) DEFAULT NULL,
+#   `type` varchar(255) DEFAULT NULL,
+#   PRIMARY KEY (`fid`)
+# ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
 -- ----------------------------
 -- Table structure for t_aria2_user
 -- ----------------------------
 
-CREATE TABLE if NOT EXISTS  `t_aria2_user` (
-  `aria2file_gid` varchar(255) NOT NULL,
-  `user_uid` bigint(20) NOT NULL,
-  KEY `FKdlxti3ten0q7qhf8d9wh7igha` (`user_uid`),
-  KEY `FKb5po7n0pl2q36j660uwqi8snd` (`aria2file_gid`),
-  CONSTRAINT `FKb5po7n0pl2q36j660uwqi8snd` FOREIGN KEY (`aria2file_gid`) REFERENCES `t_aria2` (`gid`),
-  CONSTRAINT `FKdlxti3ten0q7qhf8d9wh7igha` FOREIGN KEY (`user_uid`) REFERENCES `t_user` (`uid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+# CREATE TABLE if NOT EXISTS  `t_aria2_user` (
+#   `aria2file_gid` varchar(255) NOT NULL,
+#   `user_uid` bigint(20) NOT NULL,
+#   KEY `FKdlxti3ten0q7qhf8d9wh7igha` (`user_uid`),
+#   KEY `FKb5po7n0pl2q36j660uwqi8snd` (`aria2file_gid`),
+#   CONSTRAINT `FKb5po7n0pl2q36j660uwqi8snd` FOREIGN KEY (`aria2file_gid`) REFERENCES `t_aria2` (`gid`),
+#   CONSTRAINT `FKdlxti3ten0q7qhf8d9wh7igha` FOREIGN KEY (`user_uid`) REFERENCES `t_user` (`uid`)
+# ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for t_files_aria2file
@@ -79,35 +79,6 @@ CREATE TABLE if NOT EXISTS  `t_files_user` (
   KEY `FK9vha9ahu0dlow77avjmhekyja` (`files_fid`),
   CONSTRAINT `FK9vha9ahu0dlow77avjmhekyja` FOREIGN KEY (`files_fid`) REFERENCES `t_files` (`fid`),
   CONSTRAINT `FKggqn8gc1eyvlnxynexil8oa1n` FOREIGN KEY (`user_uid`) REFERENCES `t_user` (`uid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-CREATE TABLE if NOT EXISTS  `t_files_version` (
-  `group_id` bigint(20) NOT NULL,
-  `desc_` varchar(255) DEFAULT NULL,
-  `group_name` varchar(255) DEFAULT NULL,
-  `update_date` datetime DEFAULT NULL,
-  `version` double DEFAULT NULL,
-  PRIMARY KEY (`group_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-
-CREATE TABLE if NOT EXISTS  `t_files_version_origin_file_set` (
-  `files_version_group_id` bigint(20) NOT NULL,
-  `origin_file_set_oid` bigint(20) NOT NULL,
-  PRIMARY KEY (`files_version_group_id`,`origin_file_set_oid`),
-  KEY `FK1215jr95qq2yebe1l7stmhxjg` (`origin_file_set_oid`),
-  CONSTRAINT `FK1215jr95qq2yebe1l7stmhxjg` FOREIGN KEY (`origin_file_set_oid`) REFERENCES `t_origin_file` (`oid`),
-  CONSTRAINT `FKgi4o1xmqff9ag2rcenwk24n0u` FOREIGN KEY (`files_version_group_id`) REFERENCES `t_files_version` (`group_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-
-CREATE TABLE if NOT EXISTS  `t_files_version_users` (
-  `files_version_group_id` bigint(20) NOT NULL,
-  `users_uid` bigint(20) NOT NULL,
-  PRIMARY KEY (`files_version_group_id`,`users_uid`),
-  KEY `FKgux13k3ufteqolyxvhdcqfe8p` (`users_uid`),
-  CONSTRAINT `FKgux13k3ufteqolyxvhdcqfe8p` FOREIGN KEY (`users_uid`) REFERENCES `t_user` (`uid`),
-  CONSTRAINT `FKk6tbx7q1mkbfwrsmh2lnseiyr` FOREIGN KEY (`files_version_group_id`) REFERENCES `t_files_version` (`group_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 

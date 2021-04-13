@@ -14,5 +14,5 @@ public interface FilesVersionMapper extends JpaRepository<FilesVersion, Long> {
 
     List<FilesVersion> findAllByParentNameAndUser(String path,User user);
     List<FilesVersion> findAllByUser(User user);
-    FilesVersion findByFilesAndUser(Files files,User user);
+    FilesVersion findByFilesNameAndParentNameAndUser(String filesName,String parentName,User user);
 }

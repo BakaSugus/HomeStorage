@@ -21,7 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.*;
 
 @RestController
-@RequestMapping("/v1/FilesVersion")
+@RequestMapping("/FilesVersion")
 @RequiresUser
 public class FilesVersionController {
     @Autowired

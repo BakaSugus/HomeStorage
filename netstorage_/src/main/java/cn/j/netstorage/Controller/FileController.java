@@ -6,7 +6,6 @@ import cn.j.netstorage.Entity.DTO.UserDTO;
 import cn.j.netstorage.Entity.File.Files;
 import cn.j.netstorage.Entity.File.OriginFile;
 import cn.j.netstorage.Entity.User.User;
-import cn.j.netstorage.Entity.oss.Bucket;
 import cn.j.netstorage.Service.*;
 import cn.j.netstorage.tool.ResultBuilder;
 import cn.j.netstorage.tool.StatusCode;

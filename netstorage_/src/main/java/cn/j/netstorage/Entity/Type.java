@@ -26,6 +26,11 @@ public enum Type {
     }
 
     public static Type getInstance(String ext) {
+        int index=ext.lastIndexOf(".");
+        if (index==-1){
+            return Other;
+        }
+        ext = ext.substring(index);
         ext = ext.toLowerCase();
         String[] music = {".mp3", ".ape", ".flac", ".ogg", ".acc"};
         String[] video = {".mp4", ".mkv", ".avi", ".rmvb", ".flv", ".f4v", ".m4s"};

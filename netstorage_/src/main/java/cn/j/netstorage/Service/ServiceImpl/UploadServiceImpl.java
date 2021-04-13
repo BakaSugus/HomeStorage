@@ -12,6 +12,7 @@ import cn.j.netstorage.tool.FilesUtil;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
@@ -46,7 +47,7 @@ public class UploadServiceImpl implements UploadService {
     public Boolean common_upload(MultipartFile uploadFile, String storagePath, User user) {
 
         String fileName = uploadFile.getOriginalFilename();
-        Type type = Type.getInstance(fileName.substring(fileName.lastIndexOf(".")));
+        Type type = Type.getInstance(fileName);
 
         HardDiskDevice hardDiskDevice = hardDeviceService.get(type);
 
@@ -98,12 +99,13 @@ public class UploadServiceImpl implements UploadService {
         return fileService2.save(file);
     }
 
-
+    @Value("${workSpace}")
+    private String workSpace;
     @Override
     public Boolean slice_upload(MultipartFile file, int size, String fileName, String dst, String storagePath, int currentIndex, User user) {
         String tmpName = fileName + ".part" + currentIndex;
         try {
-            File tempFolder = new File("/Temp");
+            File tempFolder = new File(workSpace+"/Temp");
             if (!tempFolder.exists())
                 tempFolder.mkdirs();
             File part = new File(tempFolder.getAbsolutePath() + "/" + tmpName);
@@ -129,7 +131,7 @@ public class UploadServiceImpl implements UploadService {
             return false;
         String fileName = file.getName();
 
-        Type type = Type.getInstance(fileName.substring(fileName.lastIndexOf(".")));
+        Type type = Type.getInstance(fileName);
 
         HardDiskDevice hardDiskDevice = hardDeviceService.get(type);
 
@@ -177,7 +179,8 @@ public class UploadServiceImpl implements UploadService {
 
     @Override
     public Boolean merge_upload(String fileName, String diskPath, String storagePath, int start, int end, User user) {
-        Type type = Type.getInstance(fileName.substring(fileName.lastIndexOf(".")));
+
+        Type type = Type.getInstance(fileName);
         HardDiskDevice hardDiskDevice = hardDeviceService.get(type);
         File newFile = new File(hardDiskDevice.getFolderName() + "/" +
                 +System.currentTimeMillis()
@@ -263,7 +266,7 @@ public class UploadServiceImpl implements UploadService {
 
     @Override
     public Boolean checkMd5AndTransfer(String md5, String parentName, String selfName, User user) {
-        Type type = Type.getInstance(selfName.substring(selfName.lastIndexOf(".")));
+        Type type = Type.getInstance(selfName);
         OriginFile originFile = originFileService.originFile(md5);
         if (originFile == null) {
             return false;
@@ -306,7 +309,8 @@ public class UploadServiceImpl implements UploadService {
             return false;
 
         List<Files> files = fileService2.get(storagePath, taskName, user);
-        if (files == null || files.size() == 0) common_upload_Folder(create(FilesUtil.append(storagePath, taskName), name, user));
+        if (files == null || files.size() == 0)
+            common_upload_Folder(create(FilesUtil.append(storagePath, taskName), name, user));
 
         return exist_upload(filePath, name, FilesUtil.append(storagePath, taskName), user);
     }

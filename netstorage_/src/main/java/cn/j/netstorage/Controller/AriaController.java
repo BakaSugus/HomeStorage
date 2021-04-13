@@ -9,6 +9,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -49,6 +50,7 @@ public class AriaController {
         User user = userService.getUser(object.toString());
         return new GsonBuilder().disableHtmlEscaping().create().toJson(aria2Service.getWaiting(user));
     }
+
     @GetMapping("/finish")
     public ResultBuilder Finish(String gid) {
         Boolean res = aria2Service.finish(gid);
@@ -56,6 +58,7 @@ public class AriaController {
     }
 
     @PostMapping("/addUri")
+    @RequiresPermissions("下载")
     public ResultBuilder addURI(String url, String path) {
         Object object = SecurityUtils.getSubject().getPrincipal();
         if (object == null)
@@ -64,6 +67,7 @@ public class AriaController {
     }
 
     @PostMapping("/downloadTorrent")
+    @RequiresPermissions("下载")
     public ResultBuilder addTorrent(Long target, String path) {
         Object object = SecurityUtils.getSubject().getPrincipal();
         if (object == null)

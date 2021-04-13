@@ -3,6 +3,7 @@ package cn.j.netstorage.Service.ServiceImpl;
 import cn.j.netstorage.Entity.File.Files;
 import cn.j.netstorage.Entity.File.FilesVersion;
 import cn.j.netstorage.Entity.Folder.Folder;
+import cn.j.netstorage.Entity.Operation;
 import cn.j.netstorage.Entity.User.User;
 import cn.j.netstorage.Mapper.FilesVersionMapper;
 import cn.j.netstorage.Service.FileService2;
@@ -37,8 +38,9 @@ public class FilesVersionServiceImpl implements FilesVersionService {
             fileVersion.setUploadUser(upload);
         }
         fileVersion.setUpdateDate(new Date());
-        fileVersion.setFiles(files);
+        fileVersion.setFilesName(files.getSelfName());
         fileVersion.setParentName(files.getParentName());
+        fileVersion.setOperation(Operation.Upload.getOperation());
         return filesVersionMapper.save(fileVersion).getId() != 0;
     }
 
@@ -59,7 +61,7 @@ public class FilesVersionServiceImpl implements FilesVersionService {
 
     @Override
     public FilesVersion get(User user, Files files) {
-        return filesVersionMapper.findByFilesAndUser(files, user);
+        return filesVersionMapper.findByFilesNameAndParentNameAndUser(files.getSelfName(), files.getParentName(), user);
     }
 
     @Override
@@ -76,17 +78,16 @@ public class FilesVersionServiceImpl implements FilesVersionService {
 
     @Override
     public FilesVersion get(String path, String selfName, User user) {
-        Files files=fileService2.getFiles(path,selfName,user);
-        if (files==null)
+        Files files = fileService2.getFiles(path, selfName, user);
+        if (files == null)
             return null;
 
-        if (files.getUser().get(0)==user)
-            return get(user,files);
+        if (files.getUser().get(0) == user)
+            return get(user, files);
 
-        Folder folder=folderService.folders(files);
-        if (folder==null)
+        Folder folder = folderService.folders(files);
+        if (folder == null)
             return null;
-        //todo 检查权限
         return null;
     }
 

@@ -31,16 +31,10 @@ public class FilesVersion {
     @Column
     private Date UpdateDate;
 
-    @OneToOne
-    private Files files;
+    @Column
+    private String filesName;
 
     @Column
     private String operation;
-
-    enum operation{
-        Rename("Rename"),Delete("delete"),Upload("upload");
-        private String operation;
-         operation(String operation){this.operation=operation;}
-    }
 
 }

@@ -89,7 +89,6 @@ public class HardDeviceServiceImpl implements HardDeviceService {
         System.out.println(hardDiskDevices);
         if (hardDiskDevices == null ||hardDiskDevices.size() == 0) {
             File file = null;
-
             if (StringUtils.hasText(workSpace))
                 file = new File(workSpace);
             else
@@ -99,7 +98,8 @@ public class HardDeviceServiceImpl implements HardDeviceService {
 
             for (Type type : Type.values()) {
                 String path = new File(file.getAbsolutePath() + "/" + type.getType()).getAbsolutePath();
-                if (new File(path).mkdirs()) {
+                File folder=new File(path);
+                if (folder.exists()||folder.mkdirs()) {
                     HardDiskDevice hardDiskDevice = new HardDiskDevice();
                     hardDiskDevice.setFolderName(path);
                     hardDiskDevice.setCustomName(type.getType());

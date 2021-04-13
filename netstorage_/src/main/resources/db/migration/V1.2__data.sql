@@ -28,6 +28,5 @@ INSERT INTO `t_role_permission` VALUES ('10', '20');
 
 INSERT INTO `t_user` VALUES ('6', '1607489465949', 'admin@test.com', 'admin', 'd7db29350633c6a73d2591a3f8101b0e', '1');
 
-
 INSERT INTO `t_user_role` VALUES ('6', '1');
 INSERT INTO `t_user_role` VALUES ('6', '10');
