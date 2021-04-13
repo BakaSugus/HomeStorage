@@ -36,8 +36,8 @@
  1. 安装jdk
  2. 安装MariaDB 
  3. 安装nginx
- 4. 拉取文件
- 5. 修改nginx配置
+ 4. 拉取文件(前端的文件就是文件夹dist,后端的jar包在release里)
+ 6. 修改nginx配置
  ```
  server {
     # 服务器端口
