@@ -9,4 +9,7 @@ public interface OriginFileMapper extends JpaRepository<OriginFile,Long> {
 
     OriginFile findByMd5(String md5);
 
+    int countAllByFileName(String name);
+
+
 }

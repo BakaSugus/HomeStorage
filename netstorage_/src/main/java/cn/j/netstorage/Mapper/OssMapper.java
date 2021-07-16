@@ -10,5 +10,7 @@ public interface OssMapper extends JpaRepository<Oss,Long> {
 
     Oss findByUser(User user);
 
-//    Bucket getBucketByIs_backupAndUser(Boolean isBackUp,User user);
+    List<Oss> findAllByUser(User user);
+
+    List<Oss> findAllByUserAndBackupBucketNameIsNotNull(User user);
 }

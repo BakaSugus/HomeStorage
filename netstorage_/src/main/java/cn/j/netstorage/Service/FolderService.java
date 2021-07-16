@@ -4,51 +4,53 @@ import cn.j.netstorage.Entity.DTO.FilesDTO;
 import cn.j.netstorage.Entity.DTO.FolderDTO;
 import cn.j.netstorage.Entity.File.Files;
 import cn.j.netstorage.Entity.Folder.Folder;
-import cn.j.netstorage.Entity.Folder.FolderPermission;
 
 import cn.j.netstorage.Entity.User.User;
+import cn.j.netstorage.Entity.VisitRecord;
 
 import java.util.List;
 import java.util.Set;
 
 public interface FolderService {
 
-    //调整权限
-    Boolean changePermission(Long folderId, Long[] id, User user, User originUser);
-
     //删除共享
     Boolean delete(Long id, User user);
-
-    //检查权限
-    Boolean checkPermission(String permission, User user);
 
     //提供共享文件夹
     List<FilesDTO> folders(User user);
 
     Folder folders(User user, String FolderName);
 
+    Folder folder(Long fid);
+
     Folder folders(Files files);
+
+    Folder folderByOriginUser(User user, String folderName);
 
     List<FolderDTO> MyFolders(User user);
 
     List<FolderDTO> ShareToMe(User user);
 
+    List<FilesDTO> ShareToMeFolders(User user);
+
     List<Folder> folders(Long... id);
-
-    //提供权限选择
-    Set<FolderPermission> permissions();
-
-    Set<FolderPermission> permissions(String... name);
-
-    Set<FolderPermission> permissions(Long... id);
 
     boolean shareFolder(Long fid, User user);
 
-    boolean shareFolder(Long fid, User user, String... permission);
+    boolean FilingFolder(Long fid, User user);
 
-    boolean shareFolder(Long fid, Set<FolderPermission> permissions, User user);
-
-    boolean shareFolder(Long fid, Long[] permissionId, User user);
+    boolean createFolder(Folder parent, Long fid, User OriginUser, User user);
 
 
+    List<VisitRecord> getRecords(Folder folder, User user);
+
+    List<VisitRecord> getRecords(Files files, User user);
+
+    List<VisitRecord> getRecords(String parentName, String selfName, User user);
+
+    List<VisitRecord> getRecords(String parentName, String selfName, String operation_type, User user);
+
+    List<FolderDTO> Filing(User user);
+
+    void changeFolderUsage(Folder folder, User user, Files files);
 }

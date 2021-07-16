@@ -16,7 +16,7 @@ public class OriginFileDTO {
 
     private String path;
     private long id;
-
+    private boolean isRemote;
 
     public OriginFileDTO() {
 
@@ -24,8 +24,14 @@ public class OriginFileDTO {
 
     public OriginFileDTO(OriginFile originFile) {
         HardDiskDevice hardDiskDevice = originFile.getHardDiskDevice() != null ? new ArrayList<HardDiskDevice>(originFile.getHardDiskDevice()).get(0) : new HardDiskDevice();
-        this.path = hardDiskDevice.getCustomName()+"/"+originFile.getFileName();
+        this.path = hardDiskDevice.getCustomName() + "/" + originFile.getFileName();
         this.id = originFile.getOid();
+        this.isRemote = false;
+    }
+
+    public OriginFileDTO(String path) {
+        this.isRemote = true;
+        this.path = path;
     }
 
     public FilesDTO convertFilesDTO() {

@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -29,7 +30,7 @@ public class VideoDTO extends BaseDTO {
 
         Set<Video> videos = this.videos == null ? new HashSet<>() : this.videos;
         filesSet.forEach(value -> {
-            OriginFile originFile = value.getOriginFile().iterator().next();
+            OriginFile originFile = value.getOriginFile();
             if (originFile != null) {
                 videos.add(new Video(value.getFid(), value.getSelfName(), originFile.getCustomPath()));
             }
@@ -64,7 +65,7 @@ public class VideoDTO extends BaseDTO {
         }
 
         public Video(Files files) {
-            Set<OriginFile> originFiles=files.getOriginFile();
+            Set<OriginFile> originFiles= Collections.singleton(files.getOriginFile());
             if(originFiles==null||originFiles.size()<1) return ;
 
             this.src=originFiles.iterator().next().getCustomPath();

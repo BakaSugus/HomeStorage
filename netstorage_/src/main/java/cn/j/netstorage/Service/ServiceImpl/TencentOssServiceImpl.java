@@ -4,12 +4,11 @@ import cn.j.netstorage.Entity.File.Files;
 import cn.j.netstorage.Entity.File.OriginFile;
 import cn.j.netstorage.Entity.User.User;
 import cn.j.netstorage.Entity.oss.Oss;
-import cn.j.netstorage.Entity.oss.Oss;
 import cn.j.netstorage.Entity.oss.OssFiles;
 import cn.j.netstorage.Mapper.OssMapper;
 import cn.j.netstorage.Service.FilesService;
+import cn.j.netstorage.Service.HardDeviceService;
 import cn.j.netstorage.Service.OssService;
-import cn.j.netstorage.tool.EncryUtil;
 import cn.j.netstorage.tool.FilesUtil;
 import com.qcloud.cos.COSClient;
 import com.qcloud.cos.ClientConfig;
@@ -20,6 +19,7 @@ import com.qcloud.cos.model.*;
 import com.qcloud.cos.region.Region;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -35,9 +35,11 @@ public class TencentOssServiceImpl implements OssService {
     @Autowired
     private FilesService filesService;
 
+    @Autowired
+    private HardDeviceService hardDeviceService;
+
     private COSClient getCosClient(Oss oss) {
-        if (oss==null)return null;
-        System.out.println("oss:"+oss);
+        if (oss == null) return null;
 
         String secretId = oss.getSecretId();
         String secretKey = oss.getSecretKey();
@@ -65,7 +67,7 @@ public class TencentOssServiceImpl implements OssService {
         listObjectsRequest.setMaxKeys(1000);
 
         ObjectListing objectListing = null;
-        if (oss==null) return null;
+        if (oss == null) return null;
 
         COSClient cosClient = getCosClient(oss.decrypt());
 
@@ -76,7 +78,7 @@ public class TencentOssServiceImpl implements OssService {
             } catch (CosClientException e) {
                 e.printStackTrace();
             } finally {
-                if (cosClient!=null)
+                if (cosClient != null)
                     shutdown(cosClient);
             }
             // common prefix表示表示被delimiter截断的路径, 如delimter设置为/, common prefix则表示所有子目录的路径
@@ -106,25 +108,33 @@ public class TencentOssServiceImpl implements OssService {
 
     @Override
     public List<OssFiles> get(User user, String name, String prefix) {
-        Oss oss=get(user);
-        if (oss==null)return null;
-        return get(oss,name,prefix);
+        Oss oss = get(user);
+        if (oss == null) return null;
+        return get(oss, name, prefix);
+    }
+
+    @Override
+    public List<OssFiles> getAllBucket(User user) {
+        return null;
     }
 
     @Override
     public boolean upload(User user, String path, Files files) {
-        File localFile=null;
+        File localFile = null;
 
-        if (files.getOriginFile().iterator().hasNext())
-            localFile = new File(files.getOriginFile().iterator().next().getPath());
-        else return false;
+        if (files.getOriginFile()!=null)
+            localFile = new File(files.getOriginFile().getPath());
+        else
+            return false;
         COSClient cosClient = null;
         Oss oss = get(user).decrypt();
-        if (oss==null)return false;
+        if (oss == null) return false;
+
         cosClient = getCosClient(oss);
-        if (cosClient==null)return false;
+        if (cosClient == null) return false;
+
         try {
-            PutObjectRequest putObjectRequest = new PutObjectRequest(path, FilesUtil.append(files.getParentName(),files.getSelfName()), localFile);
+            PutObjectRequest putObjectRequest = new PutObjectRequest(path, FilesUtil.append(files.getParentName(), files.getSelfName()), localFile);
             PutObjectResult putObjectResult = cosClient.putObject(putObjectRequest);
         } catch (CosClientException e) {
             e.printStackTrace();
@@ -137,18 +147,18 @@ public class TencentOssServiceImpl implements OssService {
 
     @Override
     public boolean upload(User user, String path, Long id) {
-        Files files=filesService.findByFid(id);
-        if (files==null)return false;
-        if (files.getUser()!=user)return false;
-        return upload(user,path,files);
+        Files files = filesService.findByFid(id);
+        if (files == null) return false;
+        if (files.getUser() != user) return false;
+        return upload(user, path, files);
     }
 
     @Override
     public boolean download(User user, String path, OriginFile originFile) {
         Oss oss = get(user).decrypt();
-        if (oss==null)return false;
+        if (oss == null) return false;
         COSClient cosClient = getCosClient(oss);
-        if (cosClient==null)return false;
+        if (cosClient == null) return false;
         String outputFilePath = originFile.getPath();
         File downFile = new File(outputFilePath);
         GetObjectRequest getObjectRequest = new GetObjectRequest(path, originFile.getOssKey());
@@ -162,40 +172,84 @@ public class TencentOssServiceImpl implements OssService {
         return false;
     }
 
-    private void shutdown(COSClient cosClient) {
-        cosClient.shutdown();
-    }
-
+    @Override
     public boolean add(Oss oss, User user) {
-        oss.setUser(user);
-        return mapper.save(oss.encrypt()).getId() != 0;
+        return false;
     }
 
-    public List<OssFiles> getAllBucket(User user){
-        Oss oss = get(user).decrypt();
-        if (oss==null)return null;
+    private void shutdown(COSClient cosClient) {
+        if (cosClient != null) cosClient.shutdown();
+    }
+
+    public List<OssFiles> getAllBucket(Oss oss) {
+        if (oss == null) return null;
         List<Bucket> buckets = this.getCosClient(oss).listBuckets();
-        List<OssFiles> files=new ArrayList<>();
+        List<OssFiles> customBucket = new ArrayList<>();
         for (Bucket bucketElement : buckets) {
             String bucketName = bucketElement.getName();
             String bucketLocation = bucketElement.getLocation();
-            files.add(new OssFiles(bucketName));
+            OssFiles ossFiles = new OssFiles();
+            ossFiles.setPath(bucketLocation);
+            ossFiles.setStorageClasses(bucketName);
         }
-        return files;
+        return customBucket;
     }
 
     @Override
-    public boolean backup(User user, String bucketName, Files files) {
-        return false;
+    public boolean createBucket(Oss oss, String bucketName) {
+        if (oss == null || StringUtils.isEmpty(bucketName)) return false;
+
+        COSClient cosClient = getCosClient(oss);
+        if (cosClient==null)return false;
+        try {
+            CreateBucketRequest createBucketRequest = new CreateBucketRequest(bucketName);
+// 设置 bucket 的权限为 Private(私有读写), 其他可选有公有读私有写, 公有读写
+            createBucketRequest.setCannedAcl(CannedAccessControlList.Private);
+            Bucket bucketResult = cosClient.createBucket(createBucketRequest);
+            return StringUtils.hasText(bucketResult.getName());
+        } catch (CosClientException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
-    @Override
-    public boolean createBucket(User user, String bucketName) {
-        return false;
-    }
 
     @Override
     public Oss get(User user) {
         return mapper.findByUser(user);
+    }
+
+    public boolean addBackup(Oss oss, User user) {
+        if (oss == null || (StringUtils.isEmpty(oss.getSecretKey()) && StringUtils.isEmpty(oss.getSecretId()) && StringUtils.isEmpty(oss.getRegion())))
+            return false;
+        /*
+            首先通过配置文件里的密钥进行测试链接 如果没有报错就把当前Oss信息准备存到数据库，创建一个叫BACKUP-时间戳的备份存储桶
+         */
+        COSClient cosClient = null;
+        try {
+            cosClient = getCosClient(oss);
+            if (cosClient==null)return false;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            shutdown(cosClient);
+        }
+
+        String finalName = "BACKUP-" + System.currentTimeMillis();
+        boolean res = createBucket(oss, finalName);
+        if (!res) return false;
+
+        oss.setBackupBucketName(finalName);
+        oss.setUser(user);
+
+        return mapper.save(oss).getId() != 0;
+    }
+
+    @Override
+    public List<Oss> getBackUpOss(User user) {
+        if (user == null) return null;
+        List<Oss> osses = mapper.findAllByUserAndBackupBucketNameIsNotNull(user);
+        return osses;
     }
 }

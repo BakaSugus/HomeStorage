@@ -1,9 +1,9 @@
 package cn.j.netstorage.Service;
 
 import cn.j.netstorage.Entity.DTO.UserDTO;
-import cn.j.netstorage.Entity.Token;
 import cn.j.netstorage.Entity.User.Permission;
 import cn.j.netstorage.Entity.User.Role;
+import cn.j.netstorage.Entity.User.Token;
 import cn.j.netstorage.Entity.User.User;
 import cn.j.netstorage.Entity.Vo.UserVo;
 
@@ -53,4 +53,11 @@ public interface UserService {
     Boolean AlterRole(Role role);
 
     List<UserDTO> search(UserVo userVo);
+
+    User createAdminUser(User user);
+
+    User getUserByRole(Role role);
+
+    Role role(String name);
+
 }

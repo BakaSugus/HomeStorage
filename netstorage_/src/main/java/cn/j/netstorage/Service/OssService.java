@@ -13,6 +13,7 @@ public interface OssService {
 
     boolean upload(User user, String path, Files files);
 
+
     boolean upload(User user, String path, Long id);
 
     boolean download(User user,String path, OriginFile originFile);
@@ -23,14 +24,15 @@ public interface OssService {
 
     Oss get(User user);
 
+    List<Oss> getBackUpOss(User user);
+
     List<OssFiles> get(Oss oss,String name,String prefix);
 
     List<OssFiles> get(User user,String name,String prefix);
 
     List<OssFiles> getAllBucket(User user);
 
-    boolean backup(User user,String bucketName,Files files);
+    boolean createBucket(Oss oss, String bucketName);
 
-    boolean createBucket(User user,String bucketName);
-
+    boolean addBackup(Oss oss,User user);
 }

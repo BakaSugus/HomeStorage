@@ -1,64 +1,106 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Entity/VisitRecord.java" line="22" />
+    <bookmark url="file://$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Entity/VisitRecord.java" line="31" />
+    <bookmark url="file://$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Service/ServiceImpl/TencentOssServiceImpl.java" line="225" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="00896a18-0c2b-4347-8bf2-174137ae67ee" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Config/CheckEnv.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Controller/OssController.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Entity/Backup.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Entity/DTO/FolderDTO.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Entity/Folder/FolderPermission.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Entity/VisitRecord.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Entity/oss/Oss.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Entity/oss/OssFiles.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Mapper/FolderPermissionMapper.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Mapper/OssMapper.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Mapper/RecordMapper.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Service/OssService.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Service/ServiceImpl/TencentOssServiceImpl.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/tool/DES.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/tool/EncryUtil.java" />
-      <change beforePath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" afterPath="" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Config/MyConfig.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Controller/DriverController.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Controller/ProjectController.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Entity/DTO/HardDeviceDTO.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Entity/Driver/Driver.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Entity/Driver/Drivers.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Entity/Driver/OneDriver.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Entity/EMail.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Entity/Log/Log.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Entity/Log/LogTemplate.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Entity/Usage.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Entity/User/Token.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Mapper/DriverMapper.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Mapper/UsageMapper.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Service/ConvertService.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Service/DriverService.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Service/FFmpegService.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Service/ServiceImpl/DriverServiceImpl.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Service/ServiceImpl/FFmpegServiceImpl.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Service/ServiceImpl/TextServiceImpl.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Service/TextService.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/tool/Ffmpeg.java" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/Plugin/plugin.iml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/netstorage (2) (org.springframework.boot).iml" afterPath="" />
       <change beforePath="$PROJECT_DIR$/netstorage_/pom.xml" afterPath="$PROJECT_DIR$/netstorage_/pom.xml" />
-      <change beforePath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Config/CheckEnvironment.java" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Config/CheckEnv.java" afterPath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Config/CheckEnv.java" />
       <change beforePath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Config/ResourceAdpater.java" afterPath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Config/ResourceAdpater.java" />
-      <change beforePath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Controller/AriaController.java" afterPath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Controller/AriaController.java" />
+      <change beforePath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Controller/DeleteController.java" afterPath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Controller/DeleteController.java" />
+      <change beforePath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Controller/DlnaController.java" afterPath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Controller/DlnaController.java" />
       <change beforePath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Controller/FileController.java" afterPath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Controller/FileController.java" />
-      <change beforePath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Controller/FilesVersionController.java" afterPath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Controller/FilesVersionController.java" />
+      <change beforePath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Controller/FilesVersionController.java" afterPath="" />
       <change beforePath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Controller/HelloController.java" afterPath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Controller/HelloController.java" />
+      <change beforePath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Controller/OssController.java" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Controller/PageController.java" afterPath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Controller/PageController.java" />
+      <change beforePath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Controller/PluginController.java" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Controller/SettingController.java" afterPath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Controller/SettingController.java" />
       <change beforePath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Controller/UploadController.java" afterPath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Controller/UploadController.java" />
-      <change beforePath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Entity/DTO/FilesVersionDTO.java" afterPath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Entity/DTO/FilesVersionDTO.java" />
-      <change beforePath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Entity/File/Aria2File.java" afterPath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Entity/File/Aria2File.java" />
-      <change beforePath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Entity/File/FilesVersion.java" afterPath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Entity/File/FilesVersion.java" />
+      <change beforePath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Entity/Backup.java" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Entity/Config.java" afterPath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Entity/Config.java" />
+      <change beforePath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Entity/DTO/FilesDTO.java" afterPath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Entity/DTO/FilesDTO.java" />
+      <change beforePath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Entity/DTO/FolderDTO.java" afterPath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Entity/DTO/FolderDTO.java" />
+      <change beforePath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Entity/DTO/MusicsDTO.java" afterPath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Entity/DTO/MusicsDTO.java" />
+      <change beforePath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Entity/DTO/OriginFileDTO.java" afterPath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Entity/DTO/OriginFileDTO.java" />
+      <change beforePath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Entity/DTO/UserDTO.java" afterPath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Entity/DTO/UserDTO.java" />
+      <change beforePath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Entity/DTO/VideoDTO.java" afterPath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Entity/DTO/VideoDTO.java" />
+      <change beforePath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Entity/File/DeleteFile.java" afterPath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Entity/File/DeleteFile.java" />
+      <change beforePath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Entity/File/Files.java" afterPath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Entity/File/Files.java" />
+      <change beforePath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Entity/File/HardDiskDevice.java" afterPath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Entity/File/HardDiskDevice.java" />
       <change beforePath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Entity/File/OriginFile.java" afterPath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Entity/File/OriginFile.java" />
-      <change beforePath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Entity/Folder.java" afterPath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Entity/Folder/Folder.java" />
+      <change beforePath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Entity/File/ShareFiles.java" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Entity/Folder/Folder.java" afterPath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Entity/Folder/Folder.java" />
+      <change beforePath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Entity/Folder/FolderPermission.java" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Entity/Token.java" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Entity/Type.java" afterPath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Entity/Type.java" />
+      <change beforePath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Entity/User/User.java" afterPath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Entity/User/User.java" />
+      <change beforePath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Entity/VisitRecord.java" afterPath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Entity/VisitRecord.java" />
+      <change beforePath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Entity/oss/Oss.java" afterPath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Entity/oss/Oss.java" />
       <change beforePath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Mapper/FileMapper.java" afterPath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Mapper/FileMapper.java" />
-      <change beforePath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Mapper/FilesVersionMapper.java" afterPath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Mapper/FilesVersionMapper.java" />
       <change beforePath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Mapper/FolderMapper.java" afterPath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Mapper/FolderMapper.java" />
-      <change beforePath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Service/Aria2Service.java" afterPath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Service/Aria2Service.java" />
+      <change beforePath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Mapper/FolderPermissionMapper.java" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Mapper/HardDeviceMapper.java" afterPath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Mapper/HardDeviceMapper.java" />
+      <change beforePath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Mapper/HttpMapper.java" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Mapper/OriginFileMapper.java" afterPath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Mapper/OriginFileMapper.java" />
+      <change beforePath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Mapper/OssMapper.java" afterPath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Mapper/OssMapper.java" />
+      <change beforePath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Mapper/RecordMapper.java" afterPath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Mapper/RecordMapper.java" />
+      <change beforePath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Mapper/RoleMapper.java" afterPath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Mapper/RoleMapper.java" />
+      <change beforePath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Mapper/TokenMapper.java" afterPath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Mapper/TokenMapper.java" />
+      <change beforePath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Mapper/UserMapper.java" afterPath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Mapper/UserMapper.java" />
       <change beforePath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Service/DeleteService.java" afterPath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Service/DeleteService.java" />
       <change beforePath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Service/FileService2.java" afterPath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Service/FileService2.java" />
-      <change beforePath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Service/FilesVersionService.java" afterPath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Service/FilesVersionService.java" />
+      <change beforePath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Service/FilesService.java" afterPath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Service/FilesService.java" />
       <change beforePath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Service/FolderService.java" afterPath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Service/FolderService.java" />
+      <change beforePath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Service/HardDeviceService.java" afterPath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Service/HardDeviceService.java" />
+      <change beforePath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Service/OriginFileService.java" afterPath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Service/OriginFileService.java" />
+      <change beforePath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Service/OssService.java" afterPath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Service/OssService.java" />
+      <change beforePath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Service/PluginService.java" afterPath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Service/PluginService.java" />
+      <change beforePath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Service/RoleService.java" afterPath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Service/RoleService.java" />
       <change beforePath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Service/ServiceImpl/Aria2ServiceImpl.java" afterPath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Service/ServiceImpl/Aria2ServiceImpl.java" />
       <change beforePath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Service/ServiceImpl/DeleteServiceImpl.java" afterPath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Service/ServiceImpl/DeleteServiceImpl.java" />
       <change beforePath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Service/ServiceImpl/FileServiceImpl.java" afterPath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Service/ServiceImpl/FileServiceImpl.java" />
       <change beforePath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Service/ServiceImpl/FilesServiceImpl.java" afterPath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Service/ServiceImpl/FilesServiceImpl.java" />
-      <change beforePath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Service/ServiceImpl/FilesVersionServiceImpl.java" afterPath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Service/ServiceImpl/FilesVersionServiceImpl.java" />
       <change beforePath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Service/ServiceImpl/FolderServiceImpl.java" afterPath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Service/ServiceImpl/FolderServiceImpl.java" />
+      <change beforePath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Service/ServiceImpl/HardDeviceServiceImpl.java" afterPath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Service/ServiceImpl/HardDeviceServiceImpl.java" />
+      <change beforePath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Service/ServiceImpl/OriginFileServiceImpl.java" afterPath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Service/ServiceImpl/OriginFileServiceImpl.java" />
       <change beforePath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Service/ServiceImpl/PluginServiceImpl.java" afterPath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Service/ServiceImpl/PluginServiceImpl.java" />
+      <change beforePath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Service/ServiceImpl/TencentOssServiceImpl.java" afterPath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Service/ServiceImpl/TencentOssServiceImpl.java" />
       <change beforePath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Service/ServiceImpl/UploadServiceImpl.java" afterPath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Service/ServiceImpl/UploadServiceImpl.java" />
+      <change beforePath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Service/ServiceImpl/UserServiceImpl.java" afterPath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Service/ServiceImpl/UserServiceImpl.java" />
       <change beforePath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Service/UploadService.java" afterPath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Service/UploadService.java" />
-      <change beforePath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/tool/EncrypDes.java" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Service/UserService.java" afterPath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Service/UserService.java" />
       <change beforePath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/tool/FilesUtil.java" afterPath="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/tool/FilesUtil.java" />
       <change beforePath="$PROJECT_DIR$/netstorage_/src/main/resources/application.properties" afterPath="$PROJECT_DIR$/netstorage_/src/main/resources/application.properties" />
-      <change beforePath="$PROJECT_DIR$/netstorage_/src/test/Aria2DownloadTest.java" afterPath="$PROJECT_DIR$/netstorage_/src/test/Aria2DownloadTest.java" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" afterPath="$PROJECT_DIR$/pom.xml" />
+      <change beforePath="$PROJECT_DIR$/netstorage_/src/main/resources/db/migration/V1.1__INIT_DATABASE.sql" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/netstorage_/src/main/resources/db/migration/V1.2__data.sql" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/netstorage_/src/test/FolderServiceTest.java" afterPath="$PROJECT_DIR$/netstorage_/src/test/FolderServiceTest.java" />
     </list>
     <ignored path="$PROJECT_DIR$/netstorage_/target/" />
     <ignored path="$PROJECT_DIR$/Plugin/target/" />
@@ -70,57 +112,70 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FavoritesManager">
+    <favorites_list name="netstorage" />
+  </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="TencentOssServiceImpl.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Service/ServiceImpl/TencentOssServiceImpl.java">
+      <file leaf-file-name="DriverService.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Service/DriverService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="172">
-              <caret line="188" column="8" lean-forward="false" selection-start-line="188" selection-start-column="8" selection-end-line="188" selection-end-column="21" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#5908#5909#0" expanded="true" />
-                <element signature="e#5936#5937#0" expanded="true" />
-                <element signature="e#5986#5987#0" expanded="true" />
-                <element signature="e#6022#6023#0" expanded="true" />
-                <element signature="e#6742#6743#0" expanded="true" />
-                <element signature="e#6770#6771#0" expanded="true" />
-                <element signature="e#6849#6850#0" expanded="true" />
-                <element signature="e#6877#6878#0" expanded="true" />
-                <element signature="e#6924#6925#0" expanded="true" />
-                <element signature="e#6970#6971#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Oss.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Entity/oss/Oss.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="400">
-              <caret line="29" column="28" lean-forward="false" selection-start-line="29" selection-start-column="19" selection-end-line="29" selection-end-column="28" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="UploadController.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Controller/UploadController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1212">
-              <caret line="80" column="66" lean-forward="false" selection-start-line="80" selection-start-column="66" selection-end-line="80" selection-end-column="66" />
+            <state relative-caret-position="260">
+              <caret line="19" column="32" lean-forward="false" selection-start-line="19" selection-start-column="32" selection-end-line="19" selection-end-column="32" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="OssController.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Controller/OssController.java">
+      <file leaf-file-name="DriverServiceImpl.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Service/ServiceImpl/DriverServiceImpl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="726">
-              <caret line="37" column="38" lean-forward="true" selection-start-line="37" selection-start-column="38" selection-end-line="37" selection-end-column="38" />
+            <state relative-caret-position="3500">
+              <caret line="215" column="0" lean-forward="false" selection-start-line="215" selection-start-column="0" selection-end-line="215" selection-end-column="0" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#2590#2591#0" expanded="true" />
+                <element signature="e#2618#2619#0" expanded="true" />
+                <element signature="e#3630#3631#0" expanded="true" />
+                <element signature="e#3675#3676#0" expanded="true" />
+                <element signature="e#3882#3883#0" expanded="true" />
+                <element signature="e#3910#3911#0" expanded="true" />
+                <element signature="e#6281#6282#0" expanded="true" />
+                <element signature="e#6309#6310#0" expanded="true" />
+                <element signature="e#6379#6380#0" expanded="true" />
+                <element signature="e#6407#6408#0" expanded="true" />
+                <element signature="e#9091#9092#0" expanded="true" />
+                <element signature="e#9118#9119#0" expanded="true" />
+                <element signature="e#9825#9826#0" expanded="true" />
+                <element signature="e#9884#9885#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="HardDeviceServiceImpl.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Service/ServiceImpl/HardDeviceServiceImpl.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1049">
+              <caret line="200" column="4" lean-forward="false" selection-start-line="200" selection-start-column="4" selection-end-line="200" selection-end-column="4" />
+              <folding>
+                <element signature="e#1674#1675#0" expanded="true" />
+                <element signature="e#1744#1745#0" expanded="true" />
+                <element signature="e#1960#1961#0" expanded="true" />
+                <element signature="e#2028#2029#0" expanded="true" />
+                <element signature="e#2098#2099#0" expanded="true" />
+                <element signature="e#2125#2126#0" expanded="true" />
+                <element signature="method#migrate#0;class#HardDeviceServiceImpl#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="HardDeviceDTO.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Entity/DTO/HardDeviceDTO.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="130">
+              <caret line="22" column="0" lean-forward="false" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -128,50 +183,52 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="HelloController.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Controller/HelloController.java">
+      <file leaf-file-name="FileController.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Controller/FileController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="266">
-              <caret line="28" column="0" lean-forward="false" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="TencentOssServiceImplTest.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/netstorage_/src/test/cn/j/netstorage/Service/ServiceImpl/TencentOssServiceImplTest.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
-              <caret line="24" column="9" lean-forward="true" selection-start-line="24" selection-start-column="9" selection-end-line="24" selection-end-column="9" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="FilesVersionService.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Service/FilesVersionService.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="346">
-              <caret line="26" column="22" lean-forward="true" selection-start-line="26" selection-start-column="22" selection-end-line="26" selection-end-column="22" />
+            <state relative-caret-position="700">
+              <caret line="74" column="61" lean-forward="false" selection-start-line="74" selection-start-column="61" selection-end-line="74" selection-end-column="61" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="FilesVersionServiceImpl.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Service/ServiceImpl/FilesVersionServiceImpl.java">
+      <file leaf-file-name="SettingController.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Controller/SettingController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="266">
-              <caret line="93" column="52" lean-forward="true" selection-start-line="93" selection-start-column="52" selection-end-line="93" selection-end-column="52" />
-              <folding>
-                <element signature="e#2851#2852#0" expanded="true" />
-                <element signature="e#2942#2943#0" expanded="true" />
-                <element signature="e#2970#2971#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="520">
+              <caret line="43" column="91" lean-forward="false" selection-start-line="43" selection-start-column="91" selection-end-line="43" selection-end-column="91" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="OriginFile.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Entity/File/OriginFile.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="160">
+              <caret line="15" column="13" lean-forward="false" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="UploadServiceImpl.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Service/ServiceImpl/UploadServiceImpl.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="5380">
+              <caret line="302" column="34" lean-forward="false" selection-start-line="302" selection-start-column="34" selection-end-line="302" selection-end-column="34" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="HardDeviceMapper.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Mapper/HardDeviceMapper.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="220">
+              <caret line="14" column="5" lean-forward="false" selection-start-line="14" selection-start-column="5" selection-end-line="14" selection-end-column="5" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -181,8 +238,9 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Interface" />
         <option value="JUnit5 Test Class" />
+        <option value="Enum" />
+        <option value="Interface" />
         <option value="Class" />
       </list>
     </option>
@@ -194,6 +252,11 @@
       <find>, boolean backup</find>
       <find>Bucket</find>
       <find>startsWith</find>
+      <find>getInstance</find>
+      <find>workSpace</find>
+      <find />
+      <find>findByShareUser</find>
+      <find>findByShareUserAndFolderName</find>
     </findStrings>
     <replaceStrings>
       <replace>FolderPermission</replace>
@@ -218,57 +281,57 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Service/ServiceImpl/PluginServiceImpl.java" />
-        <option value="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Mapper/RecordMapper.java" />
-        <option value="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Entity/Folder/Permission.java" />
-        <option value="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Entity/Folder/Folder_Permission.java" />
-        <option value="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Entity/Folder/Folder.java" />
-        <option value="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Mapper/FolderPermissionMapper.java" />
-        <option value="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Mapper/FileMapper.java" />
+        <option value="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Controller/DlnaController.java" />
+        <option value="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Entity/FFMPEG.java" />
+        <option value="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/tool/FFMPEG.java" />
         <option value="$PROJECT_DIR$/netstorage_/src/test/FolderServiceTest.java" />
-        <option value="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Service/ServiceImpl/FileServiceImpl.java" />
-        <option value="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Service/FolderService.java" />
-        <option value="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Service/ServiceImpl/FolderServiceImpl.java" />
-        <option value="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Entity/DTO/FolderDTO.java" />
-        <option value="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Service/Aria2Service.java" />
-        <option value="$PROJECT_DIR$/netstorage_/src/test/Aria2DownloadTest.java" />
-        <option value="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Service/FileService2.java" />
-        <option value="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Controller/FilesVersionController.java" />
-        <option value="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Entity/File/Aria2File.java" />
-        <option value="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Entity/File/FilesVersion.java" />
-        <option value="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Controller/AriaController.java" />
-        <option value="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Entity/oss/TencentCos.java" />
-        <option value="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Entity/Backup.java" />
+        <option value="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Entity/File/Files.java" />
+        <option value="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Service/ServiceImpl/OriginFileServiceImpl.java" />
+        <option value="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Service/ServiceImpl/FFmpegServiceImpl.java" />
+        <option value="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Entity/EMail.java" />
+        <option value="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Entity/Type.java" />
+        <option value="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Entity/Driver.java" />
+        <option value="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Entity/Driver/End_point.java" />
+        <option value="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Entity/Driver/Region.java" />
+        <option value="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Entity/Driver/AliDriver.java" />
+        <option value="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Entity/Driver/CosDriver.java" />
+        <option value="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Mapper/AliMapper.java" />
+        <option value="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Mapper/CosMapper.java" />
+        <option value="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Mapper/DriverMapper.java" />
+        <option value="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Entity/Driver/Drivers.java" />
         <option value="$PROJECT_DIR$/netstorage_/pom.xml" />
-        <option value="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Entity/oss/TencentBucket.java" />
-        <option value="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Entity/File/OriginFile.java" />
-        <option value="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Service/ServiceImpl/Aria2ServiceImpl.java" />
+        <option value="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Mapper/FileMapper.java" />
+        <option value="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Controller/PluginController.java" />
+        <option value="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Service/ServiceImpl/FileServiceImpl.java" />
+        <option value="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Controller/PageController.java" />
+        <option value="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Controller/DriverController.java" />
+        <option value="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Entity/DTO/FilesDTO.java" />
+        <option value="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Entity/DTO/OriginFileDTO.java" />
         <option value="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Service/UploadService.java" />
-        <option value="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Controller/FileController.java" />
-        <option value="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Entity/oss/OssFiles.java" />
-        <option value="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Mapper/FolderMapper.java" />
-        <option value="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/tool/AES.java" />
-        <option value="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/tool/DES.java" />
-        <option value="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/tool/EncryUtil.java" />
-        <option value="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Entity/oss/Bucket.java" />
-        <option value="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Mapper/BucketMapper.java" />
-        <option value="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Service/TencentOssService.java" />
-        <option value="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Mapper/OssMapper.java" />
-        <option value="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Controller/BucketController.java" />
-        <option value="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Service/ServiceImpl/FilesServiceImpl.java" />
-        <option value="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/tool/FilesUtil.java" />
-        <option value="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Service/ServiceImpl/UploadServiceImpl.java" />
         <option value="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Controller/UploadController.java" />
-        <option value="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Entity/oss/Oss.java" />
-        <option value="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Controller/OssController.java" />
+        <option value="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Service/ServiceImpl/DeleteServiceImpl.java" />
+        <option value="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Service/DeleteService.java" />
+        <option value="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Controller/DeleteController.java" />
+        <option value="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Service/FolderService.java" />
+        <option value="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Service/FilesService.java" />
+        <option value="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Service/FileService2.java" />
+        <option value="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Service/ServiceImpl/FilesServiceImpl.java" />
+        <option value="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Service/ServiceImpl/FolderServiceImpl.java" />
+        <option value="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Entity/Driver/Driver.java" />
+        <option value="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Config/MyConfig.java" />
+        <option value="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Entity/Config.java" />
         <option value="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Config/CheckEnv.java" />
-        <option value="$PROJECT_DIR$/netstorage_/src/main/resources/application.properties" />
-        <option value="$PROJECT_DIR$/netstorage_/src/test/cn/j/netstorage/Service/ServiceImpl/TencentOssServiceImplTest.java" />
-        <option value="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Service/OssService.java" />
-        <option value="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Service/ServiceImpl/TencentOssServiceImpl.java" />
-        <option value="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Service/FilesVersionService.java" />
-        <option value="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Service/ServiceImpl/FilesVersionServiceImpl.java" />
-        <option value="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Controller/HelloController.java" />
+        <option value="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Service/HardDeviceService.java" />
+        <option value="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Service/DriverService.java" />
+        <option value="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Config/ResourceAdpater.java" />
+        <option value="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Service/ServiceImpl/UploadServiceImpl.java" />
+        <option value="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Mapper/HardDeviceMapper.java" />
+        <option value="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Service/ServiceImpl/DriverServiceImpl.java" />
+        <option value="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Controller/SettingController.java" />
+        <option value="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Entity/File/HardDiskDevice.java" />
+        <option value="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Entity/DTO/HardDeviceDTO.java" />
+        <option value="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Controller/FileController.java" />
+        <option value="$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Service/ServiceImpl/HardDeviceServiceImpl.java" />
       </list>
     </option>
   </component>
@@ -295,9 +358,9 @@
     </treeState>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-473" />
-    <option name="y" value="-10" />
-    <option name="width" value="1910" />
+    <option name="x" value="-8" />
+    <option name="y" value="-8" />
+    <option name="width" value="974" />
     <option name="height" value="1047" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -316,10 +379,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
-      <pane id="Scratches" />
-      <pane id="Scope" />
-      <pane id="AndroidView" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -393,6 +452,18 @@
               <item name="cn" type="462c0819:PsiDirectoryNode" />
               <item name="j" type="462c0819:PsiDirectoryNode" />
               <item name="netstorage" type="462c0819:PsiDirectoryNode" />
+              <item name="Config" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="netstorage" type="b2602c69:ProjectViewProjectNode" />
+              <item name="HomeStorage" type="462c0819:PsiDirectoryNode" />
+              <item name="netstorage_" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="cn" type="462c0819:PsiDirectoryNode" />
+              <item name="j" type="462c0819:PsiDirectoryNode" />
+              <item name="netstorage" type="462c0819:PsiDirectoryNode" />
               <item name="Controller" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -401,7 +472,116 @@
               <item name="netstorage_" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="cn" type="462c0819:PsiDirectoryNode" />
+              <item name="j" type="462c0819:PsiDirectoryNode" />
+              <item name="netstorage" type="462c0819:PsiDirectoryNode" />
+              <item name="Entity" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="netstorage" type="b2602c69:ProjectViewProjectNode" />
+              <item name="HomeStorage" type="462c0819:PsiDirectoryNode" />
+              <item name="netstorage_" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="cn" type="462c0819:PsiDirectoryNode" />
+              <item name="j" type="462c0819:PsiDirectoryNode" />
+              <item name="netstorage" type="462c0819:PsiDirectoryNode" />
+              <item name="Entity" type="462c0819:PsiDirectoryNode" />
+              <item name="Driver" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="netstorage" type="b2602c69:ProjectViewProjectNode" />
+              <item name="HomeStorage" type="462c0819:PsiDirectoryNode" />
+              <item name="netstorage_" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="cn" type="462c0819:PsiDirectoryNode" />
+              <item name="j" type="462c0819:PsiDirectoryNode" />
+              <item name="netstorage" type="462c0819:PsiDirectoryNode" />
+              <item name="Entity" type="462c0819:PsiDirectoryNode" />
+              <item name="DTO" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="netstorage" type="b2602c69:ProjectViewProjectNode" />
+              <item name="HomeStorage" type="462c0819:PsiDirectoryNode" />
+              <item name="netstorage_" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="cn" type="462c0819:PsiDirectoryNode" />
+              <item name="j" type="462c0819:PsiDirectoryNode" />
+              <item name="netstorage" type="462c0819:PsiDirectoryNode" />
+              <item name="Entity" type="462c0819:PsiDirectoryNode" />
+              <item name="File" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="netstorage" type="b2602c69:ProjectViewProjectNode" />
+              <item name="HomeStorage" type="462c0819:PsiDirectoryNode" />
+              <item name="netstorage_" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="cn" type="462c0819:PsiDirectoryNode" />
+              <item name="j" type="462c0819:PsiDirectoryNode" />
+              <item name="netstorage" type="462c0819:PsiDirectoryNode" />
+              <item name="Mapper" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="netstorage" type="b2602c69:ProjectViewProjectNode" />
+              <item name="HomeStorage" type="462c0819:PsiDirectoryNode" />
+              <item name="netstorage_" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="cn" type="462c0819:PsiDirectoryNode" />
+              <item name="j" type="462c0819:PsiDirectoryNode" />
+              <item name="netstorage" type="462c0819:PsiDirectoryNode" />
+              <item name="Service" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="netstorage" type="b2602c69:ProjectViewProjectNode" />
+              <item name="HomeStorage" type="462c0819:PsiDirectoryNode" />
+              <item name="netstorage_" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="cn" type="462c0819:PsiDirectoryNode" />
+              <item name="j" type="462c0819:PsiDirectoryNode" />
+              <item name="netstorage" type="462c0819:PsiDirectoryNode" />
+              <item name="Service" type="462c0819:PsiDirectoryNode" />
+              <item name="ServiceImpl" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="netstorage" type="b2602c69:ProjectViewProjectNode" />
+              <item name="HomeStorage" type="462c0819:PsiDirectoryNode" />
+              <item name="netstorage_" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="cn" type="462c0819:PsiDirectoryNode" />
+              <item name="j" type="462c0819:PsiDirectoryNode" />
+              <item name="netstorage" type="462c0819:PsiDirectoryNode" />
+              <item name="tool" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="netstorage" type="b2602c69:ProjectViewProjectNode" />
+              <item name="HomeStorage" type="462c0819:PsiDirectoryNode" />
+              <item name="netstorage_" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="resources" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="netstorage" type="b2602c69:ProjectViewProjectNode" />
+              <item name="HomeStorage" type="462c0819:PsiDirectoryNode" />
+              <item name="netstorage_" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="netstorage" type="b2602c69:ProjectViewProjectNode" />
@@ -460,10 +640,19 @@
               <item name="Service" type="462c0819:PsiDirectoryNode" />
               <item name="ServiceImpl" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="netstorage" type="b2602c69:ProjectViewProjectNode" />
+              <item name="HomeStorage" type="462c0819:PsiDirectoryNode" />
+              <item name="Plugin" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
+      <pane id="AndroidView" />
+      <pane id="Scratches" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -483,10 +672,14 @@
     <property name="RequestMappingsPanelOrder2" value="2" />
     <property name="create.test.in.the.same.root" value="true" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit5" />
+    <property name="SearchEverywhereHistoryKey" value="&#9;FILE&#9;file://C:/Users/Shinelon/Documents/GitHub/HomeStorage/netstorage_/src/main/java/cn/j/netstorage/Entity/File/Files.java&#10;FilesVersion&#9;FILE&#9;file://C:/Users/Shinelon/Documents/GitHub/HomeStorage/netstorage_/src/main/java/cn/j/netstorage/Controller/FilesVersionController.java" />
   </component>
   <component name="RecentsManager">
     <key name="CreateTestDialog.RecentsKey">
       <recent name="cn.j.netstorage.Service.ServiceImpl" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="cn.j.netstorage.tool" />
     </key>
     <key name="CreateTestDialog.Recents.Supers">
       <recent name="" />
@@ -525,14 +718,14 @@
       <module name="" />
       <envs />
     </configuration>
-    <configuration name="Aria2DownloadTest.addTorrent" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="FolderServiceTest.change" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <module name="netstorage (1) (cn.j)" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
       <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="Aria2DownloadTest" />
-      <option name="METHOD_NAME" value="addTorrent" />
+      <option name="MAIN_CLASS_NAME" value="FolderServiceTest" />
+      <option name="METHOD_NAME" value="change" />
       <option name="TEST_OBJECT" value="method" />
       <option name="VM_PARAMETERS" value="-ea" />
       <option name="PARAMETERS" />
@@ -545,34 +738,14 @@
       <envs />
       <patterns />
     </configuration>
-    <configuration name="FolderServiceTest.add" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="FolderServiceTest.check" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <module name="netstorage (1) (cn.j)" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
       <option name="PACKAGE_NAME" value="" />
       <option name="MAIN_CLASS_NAME" value="FolderServiceTest" />
-      <option name="METHOD_NAME" value="add" />
-      <option name="TEST_OBJECT" value="method" />
-      <option name="VM_PARAMETERS" value="-ea" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="singleModule" />
-      </option>
-      <envs />
-      <patterns />
-    </configuration>
-    <configuration name="FolderServiceTest.checkPermissions" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <module name="netstorage (1) (cn.j)" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="FolderServiceTest" />
-      <option name="METHOD_NAME" value="checkPermissions" />
+      <option name="METHOD_NAME" value="check" />
       <option name="TEST_OBJECT" value="method" />
       <option name="VM_PARAMETERS" value="-ea" />
       <option name="PARAMETERS" />
@@ -595,6 +768,26 @@
       <option name="METHOD_NAME" value="share" />
       <option name="TEST_OBJECT" value="method" />
       <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" value="" />
+      <option name="WORKING_DIRECTORY" value="file://%MODULE_WORKING_DIR%" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <envs />
+      <patterns />
+    </configuration>
+    <configuration name="FolderServiceTest.shareToMe" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="netstorage (1) (cn.j)" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="FolderServiceTest" />
+      <option name="METHOD_NAME" value="shareToMe" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="VM_PARAMETERS" value="-ea" />
       <option name="PARAMETERS" />
       <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
       <option name="ENV_VARIABLES" />
@@ -605,23 +798,18 @@
       <envs />
       <patterns />
     </configuration>
-    <configuration name="TencentOssServiceImplTest.getBackupBucket" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
-        <pattern>
-          <option name="PATTERN" value="cn.j.netstorage.Service.ServiceImpl.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
+    <configuration name="FolderServiceTest.upload" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <module name="netstorage (1) (cn.j)" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" value="cn.j.netstorage.Service.ServiceImpl" />
-      <option name="MAIN_CLASS_NAME" value="cn.j.netstorage.Service.ServiceImpl.TencentOssServiceImplTest" />
-      <option name="METHOD_NAME" value="getBackupBucket" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="FolderServiceTest" />
+      <option name="METHOD_NAME" value="upload" />
       <option name="TEST_OBJECT" value="method" />
-      <option name="VM_PARAMETERS" value="" />
-      <option name="PARAMETERS" value="" />
-      <option name="WORKING_DIRECTORY" value="file://%MODULE_WORKING_DIR%" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
       <option name="ENV_VARIABLES" />
       <option name="PASS_PARENT_ENVS" value="true" />
       <option name="TEST_SEARCH_SCOPE">
@@ -660,7 +848,7 @@
     <configuration name="NetstorageApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="cn.j.netstorage.NetstorageApplication" />
-      <option name="PROGRAM_PARAMETERS" value="--aria2=C:\Users\Shinelon\Desktop\aria2-1.32.0-win-64bit-build1" />
+      <option name="PROGRAM_PARAMETERS" value="--configPath=&quot;C:\Users\Shinelon\Desktop\test.json&quot;" />
       <option name="ALTERNATIVE_JRE_PATH" />
       <module name="netstorage (1) (cn.j)" />
       <envs />
@@ -700,24 +888,27 @@
     </configuration>
     <list size="6">
       <item index="0" class="java.lang.String" itemvalue="Spring Boot.NetstorageApplication" />
-      <item index="1" class="java.lang.String" itemvalue="JUnit.FolderServiceTest.add" />
-      <item index="2" class="java.lang.String" itemvalue="JUnit.FolderServiceTest.checkPermissions" />
-      <item index="3" class="java.lang.String" itemvalue="JUnit.FolderServiceTest.share" />
-      <item index="4" class="java.lang.String" itemvalue="JUnit.Aria2DownloadTest.addTorrent" />
-      <item index="5" class="java.lang.String" itemvalue="JUnit.TencentOssServiceImplTest.getBackupBucket" />
+      <item index="1" class="java.lang.String" itemvalue="JUnit.FolderServiceTest.share" />
+      <item index="2" class="java.lang.String" itemvalue="JUnit.FolderServiceTest.check" />
+      <item index="3" class="java.lang.String" itemvalue="JUnit.FolderServiceTest.change" />
+      <item index="4" class="java.lang.String" itemvalue="JUnit.FolderServiceTest.upload" />
+      <item index="5" class="java.lang.String" itemvalue="JUnit.FolderServiceTest.shareToMe" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="JUnit.TencentOssServiceImplTest.getBackupBucket" />
-        <item index="1" class="java.lang.String" itemvalue="JUnit.Aria2DownloadTest.addTorrent" />
-        <item index="2" class="java.lang.String" itemvalue="JUnit.FolderServiceTest.share" />
-        <item index="3" class="java.lang.String" itemvalue="JUnit.FolderServiceTest.checkPermissions" />
-        <item index="4" class="java.lang.String" itemvalue="JUnit.FolderServiceTest.add" />
+        <item index="0" class="java.lang.String" itemvalue="JUnit.FolderServiceTest.share" />
+        <item index="1" class="java.lang.String" itemvalue="JUnit.FolderServiceTest.check" />
+        <item index="2" class="java.lang.String" itemvalue="JUnit.FolderServiceTest.shareToMe" />
+        <item index="3" class="java.lang.String" itemvalue="JUnit.FolderServiceTest.upload" />
+        <item index="4" class="java.lang.String" itemvalue="JUnit.FolderServiceTest.change" />
       </list>
     </recent_temporary>
   </component>
   <component name="ShelveChangesManager" show_recycled="false">
     <option name="remove_strategy" value="false" />
+  </component>
+  <component name="SpringBeansView">
+    <option name="showFiles" value="false" />
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -753,44 +944,102 @@
       <workItem from="1616395997011" duration="2271000" />
       <workItem from="1616428881587" duration="549000" />
       <workItem from="1616517760879" duration="13162000" />
-      <workItem from="1616562484749" duration="10438000" />
+      <workItem from="1616562484749" duration="11034000" />
+      <workItem from="1616602386644" duration="30000" />
+      <workItem from="1616607930507" duration="4065000" />
+      <workItem from="1616641704135" duration="663000" />
+      <workItem from="1616669564210" duration="5898000" />
+      <workItem from="1616719196320" duration="2171000" />
+      <workItem from="1618288684119" duration="1926000" />
+      <workItem from="1618364217543" duration="18000" />
+      <workItem from="1619802252983" duration="11418000" />
+      <workItem from="1619981776763" duration="1220000" />
+      <workItem from="1620025936147" duration="10355000" />
+      <workItem from="1620066906832" duration="8014000" />
+      <workItem from="1620157241114" duration="3263000" />
+      <workItem from="1620198613997" duration="8544000" />
+      <workItem from="1620223288435" duration="2278000" />
+      <workItem from="1620374185400" duration="16952000" />
+      <workItem from="1621009287221" duration="11000" />
+      <workItem from="1621940875304" duration="6800000" />
+      <workItem from="1621978823983" duration="2758000" />
+      <workItem from="1622132572278" duration="7822000" />
+      <workItem from="1622220734159" duration="5467000" />
+      <workItem from="1622334353882" duration="1515000" />
+      <workItem from="1622378193747" duration="1552000" />
+      <workItem from="1622700522168" duration="12621000" />
+      <workItem from="1622866028914" duration="12471000" />
+      <workItem from="1622891338455" duration="2218000" />
+      <workItem from="1622933257017" duration="3464000" />
+      <workItem from="1623019529307" duration="600000" />
+      <workItem from="1623498012464" duration="599000" />
+      <workItem from="1624596819000" duration="2791000" />
+      <workItem from="1625242170329" duration="3844000" />
+      <workItem from="1625332280205" duration="7022000" />
+      <workItem from="1625396907348" duration="10267000" />
+      <workItem from="1625550498211" duration="15834000" />
+      <workItem from="1625577478457" duration="815000" />
+      <workItem from="1625587520452" duration="6023000" />
+      <workItem from="1625626122328" duration="5625000" />
+      <workItem from="1625889656095" duration="5007000" />
+      <workItem from="1626061571772" duration="13557000" />
+      <workItem from="1626145290278" duration="3140000" />
+      <workItem from="1626157801817" duration="153000" />
+      <workItem from="1626174184881" duration="14451000" />
+      <workItem from="1626239876108" duration="3082000" />
+      <workItem from="1626261690613" duration="8775000" />
+      <workItem from="1626281350568" duration="17540000" />
+      <workItem from="1626309022803" duration="2007000" />
+      <workItem from="1626319857654" duration="138000" />
+      <workItem from="1626326767415" duration="2322000" />
+      <workItem from="1626355127931" duration="15585000" />
+      <workItem from="1626416226357" duration="188000" />
     </task>
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="TencentOssServiceImplTest_getBackupBucket - 2021.03.19 at 23h 37m 05s.xml">
-      <configuration name="TencentOssServiceImplTest.getBackupBucket" configurationId="JUnit" />
+    <history-entry file="FolderServiceTest_share - 2021.07.12 at 12h 53m 24s.xml">
+      <configuration name="FolderServiceTest.share" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="TencentOssServiceImplTest_getBackupBucket - 2021.03.19 at 23h 37m 38s.xml">
-      <configuration name="TencentOssServiceImplTest.getBackupBucket" configurationId="JUnit" />
+    <history-entry file="FolderServiceTest_share - 2021.07.12 at 13h 03m 40s.xml">
+      <configuration name="FolderServiceTest.share" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="TencentOssServiceImplTest_getBackupBucket - 2021.03.19 at 23h 38m 26s.xml">
-      <configuration name="TencentOssServiceImplTest.getBackupBucket" configurationId="JUnit" />
+    <history-entry file="FolderServiceTest_share - 2021.07.12 at 13h 03m 50s.xml">
+      <configuration name="FolderServiceTest.share" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="TencentOssServiceImplTest_getBackupBucket - 2021.03.19 at 23h 41m 57s.xml">
-      <configuration name="TencentOssServiceImplTest.getBackupBucket" configurationId="JUnit" />
+    <history-entry file="FolderServiceTest_share - 2021.07.12 at 13h 04m 19s.xml">
+      <configuration name="FolderServiceTest.share" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="TencentOssServiceImplTest_getBackupBucket - 2021.03.19 at 23h 42m 21s.xml">
-      <configuration name="TencentOssServiceImplTest.getBackupBucket" configurationId="JUnit" />
+    <history-entry file="FolderServiceTest_share - 2021.07.12 at 13h 04m 40s.xml">
+      <configuration name="FolderServiceTest.share" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="TencentOssServiceImplTest_getBackupBucket - 2021.03.24 at 16h 03m 43s.xml">
-      <configuration name="TencentOssServiceImplTest.getBackupBucket" configurationId="JUnit" />
+    <history-entry file="FolderServiceTest_share - 2021.07.12 at 13h 06m 50s.xml">
+      <configuration name="FolderServiceTest.share" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="TencentOssServiceImplTest_getBackupBucket - 2021.03.24 at 16h 05m 03s.xml">
-      <configuration name="TencentOssServiceImplTest.getBackupBucket" configurationId="JUnit" />
+    <history-entry file="FolderServiceTest_share - 2021.07.12 at 13h 09m 37s.xml">
+      <configuration name="FolderServiceTest.share" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="TencentOssServiceImplTest_getBackupBucket - 2021.03.24 at 16h 05m 34s.xml">
-      <configuration name="TencentOssServiceImplTest.getBackupBucket" configurationId="JUnit" />
+    <history-entry file="FolderServiceTest_share - 2021.07.12 at 13h 10m 46s.xml">
+      <configuration name="FolderServiceTest.share" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="TencentOssServiceImplTest_getBackupBucket - 2021.03.24 at 16h 07m 05s.xml">
-      <configuration name="TencentOssServiceImplTest.getBackupBucket" configurationId="JUnit" />
+    <history-entry file="FolderServiceTest_share - 2021.07.12 at 13h 11m 46s.xml">
+      <configuration name="FolderServiceTest.share" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="TencentOssServiceImplTest_getBackupBucket - 2021.03.24 at 16h 07m 40s.xml">
-      <configuration name="TencentOssServiceImplTest.getBackupBucket" configurationId="JUnit" />
+    <history-entry file="FolderServiceTest_share - 2021.07.12 at 13h 21m 47s.xml">
+      <configuration name="FolderServiceTest.share" configurationId="JUnit" />
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="113007000" />
+    <option name="totallyTimeSpent" value="386482000" />
+  </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -798,37 +1047,71 @@
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3297062" sideWeight="0.5042644" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32995737" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32995737" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.15191898" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39934713" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3297062" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3297062" sideWeight="0.49573562" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Sequence" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3297062" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.31023455" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Bean Validation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3297062" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3297062" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3297062" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3297062" sideWeight="0.49573562" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Sequence" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3297062" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3297062" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1945629" sideWeight="0.4935065" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Bean Validation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.20575693" sideWeight="0.5064935" order="5" side_tool="true" content_ui="tabs" />
+      <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.20575693" sideWeight="0.5064935" order="6" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3264418" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3297062" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
+    <layout-to-restore>
+      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3297062" sideWeight="0.5042644" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32995737" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.15191898" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39934713" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3297062" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3297062" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3297062" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3297062" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3297062" sideWeight="0.49573562" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Sequence" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3297062" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3297062" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21641791" sideWeight="0.4935065" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Bean Validation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.20575693" sideWeight="0.5064935" order="5" side_tool="true" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3297062" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.20575693" sideWeight="0.5064935" order="6" side_tool="true" content_ui="tabs" />
+    </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
@@ -838,402 +1121,389 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="1" />
+      <option name="time" value="3" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Entity/Folder/FolderPermission.java">
+    <entry file="file://$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Entity/Driver/CosDriver.java" />
+    <entry file="file://$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Service/ConvertService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="280">
-          <caret line="20" column="26" lean-forward="false" selection-start-line="20" selection-start-column="26" selection-end-line="20" selection-end-column="26" />
+        <state relative-caret-position="40">
+          <caret line="2" column="17" lean-forward="false" selection-start-line="2" selection-start-column="17" selection-end-line="2" selection-end-column="17" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Service/FolderService.java">
+    <entry file="file://$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Entity/Driver/Drivers.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="33" column="39" lean-forward="false" selection-start-line="33" selection-start-column="39" selection-end-line="33" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Entity/DTO/UserDTO.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="13" column="13" lean-forward="false" selection-start-line="13" selection-start-column="13" selection-end-line="13" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Entity/DTO/MusicsDTO.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="140">
-          <caret line="16" column="13" lean-forward="false" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Entity/DTO/VideoDTO.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="140">
-          <caret line="16" column="13" lean-forward="false" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Entity/DTO/BaseDTO.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="6" column="4" lean-forward="false" selection-start-line="6" selection-start-column="4" selection-end-line="8" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Entity/DTO/FolderDTO.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="386">
-          <caret line="28" column="0" lean-forward="false" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Service/FileService2.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="980">
-          <caret line="56" column="46" lean-forward="false" selection-start-line="56" selection-start-column="19" selection-end-line="56" selection-end-column="46" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Entity/File/Aria2File.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="460">
-          <caret line="30" column="39" lean-forward="false" selection-start-line="30" selection-start-column="39" selection-end-line="30" selection-end-column="39" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Controller/FilesVersionController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="400">
-          <caret line="38" column="54" lean-forward="false" selection-start-line="38" selection-start-column="54" selection-end-line="38" selection-end-column="54" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Service/Aria2Service.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="16" column="14" lean-forward="false" selection-start-line="16" selection-start-column="14" selection-end-line="16" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Controller/AriaController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="30" column="24" lean-forward="false" selection-start-line="30" selection-start-column="24" selection-end-line="30" selection-end-column="24" />
+        <state relative-caret-position="60">
+          <caret line="3" column="0" lean-forward="false" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/netstorage_/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="500">
+        <state relative-caret-position="169">
           <caret line="25" column="21" lean-forward="false" selection-start-line="25" selection-start-column="21" selection-end-line="25" selection-end-column="21" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/netstorage_/src/test/Aria2DownloadTest.java">
+    <entry file="file://$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Entity/Driver/Region.java" />
+    <entry file="file://$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Mapper/DriverMapper.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="40">
-          <caret line="9" column="0" lean-forward="false" selection-start-line="9" selection-start-column="0" selection-end-line="10" selection-end-column="54" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Service/ServiceImpl/Aria2ServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="196">
-          <caret line="214" column="115" lean-forward="false" selection-start-line="214" selection-start-column="115" selection-end-line="214" selection-end-column="115" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Service/UploadService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="460">
-          <caret line="27" column="88" lean-forward="false" selection-start-line="27" selection-start-column="88" selection-end-line="27" selection-end-column="88" />
+        <state relative-caret-position="180">
+          <caret line="9" column="0" lean-forward="false" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Mapper/FileMapper.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="220">
-          <caret line="16" column="36" lean-forward="false" selection-start-line="16" selection-start-column="36" selection-end-line="16" selection-end-column="36" />
+        <state relative-caret-position="240">
+          <caret line="18" column="59" lean-forward="false" selection-start-line="18" selection-start-column="16" selection-end-line="18" selection-end-column="59" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/netstorage_/src/main/resources/templates/index.html">
+    <entry file="file://$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Service/ServiceImpl/FileServiceImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="51" lean-forward="false" selection-start-line="0" selection-start-column="51" selection-end-line="0" selection-end-column="51" />
+        <state relative-caret-position="780">
+          <caret line="64" column="39" lean-forward="false" selection-start-line="64" selection-start-column="39" selection-end-line="64" selection-end-column="39" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Controller/FileController.java">
+    <entry file="file://$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Controller/PluginController.java" />
+    <entry file="file://$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Controller/OssController.java" />
+    <entry file="file://$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Controller/DlnaController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="429">
-          <caret line="192" column="54" lean-forward="true" selection-start-line="190" selection-start-column="8" selection-end-line="192" selection-end-column="54" />
-          <folding>
-            <element signature="e#7507#7508#0" expanded="false" />
-            <element signature="e#7597#7598#0" expanded="false" />
-          </folding>
+        <state relative-caret-position="216">
+          <caret line="54" column="73" lean-forward="false" selection-start-line="54" selection-start-column="73" selection-end-line="54" selection-end-column="73" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Mapper/FolderMapper.java">
+    <entry file="file://$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Controller/FilesVersionController.java" />
+    <entry file="file://$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Controller/TypeController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="20" column="0" lean-forward="true" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
+        <state relative-caret-position="-100">
+          <caret line="25" column="13" lean-forward="false" selection-start-line="25" selection-start-column="13" selection-end-line="25" selection-end-column="13" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Entity/oss/TencentOss.java" />
-    <entry file="file://$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/tool/EncrypDes.java" />
-    <entry file="file://$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/tool/AES.java" />
-    <entry file="file://$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/tool/DES.java">
+    <entry file="file://$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Controller/PageController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="40">
-          <caret line="2" column="22" lean-forward="false" selection-start-line="2" selection-start-column="22" selection-end-line="2" selection-end-column="22" />
+        <state relative-caret-position="320">
+          <caret line="24" column="30" lean-forward="false" selection-start-line="24" selection-start-column="30" selection-end-line="24" selection-end-column="30" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/tool/EncryUtil.java">
+    <entry file="file://$PROJECT_DIR$/netstorage_/src/test/cn/j/netstorage/Service/ServiceImpl/TencentOssServiceImplTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="729">
-          <caret line="50" column="0" lean-forward="false" selection-start-line="50" selection-start-column="0" selection-end-line="50" selection-end-column="0" />
+        <state relative-caret-position="120">
+          <caret line="18" column="13" lean-forward="false" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="13" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Mapper/OssMapper.java">
+    <entry file="file://$PROJECT_DIR$/netstorage_/src/test/Aria2DownloadTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="9" column="0" lean-forward="false" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
+        <state relative-caret-position="320">
+          <caret line="23" column="35" lean-forward="true" selection-start-line="23" selection-start-column="35" selection-end-line="23" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/netstorage_/src/test/FolderServiceTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-128">
+          <caret line="15" column="13" lean-forward="false" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
           <folding>
             <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Entity/oss/OssFiles.java">
+    <entry file="file://$PROJECT_DIR$/netstorage_/src/test/MusicServiceTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="320">
-          <caret line="20" column="11" lean-forward="false" selection-start-line="20" selection-start-column="11" selection-end-line="20" selection-end-column="11" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Entity/File/Files.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-51">
-          <caret line="17" column="13" lean-forward="false" selection-start-line="17" selection-start-column="13" selection-end-line="17" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Entity/File/FilesVersion.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="700">
-          <caret line="42" column="62" lean-forward="false" selection-start-line="42" selection-start-column="62" selection-end-line="42" selection-end-column="62" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Entity/Backup.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="9" column="5" lean-forward="false" selection-start-line="9" selection-start-column="5" selection-end-line="13" selection-end-column="7" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Entity/File/OriginFile.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="580">
-          <caret line="34" column="0" lean-forward="true" selection-start-line="34" selection-start-column="0" selection-end-line="34" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/tool/FileData.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-911">
-          <caret line="6" column="13" lean-forward="false" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Service/ServiceImpl/FilesServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="269">
-          <caret line="186" column="13" lean-forward="false" selection-start-line="186" selection-start-column="13" selection-end-line="186" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Service/ServiceImpl/FileServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="459">
-          <caret line="90" column="13" lean-forward="true" selection-start-line="90" selection-start-column="13" selection-end-line="90" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Service/ServiceImpl/OriginFileServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="249">
-          <caret line="46" column="15" lean-forward="false" selection-start-line="46" selection-start-column="15" selection-end-line="46" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Entity/Folder/Folder.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="23" column="25" lean-forward="true" selection-start-line="23" selection-start-column="25" selection-end-line="23" selection-end-column="25" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/tool/FilesUtil.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="12" column="17" lean-forward="false" selection-start-line="12" selection-start-column="17" selection-end-line="12" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Service/ServiceImpl/UploadServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-471">
-          <caret line="42" column="4" lean-forward="false" selection-start-line="42" selection-start-column="4" selection-end-line="42" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Config/CheckEnv.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="16" column="10" lean-forward="false" selection-start-line="16" selection-start-column="10" selection-end-line="20" selection-end-column="11" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/netstorage_/src/main/resources/application.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="400">
-          <caret line="20" column="0" lean-forward="true" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/NetstorageApplication.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="220">
+        <state relative-caret-position="-220">
           <caret line="15" column="13" lean-forward="false" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Entity/oss/Oss.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="400">
-          <caret line="29" column="28" lean-forward="false" selection-start-line="29" selection-start-column="19" selection-end-line="29" selection-end-column="28" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Controller/OssController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="726">
-          <caret line="37" column="38" lean-forward="true" selection-start-line="37" selection-start-column="38" selection-end-line="37" selection-end-column="38" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Service/ServiceImpl/TencentOssServiceImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="172">
-          <caret line="188" column="8" lean-forward="false" selection-start-line="188" selection-start-column="8" selection-end-line="188" selection-end-column="21" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#5908#5909#0" expanded="true" />
-            <element signature="e#5936#5937#0" expanded="true" />
-            <element signature="e#5986#5987#0" expanded="true" />
-            <element signature="e#6022#6023#0" expanded="true" />
-            <element signature="e#6742#6743#0" expanded="true" />
-            <element signature="e#6770#6771#0" expanded="true" />
-            <element signature="e#6849#6850#0" expanded="true" />
-            <element signature="e#6877#6878#0" expanded="true" />
-            <element signature="e#6924#6925#0" expanded="true" />
-            <element signature="e#6970#6971#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Service/ServiceImpl/FolderServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1654">
-          <caret line="39" column="17" lean-forward="false" selection-start-line="39" selection-start-column="17" selection-end-line="39" selection-end-column="17" />
+        <state relative-caret-position="200">
+          <caret line="91" column="71" lean-forward="false" selection-start-line="91" selection-start-column="16" selection-end-line="91" selection-end-column="71" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Service/OssService.java">
+    <entry file="file://$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Entity/DTO/FilesDTO.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="506">
+        <state relative-caret-position="1000">
+          <caret line="63" column="28" lean-forward="false" selection-start-line="63" selection-start-column="28" selection-end-line="63" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/JDK/src.zip!/java/net/URL.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-224">
+          <caret line="135" column="19" lean-forward="false" selection-start-line="135" selection-start-column="19" selection-end-line="135" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Controller/DriverController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="380">
+          <caret line="29" column="60" lean-forward="false" selection-start-line="29" selection-start-column="60" selection-end-line="29" selection-end-column="60" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/com/qcloud/cos_api/5.6.45/cos_api-5.6.45.jar!/com/qcloud/cos/COSClient.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="196">
+          <caret line="2847" column="15" lean-forward="false" selection-start-line="2847" selection-start-column="15" selection-end-line="2847" selection-end-column="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Entity/Type.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="196">
+          <caret line="41" column="23" lean-forward="false" selection-start-line="41" selection-start-column="23" selection-end-line="41" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Entity/DTO/OriginFileDTO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="540">
           <caret line="34" column="0" lean-forward="false" selection-start-line="34" selection-start-column="0" selection-end-line="34" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Service/FilesVersionService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="346">
-          <caret line="26" column="22" lean-forward="true" selection-start-line="26" selection-start-column="22" selection-end-line="26" selection-end-column="22" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Service/ServiceImpl/FilesVersionServiceImpl.java">
+    <entry file="file://$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Service/UploadService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="266">
-          <caret line="93" column="52" lean-forward="true" selection-start-line="93" selection-start-column="52" selection-end-line="93" selection-end-column="52" />
-          <folding>
-            <element signature="e#2851#2852#0" expanded="true" />
-            <element signature="e#2942#2943#0" expanded="true" />
-            <element signature="e#2970#2971#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="520">
+          <caret line="34" column="39" lean-forward="false" selection-start-line="34" selection-start-column="39" selection-end-line="34" selection-end-column="39" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/netstorage_/src/test/cn/j/netstorage/Service/ServiceImpl/TencentOssServiceImplTest.java">
+    <entry file="file://$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Service/DeleteService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="24" column="9" lean-forward="true" selection-start-line="24" selection-start-column="9" selection-end-line="24" selection-end-column="9" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="360">
+          <caret line="19" column="56" lean-forward="false" selection-start-line="19" selection-start-column="56" selection-end-line="19" selection-end-column="56" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Service/ServiceImpl/DeleteServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="188">
+          <caret line="95" column="0" lean-forward="false" selection-start-line="95" selection-start-column="0" selection-end-line="95" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Controller/DeleteController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="500">
+          <caret line="65" column="54" lean-forward="true" selection-start-line="65" selection-start-column="54" selection-end-line="65" selection-end-column="54" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Controller/UploadController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1212">
-          <caret line="80" column="66" lean-forward="false" selection-start-line="80" selection-start-column="66" selection-end-line="80" selection-end-column="66" />
+        <state relative-caret-position="370">
+          <caret line="86" column="64" lean-forward="false" selection-start-line="86" selection-start-column="64" selection-end-line="86" selection-end-column="64" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Service/FolderService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="260">
+          <caret line="22" column="0" lean-forward="false" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Service/FilesService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="29" column="30" lean-forward="false" selection-start-line="29" selection-start-column="30" selection-end-line="29" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Service/FileService2.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="46" column="0" lean-forward="true" selection-start-line="46" selection-start-column="0" selection-end-line="46" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Service/ServiceImpl/FilesServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2148">
+          <caret line="150" column="9" lean-forward="true" selection-start-line="150" selection-start-column="9" selection-end-line="150" selection-end-column="9" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Controller/HelloController.java">
+    <entry file="file://$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Service/ServiceImpl/FolderServiceImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="266">
-          <caret line="28" column="0" lean-forward="false" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
+        <state relative-caret-position="400">
+          <caret line="42" column="13" lean-forward="true" selection-start-line="42" selection-start-column="13" selection-end-line="42" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Entity/Driver/Driver.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="420">
+          <caret line="38" column="26" lean-forward="false" selection-start-line="38" selection-start-column="26" selection-end-line="38" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Entity/Config.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="196">
+          <caret line="25" column="34" lean-forward="false" selection-start-line="25" selection-start-column="34" selection-end-line="25" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Config/MyConfig.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="420">
+          <caret line="40" column="25" lean-forward="false" selection-start-line="40" selection-start-column="25" selection-end-line="40" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Config/CheckEnv.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="65" column="36" lean-forward="true" selection-start-line="65" selection-start-column="36" selection-end-line="65" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Service/HardDeviceService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="420">
+          <caret line="26" column="54" lean-forward="true" selection-start-line="26" selection-start-column="54" selection-end-line="26" selection-end-column="54" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Service/DriverService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="260">
+          <caret line="19" column="32" lean-forward="false" selection-start-line="19" selection-start-column="32" selection-end-line="19" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Config/ResourceAdpater.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="339">
+          <caret line="61" column="0" lean-forward="false" selection-start-line="61" selection-start-column="0" selection-end-line="61" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Mapper/HardDeviceMapper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="220">
+          <caret line="14" column="5" lean-forward="false" selection-start-line="14" selection-start-column="5" selection-end-line="14" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Service/ServiceImpl/DriverServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3500">
+          <caret line="215" column="0" lean-forward="false" selection-start-line="215" selection-start-column="0" selection-end-line="215" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#2590#2591#0" expanded="true" />
+            <element signature="e#2618#2619#0" expanded="true" />
+            <element signature="e#3630#3631#0" expanded="true" />
+            <element signature="e#3675#3676#0" expanded="true" />
+            <element signature="e#3882#3883#0" expanded="true" />
+            <element signature="e#3910#3911#0" expanded="true" />
+            <element signature="e#6281#6282#0" expanded="true" />
+            <element signature="e#6309#6310#0" expanded="true" />
+            <element signature="e#6379#6380#0" expanded="true" />
+            <element signature="e#6407#6408#0" expanded="true" />
+            <element signature="e#9091#9092#0" expanded="true" />
+            <element signature="e#9118#9119#0" expanded="true" />
+            <element signature="e#9825#9826#0" expanded="true" />
+            <element signature="e#9884#9885#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Service/ServiceImpl/UploadServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="5380">
+          <caret line="302" column="34" lean-forward="false" selection-start-line="302" selection-start-column="34" selection-end-line="302" selection-end-column="34" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Controller/SettingController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="520">
+          <caret line="43" column="91" lean-forward="false" selection-start-line="43" selection-start-column="91" selection-end-line="43" selection-end-column="91" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Entity/File/HardDiskDevice.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="396">
+          <caret line="31" column="28" lean-forward="true" selection-start-line="31" selection-start-column="28" selection-end-line="31" selection-end-column="28" />
+          <folding>
+            <element signature="e#534#535#0" expanded="true" />
+            <element signature="e#577#578#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Entity/File/OriginFile.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="160">
+          <caret line="15" column="13" lean-forward="false" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Entity/DTO/HardDeviceDTO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="130">
+          <caret line="22" column="0" lean-forward="false" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Controller/FileController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="700">
+          <caret line="74" column="61" lean-forward="false" selection-start-line="74" selection-start-column="61" selection-end-line="74" selection-end-column="61" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/netstorage_/src/main/java/cn/j/netstorage/Service/ServiceImpl/HardDeviceServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1049">
+          <caret line="200" column="4" lean-forward="false" selection-start-line="200" selection-start-column="4" selection-end-line="200" selection-end-column="4" />
+          <folding>
+            <element signature="e#1674#1675#0" expanded="true" />
+            <element signature="e#1744#1745#0" expanded="true" />
+            <element signature="e#1960#1961#0" expanded="true" />
+            <element signature="e#2028#2029#0" expanded="true" />
+            <element signature="e#2098#2099#0" expanded="true" />
+            <element signature="e#2125#2126#0" expanded="true" />
+            <element signature="method#migrate#0;class#HardDeviceServiceImpl#0" expanded="false" />
           </folding>
         </state>
       </provider>

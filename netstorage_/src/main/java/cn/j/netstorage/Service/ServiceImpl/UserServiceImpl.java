@@ -1,17 +1,15 @@
 package cn.j.netstorage.Service.ServiceImpl;
 
 import cn.j.netstorage.Entity.DTO.UserDTO;
-import cn.j.netstorage.Entity.Token;
+import cn.j.netstorage.Entity.File.Files;
+import cn.j.netstorage.Entity.File.OriginFile;
 import cn.j.netstorage.Entity.User.Permission;
 import cn.j.netstorage.Entity.User.Role;
+import cn.j.netstorage.Entity.User.Token;
 import cn.j.netstorage.Entity.User.User;
 import cn.j.netstorage.Entity.Vo.UserVo;
-import cn.j.netstorage.Mapper.PermissionMapper;
-import cn.j.netstorage.Mapper.RoleMapper;
-import cn.j.netstorage.Mapper.TokenMapper;
-import cn.j.netstorage.Mapper.UserMapper;
+import cn.j.netstorage.Mapper.*;
 import cn.j.netstorage.Service.UserService;
-import cn.j.netstorage.tool.FilesUtil;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
@@ -33,6 +31,9 @@ public class UserServiceImpl implements UserService {
     RoleMapper roleMapper;
     @Autowired
     TokenMapper tokenMapper;
+
+    @Autowired
+    FileMapper fileMapper;
 
     /**
      * 登陆，在这里调用ShiroRealm
@@ -69,8 +70,9 @@ public class UserServiceImpl implements UserService {
         user.setCreateDate(System.currentTimeMillis());
         user = userMapper.save(user);
         if (user.getUid() != 0) {
-            Token token = new Token(user.getUid(), UUID.randomUUID().toString());
+            Token token = new Token(user);
             token = tokenMapper.save(token);
+
             return token.getId() != 0 && user.getUid() != 0;
         }
         return false;
@@ -99,7 +101,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getUser(Token token) {
-        return getUser(tokenMapper.findByToken(token.getToken()).getUser());
+        return tokenMapper.findByToken(token.getToken()).getUser();
     }
 
     public User getUser(Long id) {
@@ -112,7 +114,7 @@ public class UserServiceImpl implements UserService {
         user.setPassword(password);
         user.setEmailAccount(account);
         Example<User> example = Example.of(user, ExampleMatcher.matching().withIgnorePaths("uid", "create_date", "nick_name", "role"));
-        return userMapper.findOne(example).get();
+        return userMapper.findOne(example).orElse(null);
     }
 
     @Override
@@ -149,12 +151,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Boolean changePermission(Long id, List<Integer> pids) {
-        Role role=role(id);
-        List<Long> longs=new ArrayList<>();
+        Role role = role(id);
+        List<Long> longs = new ArrayList<>();
         for (Integer pid : pids) {
             longs.add(Long.valueOf(pid));
         }
-        List<Permission> permissions=permissionMapper.findAllById(longs);
+        List<Permission> permissions = permissionMapper.findAllById(longs);
         role.setPermission(new HashSet<>(permissions));
         return addRole(role);
     }
@@ -162,8 +164,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public Boolean changeUserPermission(Long id, List<Integer> pids) {
         try {
-            User user=getUser(id);
-            List<Role> roles=roles(pids);
+            User user = getUser(id);
+            List<Role> roles = roles(pids);
             user.setRole(new HashSet<>(roles));
             userMapper.save(user);
         } catch (Exception e) {
@@ -200,11 +202,16 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<Role> roles(List<Integer> rids) {
-        List<Long> longs=new ArrayList<>();
+        List<Long> longs = new ArrayList<>();
         for (Integer pid : rids) {
             longs.add(Long.valueOf(pid));
         }
         return roleMapper.findAllById(longs);
+    }
+
+    @Override
+    public Role role(String name) {
+        return roleMapper.findByName(name);
     }
 
     @Override
@@ -217,5 +224,30 @@ public class UserServiceImpl implements UserService {
         List<UserDTO> userDTOS = new ArrayList<>();
         userMapper.findAllByNickNameContaining(userVo.getNickName()).forEach((value) -> userDTOS.add(new UserDTO(value)));
         return userDTOS;
+    }
+
+    @Override
+    public User createAdminUser(User user) {
+        Role role = role("admin");
+        if (role == null) {
+            role = new Role();
+            role.setPermission(new HashSet<>(this.getAllPermission()));
+            role.setName("admin");
+            role.setStatus(true);
+            if (!this.addRole(role)) return null;
+        }
+
+        user.setRole(Collections.singleton(role));
+        user.setCreateDate(System.currentTimeMillis());
+//        user.setStatus(true);
+        user.Md5Hash();
+        return userMapper.save(user);
+    }
+
+    @Override
+    public User getUserByRole(Role role) {
+        List<User> users = userMapper.getAllByRoleOrderByCreateDateDesc(role);
+        if (users == null || users.size() == 0) return null;
+        return users.get(0);
     }
 }

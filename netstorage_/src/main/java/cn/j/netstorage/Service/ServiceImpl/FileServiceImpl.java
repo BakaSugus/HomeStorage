@@ -6,7 +6,6 @@ import cn.j.netstorage.Entity.File.Files;
 import cn.j.netstorage.Entity.File.HardDiskDevice;
 import cn.j.netstorage.Entity.File.OriginFile;
 import cn.j.netstorage.Entity.Folder.Folder;
-import cn.j.netstorage.Entity.Folder.FolderPermission;
 import cn.j.netstorage.Entity.Type;
 import cn.j.netstorage.Entity.User.User;
 import cn.j.netstorage.Mapper.*;
@@ -31,110 +30,53 @@ import java.util.*;
 @Service
 public class FileServiceImpl implements FilesService {
     @Autowired
-    HardDeviceMapper hardDeviceMapper;
+    private HardDeviceMapper hardDeviceMapper;
 
     @Autowired
-    UserMapper userMapper;
+    private FileMapper fileMapper;
 
     @Autowired
-    FileMapper fileMapper;
-
-    @Autowired
-    OriginFileMapper originFileMapper;
+    private OriginFileMapper originFileMapper;
 
     @Autowired
     private FileService2 fileService2;
 
     @Autowired
-    private UserService userService;
-
-    @Autowired
-    FolderService folderService;
+    private FolderService folderService;
 
     @Override
-    public Boolean insertFile() {
-        return null;
-    }
+    public List<FilesDTO> UserFile(String path, User user, boolean visible) {
+        List<FilesDTO> files1 = new ArrayList<>();
+        List<Files> folders = null;
+        List<Files> files = null;
 
-    @Override
-    public List<FilesDTO> UserFile(String path, long uid) {
-        //先查这个文件夹是不是在共享列表里 如果是就将他的parentName,selfName originUser提取出来
-        //如果没有直接查
-
-        User user = userService.getUser(uid);
-        Folder folder = folderService.folders(user, path);
-        if (folder != null) {
-            user = folder.getOriginUser();
-        } else {
-            user = FilesUtil.setUser(uid);
+        Folder self = folderService.folders(user, path);
+        if (self != null) {
+            user = self.getOriginUser();
         }
 
-        List<FilesDTO> files1 = new ArrayList<>();
-        fileMapper.findAllByParentNameAndUser_uidAndType(path, (user.getUid()), Type.Folder.getType()).forEach((value) -> {
-            FilesDTO filesDTO = new FilesDTO(value);
-            files1.add(filesDTO);
-        });
+        if (visible) {
+            folders = fileMapper.findAllByParentNameAndUserAndTypeAndVisible(path, user, Type.Folder.getType(), true);
+            files = fileMapper.findAllByParentNameAndUserAndTypeNotAndVisible(path, user, Type.Folder.getType(), true);
+        } else {
+            System.out.println("隐藏文件");
+            folders = fileMapper.findAllByParentNameAndUserAndType(path, user, Type.Folder.getType());
+            files = fileMapper.findAllByParentNameAndUserAndTypeNot(path, user, Type.Folder.getType());
+            System.out.println(path+"\t"+files);
+        }
 
-        fileMapper.findAllByParentNameAndUser_uidAndTypeNot(path, (user.getUid()), Type.Folder.getType()).forEach((value) -> {
-            FilesDTO filesDTO = new FilesDTO(value);
+        for (Files folder : folders) {
+            FilesDTO filesDTO = new FilesDTO(folder);
             files1.add(filesDTO);
-        });
+        }
+
+        for (Files file : files) {
+            FilesDTO filesDTO = new FilesDTO(file);
+            files1.add(filesDTO);
+        }
+
         return files1;
     }
-
-    /**
-     * 用户访问页面返回文件夹和文件的列表
-     *
-     * @param uid 用户id
-     * @return 文件夹和文件的混合列表
-     */
-    @Override
-    public List<FilesDTO> UserFiles(String path, long uid, Boolean b) {
-        return null;
-    }
-
-    @Override
-    public List<FilesDTO> UserFile(Long fid, long uid) {
-        List<Files> files = fileService2.files(fid);
-        if (files == null || files.size() < 1) {
-            return null;
-        }
-        Files file = files.get(0);
-        String path = file.getParentName() + file.getSelfName() + "/";
-        User user = userService.getUser(uid);
-        Folder folder = folderService.folders(user, path);
-        if (folder != null) {
-            return UserFile(path, folder.getOriginUser().getUid());
-        } else {
-            return UserFile(path, uid);
-        }
-    }
-
-
-    /**
-     * 删除文件的时候删除文件
-     *
-     * @param uid 用户id
-     * @param fid 文件id
-     * @return 删除结果
-     */
-
-    @Override
-    public Boolean deleteUserFiles(long uid, long fid) {
-        Files files = new Files();
-        User user = new User();
-        user.setUid(uid);
-        files.setUser(Collections.singletonList(user));
-        files.setFid(fid);
-        return FilesUtil.delete(fileMapper, files);
-    }
-
-    /**
-     * 根据id获得文件
-     *
-     * @param fid 文件id
-     * @return 文件
-     */
 
     @Override
     public FilesDTO getFilesById(long fid) {
@@ -145,51 +87,24 @@ public class FileServiceImpl implements FilesService {
 
     @Override
     public OriginFile findByParentNameAndAndUserAndAndSelfName(String parentName, User user, String selfName) {
-        Folder folder=folderService.folders(user,parentName);
+        Folder folder = folderService.folders(user, parentName);
         Files files = null;
 
-        if (folder==null)
+        if (folder == null)
             files = fileMapper.findByParentNameAndUserAndSelfName(parentName, user, selfName);
-        else{
-            boolean res=false;
-            for (FolderPermission folderPermission : folder.getPermissions()) {
-                if (folderPermission.getPermissionName().equals("预览")) {
-                    res = true;
-                    break;
+        else {
+            Set<User> userSet = folder.getShareUser();
+            for (User u : userSet) {
+                if (u.getEmailAccount().equals(user.getEmailAccount())) {
+                    files = fileMapper.findByParentNameAndUserAndSelfName(parentName, folder.getOriginUser(), selfName);
                 }
             }
-            if (!res)
-                return null;
-            else
-                files = fileMapper.findByParentNameAndUserAndSelfName(parentName, folder.getOriginUser(), selfName);
-
         }
 
-        if (files==null)
+        if (files == null)
             return null;
 
-        /*
-        检查权限
-         */
-        if (Type.Video.getType().equals(files.getType()))
-            fileService2.addVisitRecord(user,files);
-        return files.getOriginFile() != null ? new ArrayList<OriginFile>(files.getOriginFile()).get(0) : new OriginFile();
-    }
-
-    /**
-     * 避免多次上传的md5检测
-     *
-     * @param md5 文件的md5值
-     * @return 是否存在相同md5结果
-     */
-
-    @Override
-    public List<OriginFile> checkUpload(String md5) {
-        OriginFile originFile = new OriginFile();
-        originFile.setMd5(md5);
-        Example<OriginFile> example = Example.of(originFile,
-                ExampleMatcher.matching().withIgnorePaths("oid", "file_name"));
-        return originFileMapper.findAll(example);
+        return files.getOriginFile() != null ? files.getOriginFile() : new OriginFile();
     }
 
     @Override
@@ -201,42 +116,6 @@ public class FileServiceImpl implements FilesService {
             originFile.setMd5(System.currentTimeMillis() + "");
             originFileMapper.save(originFile);
         }
-        return originFile;
-    }
-
-    @Override
-    public OriginFile insertFiles(List<HardDiskDevice> hardDiskDevices, Files file, MultipartFile tempFile) throws IOException {
-        int num = file.getSelfName().lastIndexOf(".");
-        String fileName_ = file.getSelfName().substring(0, num);
-        String exg = file.getSelfName().substring(num);
-        if (hardDiskDevices.isEmpty()) {
-            return null;
-        }
-        int randomInt = new Random().nextInt(hardDiskDevices.size());
-        HardDiskDevice hardDiskDevice = hardDiskDevices.get(randomInt);
-
-        String ext = file.getSelfName().substring(file.getSelfName().lastIndexOf(".") + 1);
-        String fileName = FilesUtil.getCurrentNameWithExt("." + ext);
-
-        File dst = new File(hardDiskDevice.getFolderName() + "/" + fileName);
-        tempFile.transferTo(dst);
-
-        OriginFile originFile = new OriginFile();
-        originFile.setFileName(fileName);
-        String md5 = HashCodeUtil.getHashCode(dst);
-
-        List<OriginFile> originFiles = checkUpload(md5);
-
-        if (checkUpload(HashCodeUtil.getHashCode(dst)).size() >= 1) {
-            return originFiles.get(0);
-        }
-
-        originFile = new OriginFile();
-        originFile.setFileName(fileName);
-        originFile.setMd5(md5);
-        originFile.setSize(tempFile.getSize());
-        originFile.setHardDiskDevice(Collections.singleton(hardDiskDevice));
-        originFile = originFileMapper.save(originFile);
         return originFile;
     }
 
@@ -263,8 +142,9 @@ public class FileServiceImpl implements FilesService {
     }
 
     public Boolean uploadFile(Files data, File file) {
-        List<HardDiskDevice> hardDiskDevices = hardDeviceMapper.findAll();
-        OriginFile originFile = getOriginFile(hardDiskDevices.get(new Random().nextInt(hardDiskDevices.size())), data, file);
+        Type type = Type.getInstance(file.getName());
+        HardDiskDevice dev = hardDeviceMapper.getHardDiskDeviceByRules(type.getType());
+        OriginFile originFile = getOriginFile(dev, data, file);
         if (originFile != null) {
             data.setOriginFile(Collections.singleton(originFile));
             data.setCreateDate(new Date());
@@ -273,22 +153,6 @@ public class FileServiceImpl implements FilesService {
         return data.getFid() != 0;
     }
 
-
-    @Override
-    public Boolean RenameFile(Files files) {
-        return null;
-    }
-
-    @Override
-    public OriginFileDTO getFileByFileName(String FileName) {
-        return new OriginFileDTO(originFileMapper.getOriginFileByFileName(FileName));
-    }
-
-    @Override
-    @Transactional
-    public Boolean deleteFolders(String parentName, String selfName, Long fid, Long uid) {
-        return fileMapper.deleteAllByFidIsOrParentNameIsLikeAndUser(fid, parentName + selfName + "/%", FilesUtil.setUser(uid)) > 0 && this.deleteUserFiles(uid, fid);
-    }
 
     @Override
     public Files findByFid(Long fid) {
@@ -323,12 +187,5 @@ public class FileServiceImpl implements FilesService {
         }
         return target;
     }
-
-    @Override
-    public FilesDTO filesToDTO(Files files) {
-        if (files == null) return null;
-        return new FilesDTO(files);
-    }
-
 
 }

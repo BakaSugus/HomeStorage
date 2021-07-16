@@ -17,7 +17,7 @@ public interface DeleteService {
 
     Boolean restoreFiles(User user, Long... id);//还原文件
 
-    Boolean DeleteFiles(User user, Long... id);//删除文件
+    Boolean DeleteFiles(String driver,User user, String ... id);//删除文件
 
     Boolean DeleteFilesInRecycleBin(User user,Long ... id);
 

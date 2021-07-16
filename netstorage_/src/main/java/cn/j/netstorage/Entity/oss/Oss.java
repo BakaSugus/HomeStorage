@@ -8,6 +8,7 @@ import lombok.ToString;
 import org.springframework.util.StringUtils;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Setter
 @Getter
@@ -31,6 +32,9 @@ public class Oss {
 
     @Column
     private String Region;
+
+    @Column
+    private String backupBucketName;
 
     public Oss encrypt() {
         if (this.user == null) return null;

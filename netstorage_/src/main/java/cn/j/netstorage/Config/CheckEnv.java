@@ -1,180 +1,184 @@
 package cn.j.netstorage.Config;
 
+import cn.j.netstorage.Entity.Config;
+import cn.j.netstorage.Entity.File.Files;
+import cn.j.netstorage.Entity.File.HardDiskDevice;
+import cn.j.netstorage.Entity.Log.LogTemplate;
+import cn.j.netstorage.Entity.Type;
+import cn.j.netstorage.Entity.Usage;
+import cn.j.netstorage.Entity.User.Permission;
+import cn.j.netstorage.Entity.User.Role;
+import cn.j.netstorage.Entity.User.User;
+import cn.j.netstorage.Entity.oss.Oss;
+import cn.j.netstorage.Mapper.PermissionMapper;
+import cn.j.netstorage.Mapper.RoleMapper;
+import cn.j.netstorage.Mapper.UsageMapper;
+import cn.j.netstorage.Service.*;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
+import org.apache.shiro.crypto.hash.Md5Hash;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
 import java.io.*;
-import java.util.List;
-import java.util.Properties;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+import java.util.*;
 
 @Component
 public class CheckEnv implements ApplicationRunner {
 
+    @Autowired
+    Config config;
+
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private HardDeviceService hardDeviceService;
+
+    @Autowired
+    private OssService ossService;
+
+    @Autowired
+    private UploadService uploadService;
+
+    @Autowired
+    private UsageMapper usageMapper;
+
+    @Autowired
+    private FileService2 fileService2;
+
     @Override
     public void run(ApplicationArguments args) throws Exception {
-//        if (args.containsOption("aria2")) {
-//            List<String> list = args.getOptionValues("aria2");
-//            if (!list.isEmpty())
-//                aria2Run(list.get(0));
-//        }
+        boolean device = createDevice();
+        boolean permission = createPermission();
+        boolean user = createAdminUser();
+        boolean oss = createBackUpOss();
     }
 
-    public void aria2Run(String path) {
-//        if (!StringUtils.hasText(path)) return;
-//
-//        File conf = new File(path + "/aria2.conf");
-//        File session = new File(path + "/aria2.session");
-//
-//
-//        if (!conf.exists()) {
-//            try {
-//                Properties props = System.getProperties(); //获得系统属性集
-//                String osName = props.getProperty("os.name");
-//                switch (osName) {
-//                    case "linux":
-//                        writeFiles(conf, String.format(Aria2Conf, "complete.sh"));
-//                        writeFiles(new File(path + "/complete.sh"), this.linux_complete);
-//                        break;
-//                    case "window":
-//                        writeFiles(conf, String.format(Aria2Conf, "complete.bat"));
-//                        writeFiles(new File(path + "/complete.bat"), this.window_complete);
-//                        break;
-//                }
-//                session.createNewFile();
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//        }
-//        System.out.println(conf.getAbsoluteFile());
-//        String cmd = "aria2c --conf-path=" + conf.getAbsolutePath();
-//        try {
-//            Process process = Runtime.getRuntime().exec(cmd);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
+    private boolean createDevice() {
+        return config != null && config.getDevice_path() != null && hardDeviceService.initDevice(config.getDevice_path());
+    }
+
+    public boolean createAdminUser() {
+
+        User user = this.config.getAdmin();
+        if (user == null || StringUtils.isEmpty(user.getEmailAccount())) {
+            return false;
+        }
+        try {
+            user = userService.getUser(this.config.getAdmin().getEmailAccount(), new Md5Hash(this.config.getAdmin().getPassword(), this.config.getAdmin().getEmailAccount(), 1024).toHex());
+            if (user != null) {
+                this.config.setAdmin(user);
+                return true;
+            }
+            user = userService.createAdminUser(config.getAdmin());
+
+            if (user == null || user.getUid() == 0) return false;
+            Files files = fileService2.getFiles("/", "日志", user);
+            boolean res = false;
+            if (files == null || files.getFid() == 0) {
+                res = uploadService.common_upload_Folder(Files.setFolder("/", "日志", user));
+            }
+            uploadService.uploadLog(user, "/日志/", "Start.log", LogTemplate.initLog(user, "管理员账户", "", res, null), false);
+
+        } catch (Exception e) {
+            uploadService.uploadLog(user, "/日志/", "Start.log", LogTemplate.initLog(user, "管理员账户", "", false, e.getMessage()), false);
+
+        }
+
+
+        this.config.setAdmin(user);
+        return true;
+    }
+
+    public boolean createPermission() {
+        String[] p = {"上传", "下载", "插件", "共享", "投屏", "外网访问", "bt下载", "打印", "离线下载"};
+        try {
+            List<Permission> permissions = userService.getAllPermission();
+            if (permissions.size() >= p.length) return true;
+            for (String s : p) {
+                Permission permission = new Permission();
+                permission.setName(s);
+                userService.savePermission(permission);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+        return true;
 
     }
 
-    private void writeFiles(File file, String content) {
-        if (file.exists()) return;
+    public boolean createBackUpOss() {
 
-        byte bytes[] = new byte[512];
-        bytes = content.getBytes();
-        int b = bytes.length;
-        try (FileOutputStream fos = new FileOutputStream(file)) {
-            fos.write(bytes, 0, b);
-            fos.write(bytes);
-            fos.close();
-        } catch (IOException ex) {
-            ex.printStackTrace();
+        User user = this.config.getAdmin();
+        if (user == null || user.getCreateDate() == 0) return false;
+        Oss oss = ossService.get(this.config.getAdmin());
+
+        if (oss == null || StringUtils.isEmpty(oss.getBackupBucketName())) return false;
+
+        if (oss.getSecretId().equals(this.config.getOss().getSecretId()) && oss.getSecretKey().equals(this.config.getOss().getSecretKey())) {
+            this.config.setOss(oss);
+            return true;
+        }
+
+        return ossService.addBackup(this.config.getOss(), this.config.getAdmin());
+    }
+
+    public boolean createEnvData() {
+        try {
+            InetAddress addr;
+            addr = InetAddress.getLocalHost();
+            String ip = addr.getHostAddress();
+            Map<String, String> map = System.getenv();
+            String userName = map.get("USERNAME");// 获取用户名
+            String computerName = map.get("COMPUTERNAME");// 获取计算机名
+            String userDomain = map.get("USERDOMAIN");// 获取计算机域名
+            System.out.println("用户名:" + userName);
+            System.out.println("计算机名:    " + computerName);
+            System.out.println("计算机域名:    " + userDomain);
+            System.out.println("本地ip地址:    " + ip);
+            System.out.println("本地主机名:    " + addr.getHostName());
+            System.out.println("创建时间：" + new Date().toLocaleString());
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        }
+
+        return false;
+    }
+
+    public boolean createUsage() {
+        List<Usage> usages = usageMapper.findAll();
+        if (usages == null || usages.size() == 0) return false;
+        List<String> strings = new ArrayList<>();
+
+        for (Usage usage : usages) {
+            strings.add(usage.getName());
+        }
+
+        List<Usage> list = new LinkedList<>();
+
+        for (Type type : Type.values()) {
+            if (strings.contains(type.getType())) continue;
+            Usage usage = new Usage();
+            usage.setName(type.getType());
+            usage.setSize(0L);
+            list.add(usage);
+        }
+
+        try {
+            usageMapper.saveAll(list);
+            return true;
+        } catch (Exception ex) {
+            return false;
         }
     }
-
-    private final String linux_complete = "";
-    private final String window_complete = "";
-
-
-    private final String Aria2Conf = "## '#'开头为注释内容, 选项都有相应的注释说明, 根据需要修改 ##\n" +
-            "## 被注释的选项填写的是默认值, 建议在需要修改时再取消注释  ##\n" +
-            "\n" +
-            "## 文件保存相关 ##\n" +
-            "\n" +
-            "# 文件的保存路径(可使用绝对路径或相对路径), 默认: 当前启动位置\n" +
-            "dir=Download\n" +
-            "# 启用磁盘缓存, 0为禁用缓存, 需1.16以上版本, 默认:16M\n" +
-            "disk-cache=32M\n" +
-            "# 文件预分配方式, 能有效降低磁盘碎片, 默认:prealloc\n" +
-            "# 预分配所需时间: none < falloc < trunc < prealloc\n" +
-            "# NTFS建议使用falloc\n" +
-            "file-allocation=none\n" +
-            "# 断点续传\n" +
-            "continue=true\n" +
-            "\n" +
-            "## 下载连接相关 ##\n" +
-            "\n" +
-            "# 最大同时下载任务数, 运行时可修改, 默认:5\n" +
-            "max-concurrent-downloads=10\n" +
-            "# 同一服务器连接数, 添加时可指定, 默认:1\n" +
-            "max-connection-per-server=5\n" +
-            "# 最小文件分片大小, 添加时可指定, 取值范围1M -1024M, 默认:20M\n" +
-            "# 假定size=10M, 文件为20MiB 则使用两个来源下载; 文件为15MiB 则使用一个来源下载\n" +
-            "min-split-size=10M\n" +
-            "# 单个任务最大线程数, 添加时可指定, 默认:5\n" +
-            "split=20\n" +
-            "# 整体下载速度限制, 运行时可修改, 默认:0\n" +
-            "#max-overall-download-limit=0\n" +
-            "# 单个任务下载速度限制, 默认:0\n" +
-            "#max-download-limit=0\n" +
-            "# 整体上传速度限制, 运行时可修改, 默认:0\n" +
-            "max-overall-upload-limit=1M\n" +
-            "# 单个任务上传速度限制, 默认:0\n" +
-            "#max-upload-limit=1000\n" +
-            "# 禁用IPv6, 默认:false\n" +
-            "disable-ipv6=false\n" +
-            "\n" +
-            "## 进度保存相关 ##\n" +
-            "\n" +
-            "# 从会话文件中读取下载任务\n" +
-            "input-file=aria2.session\n" +
-            "# 在Aria2退出时保存`错误/未完成`的下载任务到会话文件\n" +
-            "save-session=aria2.session\n" +
-            "# 定时保存会话, 0为退出时才保存, 需1.16.1以上版本, 默认:0\n" +
-            "#save-session-interval=60\n" +
-            "\n" +
-            "## RPC相关设置 ##\n" +
-            "\n" +
-            "# 启用RPC, 默认:false\n" +
-            "enable-rpc=true\n" +
-            "# 允许所有来源, 默认:false\n" +
-            "rpc-allow-origin-all=true\n" +
-            "# 允许非外部访问, 默认:false\n" +
-            "rpc-listen-all=true\n" +
-            "# 事件轮询方式, 取值:[epoll, kqueue, port, poll, select], 不同系统默认值不同\n" +
-            "#event-poll=select\n" +
-            "# RPC监听端口, 端口被占用时可以修改, 默认:6800\n" +
-            "#rpc-listen-port=6800\n" +
-            "# 设置的RPC授权令牌, v1.18.4新增功能, 取代 --rpc-user 和 --rpc-passwd 选项\n" +
-            "#rpc-secret=mivm.cn\n" +
-            "# 设置的RPC访问用户名, 此选项新版已废弃, 建议改用 --rpc-secret 选项\n" +
-            "#rpc-user=<USER>\n" +
-            "# 设置的RPC访问密码, 此选项新版已废弃, 建议改用 --rpc-secret 选项\n" +
-            "#rpc-passwd=<PASSWD>\n" +
-            "\n" +
-            "## BT/PT下载相关 ##\n" +
-            "\n" +
-            "# 当下载的是一个种子(以.torrent结尾)时, 自动开始BT任务, 默认:true\n" +
-            "follow-torrent=true\n" +
-            "# BT监听端口, 当端口被屏蔽时使用, 默认:6881-6999\n" +
-            "listen-port=51413\n" +
-            "# 单个种子最大连接数, 默认:55\n" +
-            "#bt-max-peers=55\n" +
-            "# 打开DHT功能, PT需要禁用, 默认:true\n" +
-            "enable-dht=true\n" +
-            "# 打开IPv6 DHT功能, PT需要禁用\n" +
-            "#enable-dht6=false\n" +
-            "# DHT网络监听端口, 默认:6881-6999\n" +
-            "#dht-listen-port=6881-6999\n" +
-            "# 本地节点查找, PT需要禁用, 默认:false\n" +
-            "#bt-enable-lpd=true\n" +
-            "# 种子交换, PT需要禁用, 默认:true\n" +
-            "enable-peer-exchange=true\n" +
-            "# 每个种子限速, 对少种的PT很有用, 默认:50K\n" +
-            "#bt-request-peer-speed-limit=50K\n" +
-            "# 客户端伪装, PT需要\n" +
-            "peer-id-prefix=-TR2770-\n" +
-            "user-agent=Transmission/2.77\n" +
-            "# 当种子的分享率达到这个数时, 自动停止做种, 0为一直做种, 默认:1.0\n" +
-            "seed-ratio=0.1\n" +
-            "# 强制保存会话, 即使任务已经完成, 默认:false\n" +
-            "# 较新的版本开启后会在任务完成后依然保留.aria2文件\n" +
-            "#force-save=false\n" +
-            "# BT校验相关, 默认:true\n" +
-            "#bt-hash-check-seed=true\n" +
-            "# 继续之前的BT任务时, 无需再次校验, 默认:false\n" +
-            "bt-seed-unverified=true\n" +
-            "# 保存磁力链接元数据为种子文件(.torrent文件), 默认:false\n" +
-            "#bt-save-metadata=true\n" +
-            "on-download-complete=%s";
 }

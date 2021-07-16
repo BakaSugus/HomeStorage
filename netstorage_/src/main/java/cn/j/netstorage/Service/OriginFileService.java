@@ -2,6 +2,7 @@ package cn.j.netstorage.Service;
 
 import cn.j.netstorage.Entity.File.HardDiskDevice;
 import cn.j.netstorage.Entity.File.OriginFile;
+import cn.j.netstorage.Entity.User.User;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -23,4 +24,6 @@ public interface OriginFileService {
     OriginFile originFile(String md5);
 
     boolean deleteOriginFile(List<OriginFile> originFiles);
+
+    int count(String path);
 }

@@ -3,6 +3,7 @@ package cn.j.netstorage.Controller;
 import cn.j.netstorage.Entity.DTO.FilesDTO;
 import cn.j.netstorage.Entity.DTO.OriginFileDTO;
 import cn.j.netstorage.Entity.DTO.UserDTO;
+import cn.j.netstorage.Entity.Driver.Driver;
 import cn.j.netstorage.Entity.File.Files;
 import cn.j.netstorage.Entity.File.OriginFile;
 import cn.j.netstorage.Entity.User.User;
@@ -13,11 +14,14 @@ import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.authz.annotation.RequiresUser;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.net.URL;
 import java.net.URLDecoder;
 import java.util.*;
 import java.util.zip.ZipOutputStream;
@@ -37,16 +41,16 @@ public class FileController {
     private UserService userService;
 
     @Autowired
-    private Aria2Service aria2Service;
-
-    @Autowired
     private DeleteService deleteService;
 
     @Autowired
     private UploadService uploadService;
 
     @Autowired
-    FolderService folderService;
+    private DriverService driverService;
+
+    @Autowired
+    private FolderService folderService;
 
     @PostMapping("/uploadFolder")
     @RequiresUser
@@ -62,39 +66,58 @@ public class FileController {
 
     @GetMapping("/fileList")
     @RequiresUser
-    public ResultBuilder<List<FilesDTO>> getFileList(String parentName, String path) {
-        UserDTO userDTO = null;
+    public ResultBuilder<List<FilesDTO>> getFileList(String parentName, String Driver) {
+        System.out.println(Driver);
         Object object = SecurityUtils.getSubject().getPrincipal();
         if (object == null)
             return new ResultBuilder<>(StatusCode.FALL);
-        userDTO = new UserDTO(userService.getUser(object.toString()));
-        List<FilesDTO> fileList = filesService.UserFile(parentName, userDTO.getUid());
+        List<FilesDTO> fileList = null;
+        User user = (userService.getUser(object.toString()));
+        switch (Driver) {
+            case "Default"://获得没有隐藏过的文件
+                fileList = filesService.UserFile(parentName, user, true);
+                break;
+            case "Default_Hidden"://获得所有文件
+                fileList = filesService.UserFile(parentName, user, false);
+                break;
+            case "Default_Share"://获得所有共享给自己的文件组
+                if ("/".equals(parentName)) {
+                    fileList = folderService.folders(user);
+                } else {
+                    fileList = filesService.UserFile(parentName, user, true);
+                }
+                break;
+            default:
+                fileList = driverService.Driver(Driver, user, parentName);
+        }
+
         return new ResultBuilder<>(fileList, StatusCode.SUCCESS);
     }
 
     @GetMapping("/type")
     @RequiresUser
     public ResultBuilder<List<FilesDTO>> getFileListByType(String type) {
-        UserDTO userDTO = new UserDTO(userService.getUser(SecurityUtils.getSubject().getPrincipal().toString()));
-        List<FilesDTO> fileList = filesService.UserFile(type, userDTO.getUid());
+        User user = (userService.getUser(SecurityUtils.getSubject().getPrincipal().toString()));
+        List<FilesDTO> fileList = filesService.UserFile(type, user, true);
         return new ResultBuilder<>(fileList, StatusCode.SUCCESS);
     }
 
     @DeleteMapping("/delete")
     @RequiresUser
-    public ResultBuilder deleteFileById(Long... id) {
+    public ResultBuilder deleteFileById(String... id) {
         Object object = SecurityUtils.getSubject().getPrincipal();
         if (object == null)
             return new ResultBuilder(StatusCode.FALL);
-        Boolean res = deleteService.DeleteFiles(userService.getUser(object.toString()), id);
+        Boolean res = deleteService.DeleteFiles("Default", userService.getUser(object.toString()), id);
         return new ResultBuilder<>(res, StatusCode.FALL);
     }
 
     @PutMapping("/Rename/{id}")
     @RequiresUser
     public ResultBuilder<Boolean> Rename(@PathVariable("id") Long fid, String targetName) {
-        if (SecurityUtils.getSubject().getPrincipal() != null) {
-            User user = userService.getUser(SecurityUtils.getSubject().getPrincipal().toString());
+        Object obj = SecurityUtils.getSubject().getPrincipal();
+        if (obj != null) {
+            User user = userService.getUser(obj.toString());
             fileService2.RenameFile(user, fid, targetName);
             return new ResultBuilder<>(StatusCode.SUCCESS);
         }
@@ -103,7 +126,12 @@ public class FileController {
 
     @GetMapping("/getFile")
     @RequiresUser
-    public ResultBuilder<OriginFileDTO> Files(@RequestParam String pathName, @RequestParam String fileName) {
+    public ResultBuilder<OriginFileDTO> Files(String driver, @RequestParam String pathName, @RequestParam String fileName) {
+        if (StringUtils.isEmpty(driver))
+            driver = "Default";
+
+        if (StringUtils.isEmpty(pathName) || "null".equals(pathName))
+            pathName = "";
         User user = userService.getUser(SecurityUtils.getSubject().getPrincipal().toString());
         try {
             pathName = URLDecoder.decode(pathName, "UTF-8");
@@ -112,11 +140,32 @@ public class FileController {
             e.printStackTrace();
             return new ResultBuilder<>(StatusCode.REQUEST_PARAM_ERROR);
         }
+        System.out.println(pathName);
+        if (!pathName.equals("") && !pathName.endsWith("/")) {
+            pathName += "/";
+        }
+        OriginFile originFile = null;
+        OriginFileDTO res = null;
+        switch (driver) {
+            case "Default_Hidden":
+                originFile = (filesService.findByParentNameAndAndUserAndAndSelfName(pathName, user, fileName));
+                res = new OriginFileDTO(originFile);
+                break;
+            case "Default_Share":
+                originFile = (filesService.findByParentNameAndAndUserAndAndSelfName(pathName, user, fileName));
+                res = new OriginFileDTO(originFile);
+                break;
+            case "Default":
+                originFile = (filesService.findByParentNameAndAndUserAndAndSelfName(pathName, user, fileName));
+                res = new OriginFileDTO(originFile);
+                break;
+            default:
+                Driver d = driverService.getDriver(driver, user);
+                URL url = driverService.getDriverObjectUrl(d, pathName, fileName, user);
+                res = new OriginFileDTO(url.toString());
+        }
 
-        OriginFile originFile = (filesService.findByParentNameAndAndUserAndAndSelfName(pathName, user, fileName));
-        if (originFile == null)
-            return new ResultBuilder<>(StatusCode.FALL);
-        return new ResultBuilder<>(new OriginFileDTO(originFile), StatusCode.SUCCESS);
+        return new ResultBuilder<>(res, StatusCode.SUCCESS);
     }
 
     @GetMapping("/getFileById")
@@ -141,10 +190,9 @@ public class FileController {
     @PutMapping("/folder")
     @RequiresUser
     @RequiresPermissions(value = "共享")
-    public ResultBuilder<Boolean> shareFolder(Long fid,Long [] folderPermission, String email) {
+    public ResultBuilder<Boolean> shareFolder(Long fid, String email) {
         User user = userService.getUser(email);
-        Boolean result = folderService.shareFolder(fid, folderPermission,user);
-        System.out.println(result);
+        Boolean result = folderService.shareFolder(fid, user);
         return new ResultBuilder<>(result, result ? StatusCode.SUCCESS : StatusCode.FALL);
     }
 
@@ -171,34 +219,20 @@ public class FileController {
         return new ResultBuilder(result ? StatusCode.SUCCESS : StatusCode.FALL);
     }
 
-    @PostMapping("/folder/changePermission")
-    public ResultBuilder changePermission(Long id,Long [] pid){
-        Object obj = SecurityUtils.getSubject().getPrincipal();
-        if (obj == null)
-            return new ResultBuilder(StatusCode.FALL);
-        Boolean res=folderService.changePermission(id,pid,null,userService.getUser(obj.toString()));
-        return new ResultBuilder<>(res,StatusCode.SUCCESS);
-    }
-
-    @GetMapping("/folderPermissions")
-    public ResultBuilder Permissions(){
-        return new ResultBuilder<>(folderService.permissions(),StatusCode.SUCCESS);
-    }
-
     @GetMapping("/MyShareFolder")
-    public ResultBuilder Shares(){
+    public ResultBuilder Shares() {
         Object obj = SecurityUtils.getSubject().getPrincipal();
         if (obj == null)
             return new ResultBuilder(StatusCode.FALL);
-        return new ResultBuilder<>(folderService.MyFolders(userService.getUser(obj.toString())),StatusCode.SUCCESS);
+        return new ResultBuilder<>(folderService.MyFolders(userService.getUser(obj.toString())), StatusCode.SUCCESS);
     }
 
     @GetMapping("/ShareToMe")
-    public ResultBuilder ShareToMe(){
+    public ResultBuilder ShareToMe() {
         Object obj = SecurityUtils.getSubject().getPrincipal();
         if (obj == null)
             return new ResultBuilder(StatusCode.FALL);
-        return new ResultBuilder<>(folderService.ShareToMe(userService.getUser(obj.toString())),StatusCode.SUCCESS);
+        return new ResultBuilder<>(folderService.ShareToMe(userService.getUser(obj.toString())), StatusCode.SUCCESS);
     }
 
     @PostMapping("/download")
@@ -225,4 +259,18 @@ public class FileController {
     }
 
 
+    @GetMapping("/records")
+    public ResultBuilder records(String parentName) {
+        Object obj = SecurityUtils.getSubject().getPrincipal();
+        if (obj == null) {
+            return new ResultBuilder(StatusCode.FALL);
+        }
+        User user = userService.getUser(obj.toString());
+        return new ResultBuilder<>(folderService.getRecords(folderService.folders(user, parentName), user), StatusCode.SUCCESS);
+    }
+
+    @GetMapping("/zip")
+    public ResultBuilder fileTest(Long id) {
+        return new ResultBuilder<>(fileService2.getZipFileList(fileService2.files(id).get(0)), StatusCode.SUCCESS);
+    }
 }

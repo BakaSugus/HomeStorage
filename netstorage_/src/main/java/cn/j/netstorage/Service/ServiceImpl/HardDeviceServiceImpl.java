@@ -1,20 +1,25 @@
 package cn.j.netstorage.Service.ServiceImpl;
 
+import cn.j.netstorage.Entity.Config;
+import cn.j.netstorage.Entity.DTO.HardDeviceDTO;
+import cn.j.netstorage.Entity.Driver.Driver;
 import cn.j.netstorage.Entity.File.HardDiskDevice;
 import cn.j.netstorage.Entity.Type;
 import cn.j.netstorage.Mapper.HardDeviceMapper;
+//import cn.j.netstorage.Mapper.StorageUsageMapper;
+import cn.j.netstorage.Service.DriverService;
 import cn.j.netstorage.Service.HardDeviceService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import java.io.File;
+import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Random;
+import java.util.Map;
 
 @Service
 public class HardDeviceServiceImpl implements HardDeviceService {
@@ -22,7 +27,10 @@ public class HardDeviceServiceImpl implements HardDeviceService {
     @Autowired
     HardDeviceMapper hardDeviceMapper;
 
-    private Type[] typeList = Type.values();
+    @Autowired
+    private DriverService driverService;
+    @Autowired
+    private Config config;
 
     @Override
     public Boolean update(HardDiskDevice hardDiskDevice) {
@@ -50,18 +58,43 @@ public class HardDeviceServiceImpl implements HardDeviceService {
     }
 
     @Override
+    public HardDiskDevice get(String type) {
+        return hardDeviceMapper.getHardDiskDeviceByRules(type);
+    }
+
+    @Override
     public HardDiskDevice get(Type type) {
         return hardDeviceMapper.getHardDiskDeviceByRules(type.getType());
     }
 
     @Override
-    public List<HardDiskDevice> getHardDevices() {
-        return hardDeviceMapper.findAll();
+    public HardDiskDevice getByFolderName(String folderName) {
+        return hardDeviceMapper.findByFolderName(folderName);
+    }
+
+    @Override
+    public HardDiskDevice getByMapper(String mapper) {
+        return null;
+    }
+
+    @Override
+    public List<HardDeviceDTO> getHardDevices() {
+        List<HardDiskDevice> list = hardDeviceMapper.findAll();
+        List<HardDeviceDTO> res = new ArrayList<>();
+        for (HardDiskDevice device : list) {
+            res.add(new HardDeviceDTO(device));
+        }
+
+        List<Driver> drivers = driverService.getAllDriver();
+        for (Driver driver : drivers) {
+            res.add(new HardDeviceDTO(driver));
+        }
+        return res;
     }
 
     @Override
     public List<HashMap<String, String>> getSpace() {
-        List<HardDiskDevice> list = this.getHardDevices();
+        List<HardDiskDevice> list = this.hardDeviceMapper.findAll();
         List<HashMap<String, String>> mapList = new ArrayList<>();
         for (HardDiskDevice hardDiskDevice : list) {
             HashMap<String, String> hashMap = new HashMap<String, String>();
@@ -79,74 +112,94 @@ public class HardDeviceServiceImpl implements HardDeviceService {
         return mapList;
     }
 
+    @Override
+    public Boolean createDevice(String path) {
+        List<HardDiskDevice> hardDiskDevices = this.hardDeviceMapper.findAll();
+        File file = null;
 
-    @Value("${workSpace}")
-    private String workSpace;
+        if (StringUtils.hasText(path))
+            file = new File(path);
+        else
+            file = new File(new File("").getAbsolutePath() + "//WorkSpace");
+        if (!file.exists()) file.mkdirs();
+
+        if (hardDiskDevices != null && hardDiskDevices.size() == Type.values().length) return true;
+
+        for (Type type : Type.values()) {
+            String son_path = new File(file.getAbsolutePath() + "/" + type.getType()).getAbsolutePath();
+            File folder = new File(son_path);
+            if (!folder.exists()) folder.mkdirs();
+            HardDiskDevice device = get(type);
+            if (device == null || device.getId() == 0) {
+                device = new HardDiskDevice();
+                device.setFolderName(son_path);
+                device.setCustomName(type.getType());
+                device.setDeviceName(type.getType());
+                device.setRules(type.getType());
+                hardDeviceMapper.save(device);
+            }
+        }
+        return true;
+    }
 
     @Override
-    public Boolean createDevice() {
-        List<HardDiskDevice> hardDiskDevices = getHardDevices();
-        System.out.println(hardDiskDevices);
-        if (hardDiskDevices == null ||hardDiskDevices.size() == 0) {
-            File file = null;
-            if (StringUtils.hasText(workSpace))
-                file = new File(workSpace);
-            else
-                file = new File(new File("").getAbsolutePath()+"//WorkSpace");
-
-            if (!file.exists()) file.mkdirs();
-
-            for (Type type : Type.values()) {
-                String path = new File(file.getAbsolutePath() + "/" + type.getType()).getAbsolutePath();
-                File folder=new File(path);
-                if (folder.exists()||folder.mkdirs()) {
-                    HardDiskDevice hardDiskDevice = new HardDiskDevice();
-                    hardDiskDevice.setFolderName(path);
-                    hardDiskDevice.setCustomName(type.getType());
-                    hardDiskDevice.setDeviceName(type.getType());
-                    hardDiskDevice.setRules(type.getType());
-                    hardDeviceMapper.save(hardDiskDevice);
-                }
+    public boolean initDevice(HashMap<String, String> map) {
+        boolean res = false;
+        for (Map.Entry<String, String> entry : map.entrySet()) {
+            String key = entry.getKey();
+            String value = entry.getValue();
+            File file = new File(value);
+            if (!file.isDirectory())
+                file = file.getParentFile();
+            if (!file.exists())
+                file.mkdirs();
+            HardDiskDevice device = getByFolderName(file.getAbsolutePath());
+            if (device == null || device.getId() == 0) {
+                device = new HardDiskDevice();
+                device.setFolderName(file.getAbsolutePath());
+                device.setCustomName(key);
+                device.setDeviceName(key);
+                device.setRules(key);
+                hardDeviceMapper.save(device);
+                res = device.getId() != 0;
             }
-        } else {
-            return false;
         }
-
-        return true;
+        return res;
     }
 
     @Override
     public Boolean migrate(Type type, String path) {
+
+        if (StringUtils.isEmpty(path)) return false;
+
         File target = new File(path);
 
-        if (!target.exists())
-            return false;
-        HardDiskDevice hardDiskDevice = hardDeviceMapper.getHardDiskDeviceByRules(type.getType());
+        if (target.exists() | target.mkdirs()) {
+            long free = target.getUsableSpace();
 
-        String originFolder = hardDiskDevice.getFolderName();
-        File file = new File(originFolder);
+            HardDiskDevice hardDiskDevice = hardDeviceMapper.getHardDiskDeviceByRules(type.getType());
 
-        if (!file.exists())
-            return false;
+            String originFolder = hardDiskDevice.getFolderName();
+            File file = new File(originFolder);
 
-        File[] files = file.listFiles();
-//        //计算容量是否能够容纳
-//        Long res=0L;
-//        for (int i = 0; i < files.length; i++) {
-//            res+=files[i].length();
-//        }
-//
-//        if (file.getFreeSpace()<res)
-//            return false;
+            if (!file.exists())
+                return false;
 
-        for (File f : files) {
-            f.renameTo(new File(file.getAbsolutePath() + "/" + f.getName()));
+            long use = file.getTotalSpace() - file.getUsableSpace();
+            if (free < use) return false;
+
+            try {
+                org.apache.commons.io.FileUtils.copyDirectory(file, target);
+                return true;
+            } catch (IOException e) {
+                e.printStackTrace();
+                return false;
+            }
         }
-        return true;
+        return false;
     }
-
+    
     public static long change(long num) {
-        // return num;
         return num / 1024 / 1024 / 1024;
     }
 
@@ -160,4 +213,5 @@ public class HardDeviceServiceImpl implements HardDeviceService {
             return df.format(val1 / val2 * 100) + "%";
         }
     }
+
 }

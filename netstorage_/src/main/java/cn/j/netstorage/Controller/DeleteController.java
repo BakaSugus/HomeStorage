@@ -28,68 +28,73 @@ public class DeleteController {
 
     /**
      * 获得该用户回收站的文件
+     *
      * @return
      */
     @GetMapping("/Deletes")
-    public ResultBuilder deletes(){
-        Object object= SecurityUtils.getSubject().getPrincipal();
-        if (object==null)
+    public ResultBuilder deletes() {
+        Object object = SecurityUtils.getSubject().getPrincipal();
+        if (object == null)
             return new ResultBuilder(StatusCode.FALL);
-        DeleteDTOs deleteDTOs=deleteService.deletes(userService.getUser(object.toString()));
-        return new ResultBuilder(deleteDTOs,StatusCode.SUCCESS);
+        DeleteDTOs deleteDTOs = deleteService.deletes(userService.getUser(object.toString()));
+        return new ResultBuilder(deleteDTOs, StatusCode.SUCCESS);
     }
 
     /**
      * 获得某个回收站文件
+     *
      * @return
      */
     @GetMapping("/DeleteFile")
-    public ResultBuilder delete(Long id){
-        Object object=SecurityUtils.getSubject().getPrincipal();
-        if (object==null)
+    public ResultBuilder delete(Long id) {
+        Object object = SecurityUtils.getSubject().getPrincipal();
+        if (object == null)
             return new ResultBuilder(StatusCode.FALL);
-        DeleteDTOs.DeleteDTO file=deleteService.delete(id,userService.getUser(object.toString()));
+        DeleteDTOs.DeleteDTO file = deleteService.delete(id, userService.getUser(object.toString()));
         return new ResultBuilder(StatusCode.SUCCESS);
     }
 
     /**
      * 删除到回收站
+     *
      * @return
      */
     @PutMapping("/Delete")
-    public ResultBuilder addDelete(Long ... id){
-        Object object=SecurityUtils.getSubject().getPrincipal();
-        if (object==null)
+    public ResultBuilder addDelete(String driver, String ... id) {
+        Object object = SecurityUtils.getSubject().getPrincipal();
+        if (object == null)
             return new ResultBuilder(StatusCode.FALL);
-        Boolean res=deleteService.DeleteFiles(userService.getUser(object.toString()),id);
-        return new ResultBuilder(res,StatusCode.SUCCESS);
+        Boolean res = deleteService.DeleteFiles(driver, userService.getUser(object.toString()), id);
+        return new ResultBuilder<>(res, StatusCode.SUCCESS);
     }
 
     /**
      * 回收站删除该文件
+     *
      * @param id
      * @return
      */
     @DeleteMapping("/Delete")
-    public ResultBuilder deleteInBin(Long  id){
-        Object object=SecurityUtils.getSubject().getPrincipal();
-        if (object==null)
+    public ResultBuilder deleteInBin(Long id) {
+        Object object = SecurityUtils.getSubject().getPrincipal();
+        if (object == null)
             return new ResultBuilder(StatusCode.FALL);
-        deleteService.DeleteFilesInRecycleBin(userService.getUser(object.toString()),id);
+        deleteService.DeleteFilesInRecycleBin(userService.getUser(object.toString()), id);
         return new ResultBuilder(StatusCode.SUCCESS);
     }
 
     /**
      * 回收站还原文件
+     *
      * @param id
      * @return
      */
     @PostMapping("/Restore")
-    public ResultBuilder restore(Long id){
-        Object object=SecurityUtils.getSubject().getPrincipal();
-        if (object==null)
+    public ResultBuilder restore(Long id) {
+        Object object = SecurityUtils.getSubject().getPrincipal();
+        if (object == null)
             return new ResultBuilder(StatusCode.FALL);
-        Boolean res=deleteService.restoreFiles(userService.getUser(object.toString()),id);
-        return new ResultBuilder(res,StatusCode.SUCCESS);
+        Boolean res = deleteService.restoreFiles(userService.getUser(object.toString()), id);
+        return new ResultBuilder(res, StatusCode.SUCCESS);
     }
 }

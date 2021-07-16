@@ -1,5 +1,6 @@
 package cn.j.netstorage.Controller;
 
+import cn.j.netstorage.Entity.Config;
 import cn.j.netstorage.Entity.User.User;
 import cn.j.netstorage.Service.OssService;
 import cn.j.netstorage.Service.UploadService;
@@ -11,6 +12,7 @@ import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -30,6 +32,8 @@ public class UploadController {
 
     @Autowired
     UserService userService;
+    @Autowired
+    private Config config;
 
     @PostMapping("/uploadSlice")
     @RequiresPermissions("上传")
@@ -61,23 +65,40 @@ public class UploadController {
         return null;
     }
 
-    @PostMapping("/transferDiskFiles")
-    public ResultBuilder transferExistFiles(@RequestBody TreeMap<String, Object> treeMap) {
-//        首先转移文件 然后添加原始文件 然后插入文件数据库
-        if (treeMap.get("filePath") != null) {
+    @PostMapping("getMapperPath")
+    public ResultBuilder getMapperPath(String token, String projectName) {
+        String filePath = uploadService.getAutoUploadPath(token, projectName, true);
+        if (StringUtils.isEmpty(filePath)) return new ResultBuilder(StatusCode.FALL);
+        return new ResultBuilder<>(filePath, StatusCode.SUCCESS);
+    }
 
-        }
+
+    @PostMapping("/uploadMerge")
+    public ResultBuilder Merge(String driver, int size, String fileName, String parentName) {
+        Object object = SecurityUtils.getSubject().getPrincipal();
+        if (object == null)
+            return new ResultBuilder(StatusCode.FALL);
+        User user = userService.getUser(object.toString());
+
+        System.out.println((size) + "\t" + fileName + "\t" + parentName);
+        Thread runnable =new Thread(new Runnable() {
+            @Override
+            public void run() {
+                boolean res = uploadService.merge_upload(driver,fileName, null, parentName, 1, size, user);
+            }
+        });
+        runnable.start();
         return new ResultBuilder(StatusCode.SUCCESS);
     }
 
     @Autowired
     private OssService ossService;
 
-    @PostMapping()
+    @PostMapping("/Oss/Upload")
     public ResultBuilder OssUpload(String name, Long id) {
         Object object = SecurityUtils.getSubject().getPrincipal();
         if (object == null)
             return new ResultBuilder<>(StatusCode.FALL);
-        return new ResultBuilder<>(ossService.upload(userService.getUser(object.toString()),name,id),StatusCode.SUCCESS);
+        return new ResultBuilder<>(ossService.upload(userService.getUser(object.toString()), name, id), StatusCode.SUCCESS);
     }
 }

@@ -5,6 +5,7 @@ import cn.j.netstorage.Entity.User.User;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.apache.shiro.crypto.hash.Md5Hash;
 
 import javax.persistence.*;
 import java.util.List;
@@ -16,6 +17,7 @@ import java.util.Set;
 @Entity
 @Table(name = "t_folder")
 public class Folder {
+
     @Id
     @GeneratedValue
     private Long id;
@@ -29,10 +31,22 @@ public class Folder {
     @ManyToOne
     private User originUser;
 
-    @ManyToOne
-    private User shareUser;
+    @ManyToMany(fetch = FetchType.EAGER)
+    private Set<User> shareUser;
 
-    @ManyToMany
-    private Set<FolderPermission> permissions;
+    @Column
+    private boolean filing;
+
+    @Column
+    private boolean share;
+
+    @Column
+    private boolean inherit;
+
+    public String getParent(){
+        String fullName = getFolderName();
+        int count = fullName.lastIndexOf("/");
+        return fullName.substring(0,count);
+    }
 
 }

@@ -4,15 +4,21 @@ import cn.j.netstorage.Entity.File.Files;
 import cn.j.netstorage.Entity.File.OriginFile;
 import cn.j.netstorage.Entity.User.User;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
 
 public interface FileMapper extends JpaRepository<Files, Long> {
 
-    List<Files> findAllByParentNameAndUser_uidAndType(String parentName, long uid, String type);
+    List<Files> findAllByParentNameAndUserAndType(String parentName, User user, String type);
 
-    List<Files> findAllByParentNameAndUser_uidAndTypeNot(String parentName, long uid, String type);
+    List<Files> findAllByParentNameAndUserAndTypeNot(String parentName, User user, String type);
+
+
+    List<Files> findAllByParentNameAndUserAndTypeAndVisible(String parentName, User user, String type, boolean Visible);
+
+    List<Files> findAllByParentNameAndUserAndTypeNotAndVisible(String parentName, User user, String type, boolean Visible);
 
     Files findByParentNameAndUserAndSelfName(String parentName, User user, String selfName);
 
@@ -32,6 +38,6 @@ public interface FileMapper extends JpaRepository<Files, Long> {
 
     int countAllByOriginFile(OriginFile originFile);
 
-    Files findAllByUserAndOriginFile(User user,OriginFile originFile);
+    Files findAllByUserAndOriginFile(User user, OriginFile originFile);
 
 }

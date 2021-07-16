@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -50,7 +51,7 @@ public class MusicsDTO extends BaseDTO {
         }
         public MusicDTO(Files files){
 
-            Set<OriginFile> originFile=files.getOriginFile();
+            Set<OriginFile> originFile= Collections.singleton(files.getOriginFile());
             if (originFile==null||originFile.size()<1){
                 return;
             }

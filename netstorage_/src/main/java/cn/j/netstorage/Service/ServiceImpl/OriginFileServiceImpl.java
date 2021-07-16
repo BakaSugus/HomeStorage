@@ -7,6 +7,7 @@ import cn.j.netstorage.Service.OriginFileService;
 import cn.j.netstorage.tool.HashCodeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -43,6 +44,11 @@ public class OriginFileServiceImpl implements OriginFileService {
 
     @Override
     public OriginFile originFile(File file, HardDiskDevice hardDiskDevice) throws IOException {
+        boolean res = file.exists();
+        if (!res) {
+            res = file.createNewFile();
+        }
+        if (!res) return null;
         String fileName = file.getName();
         OriginFile originFile = new OriginFile();
         originFile.setHardDiskDevice(Collections.singleton(hardDiskDevice));
@@ -70,4 +76,11 @@ public class OriginFileServiceImpl implements OriginFileService {
         }
         return true;
     }
+
+    @Override
+    public int count(String path) {
+        if (StringUtils.isEmpty(path)) return -1;
+        return originFileMapper.countAllByFileName(path);
+    }
+
 }

@@ -5,6 +5,7 @@ import cn.j.netstorage.Entity.File.Files;
 import cn.j.netstorage.Entity.File.OriginFile;
 import cn.j.netstorage.Entity.Folder.Folder;
 import cn.j.netstorage.Entity.User.User;
+import cn.j.netstorage.Entity.VisitRecord;
 
 import java.util.List;
 import java.util.zip.ZipOutputStream;
@@ -44,9 +45,9 @@ public interface FileService2 {
 //
 //    Folder getFolder(User user, String FolderName);
 
-    Boolean RenameFile(User user, Long fid, String targetName);
+    Boolean RenameFile(User user, long fid, String targetName);
 
-    Boolean moveFiles(User user, Long fid, Long targetFid);
+    Boolean moveFiles(User user, long fid, long targetFid);
 
     void zip(ZipOutputStream zipOutputStream, User user, Long... fid);
 
@@ -56,4 +57,9 @@ public interface FileService2 {
 
     Files getFiles(String path,String selfName,User user);
 
+    boolean saveRecord(VisitRecord visitRecord);
+
+    String checkName(String storagePath,String OriginalFilename,User user);
+
+    List<String> getZipFileList(Files files);
 }

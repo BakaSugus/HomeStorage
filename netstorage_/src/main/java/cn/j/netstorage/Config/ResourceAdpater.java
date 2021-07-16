@@ -1,5 +1,7 @@
 package cn.j.netstorage.Config;
 
+import cn.j.netstorage.Entity.Config;
+import cn.j.netstorage.Entity.File.HardDiskDevice;
 import cn.j.netstorage.Mapper.HardDeviceMapper;
 import cn.j.netstorage.Service.HardDeviceService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Component
@@ -24,10 +28,11 @@ public class ResourceAdpater implements WebMvcConfigurer {
     @Autowired
     private HardDeviceService hardDeviceService;
 
+    @Autowired
+    Config config;
+
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-
-
         //检测内外网
         registry.addInterceptor(new HandlerInterceptor() {
             @Override
@@ -53,10 +58,8 @@ public class ResourceAdpater implements WebMvcConfigurer {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-
-        System.out.println(hardDeviceService.createDevice());
-
-        hardDeviceMapper.findAll().forEach((value) -> {
+        List<HardDiskDevice> list =hardDeviceMapper.findAll();
+        list.forEach((value) -> {
             registry.addResourceHandler(String.format("%s/**", value.getCustomName())).addResourceLocations(String.format("file:%s/", value.getFolderName()));
         });
     }

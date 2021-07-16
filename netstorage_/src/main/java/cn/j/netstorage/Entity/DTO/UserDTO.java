@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 
 @Setter
@@ -17,6 +18,7 @@ public class UserDTO {
     private String name;
     private String email;
     private List<String> roleName;
+
 
     public UserDTO() {
 
@@ -43,6 +45,7 @@ public class UserDTO {
 
 
     public UserDTO(User user) {
+        System.out.println(user);
         this.uid = user.getUid();
         this.email = user.getEmailAccount();
         List<String> strings=new ArrayList<>();

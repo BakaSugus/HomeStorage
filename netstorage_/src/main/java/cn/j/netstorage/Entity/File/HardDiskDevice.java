@@ -28,9 +28,12 @@ public class HardDiskDevice {
     @Column
     String rules;
 
+    @Column
+    String type = "Default";
 
-    public File get(){
+    public File get() {
         return new File(folderName);
     }
+
 
 }

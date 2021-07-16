@@ -24,6 +24,7 @@ import java.util.concurrent.TimeUnit;
 
 @Service
 public class Aria2ServiceImpl implements Aria2Service {
+
     @Autowired
     private AriaMapper ariaMapper;
     @Autowired

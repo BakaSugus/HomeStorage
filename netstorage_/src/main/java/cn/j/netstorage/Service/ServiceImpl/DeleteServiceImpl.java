@@ -8,10 +8,7 @@ import cn.j.netstorage.Entity.Type;
 import cn.j.netstorage.Entity.User.User;
 import cn.j.netstorage.Mapper.DeleteMapper;
 import cn.j.netstorage.Mapper.FileMapper;
-import cn.j.netstorage.Service.DeleteService;
-import cn.j.netstorage.Service.FileService2;
-import cn.j.netstorage.Service.FilesService;
-import cn.j.netstorage.Service.OriginFileService;
+import cn.j.netstorage.Service.*;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,6 +31,10 @@ public class DeleteServiceImpl implements DeleteService {
 
     @Autowired
     private OriginFileService originFileService;
+
+
+    @Autowired
+    private DriverService driverService;
 
     @Override
     public DeleteDTOs deletes(User user) {
@@ -65,6 +66,7 @@ public class DeleteServiceImpl implements DeleteService {
 
     @Override
     public Boolean DeleteFolders(User user, @NonNull Long... id) {
+
         return null;
     }
 
@@ -89,12 +91,26 @@ public class DeleteServiceImpl implements DeleteService {
     }
 
     @Override
-    public Boolean DeleteFiles(User user, @NonNull Long... id) {
+    public Boolean DeleteFiles(String driver, User user, @NonNull String ... id) {
         List<Files> files = null;
+        switch (driver) {
+
+            case "Default_Hidden":
+                break;
+            case "Default_Share":
+                break;
+            case "Default":
+                break;
+            default:return driverService.delete(driver,id,user);
+        }
         if (id.length == 0) {
             return false;
         } else {
-            files = fileService2.files(id);
+            Long [] ids = new Long[id.length];
+            for (int i = 0; i < id.length; i++) {
+                ids[i]=Long.valueOf(id[i]);
+            }
+            files = fileService2.files(ids);
             fileService2.del(files);
             List<DeleteFile> deleteFiles = new ArrayList<>();
             for (Files file : files) {

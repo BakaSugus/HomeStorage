@@ -14,30 +14,30 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequiresUser
 public class PageController {
 
-    @GetMapping("/storage")
-
-    public String indexAliases() {
-        return "index.html";
-    }
-
-    @GetMapping("/User/login")
-    public String login() {
-        return "index.html";
-    }
-
-    @GetMapping("/User/register")
-    public String register() {
-        return "index.html";
-    }
-
-    @GetMapping("/video")
-    public String video() {
-        return "index.html";
-    }
-
-    @GetMapping("/storage/Admin")
-    @RequiresRoles("admin")
-    public String admin() {
-        return "index.html";
-    }
+//    @GetMapping("/storage")
+//
+//    public String indexAliases() {
+//        return "index.html";
+//    }
+//
+//    @GetMapping("/User/login")
+//    public String login() {
+//        return "index.html";
+//    }
+//
+//    @GetMapping("/User/register")
+//    public String register() {
+//        return "index.html";
+//    }
+//
+//    @GetMapping("/video")
+//    public String video() {
+//        return "index.html";
+//    }
+//
+//    @GetMapping("/storage/Admin")
+//    @RequiresRoles("admin")
+//    public String admin() {
+//        return "index.html";
+//    }
 }

@@ -1,6 +1,7 @@
 package cn.j.netstorage.Service.ServiceImpl;
 
 import cn.j.netstorage.Entity.DTO.FilesDTO;
+import cn.j.netstorage.Entity.Driver.Driver;
 import cn.j.netstorage.Entity.File.Files;
 import cn.j.netstorage.Entity.File.OriginFile;
 import cn.j.netstorage.Entity.Folder.Folder;
@@ -10,16 +11,19 @@ import cn.j.netstorage.Entity.VisitRecord;
 import cn.j.netstorage.Mapper.FileMapper;
 import cn.j.netstorage.Mapper.FolderMapper;
 import cn.j.netstorage.Mapper.RecordMapper;
+import cn.j.netstorage.Service.DriverService;
 import cn.j.netstorage.Service.FileService2;
 import cn.j.netstorage.Service.FolderService;
 import cn.j.netstorage.Service.UserService;
 import cn.j.netstorage.tool.FilesUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.io.*;
 import java.util.*;
 import java.util.zip.ZipEntry;
+import java.util.zip.ZipFile;
 import java.util.zip.ZipOutputStream;
 
 @Service
@@ -35,7 +39,11 @@ public class FilesServiceImpl implements FileService2 {
     FolderMapper folderMapper;
     @Autowired
     FolderService folderService;
+    @Autowired
+    private RecordMapper recordMapper;
 
+    @Autowired
+    DriverService driverService;
 
     @Override
     public Boolean save(Files files) {
@@ -71,8 +79,8 @@ public class FilesServiceImpl implements FileService2 {
     }
 
     @Override
-    public List<Files> get(String path, String name, User user){
-        return fileMapper.findAllBySelfNameAndUserAndParentName(name,user,path);
+    public List<Files> get(String path, String name, User user) {
+        return fileMapper.findAllBySelfNameAndUserAndParentName(name, user, path);
     }
 
     @Override
@@ -134,10 +142,8 @@ public class FilesServiceImpl implements FileService2 {
         return true;
     }
 
-
-
     @Override
-    public Boolean RenameFile(User user, Long fid, String targetName) {
+    public Boolean RenameFile(User user, long fid, String targetName) {
         List<Files> filesList = files(fid);
         Files files = null;
         if (filesList == null || filesList.size() < 1) {
@@ -150,13 +156,12 @@ public class FilesServiceImpl implements FileService2 {
     }
 
     @Override
-    public Boolean moveFiles(User user, Long fid, Long targetFid) {
-        Files targetFiles = fileMapper.findById(targetFid).get();
-        if (targetFiles == null || targetFiles.getType().equals(Type.Folder.getType())) {
-            return false;
-        }
-        String parentName = targetFiles.getParentName() + targetFiles.getSelfName() + "/";
+    public Boolean moveFiles(User user, long fid, long targetFid) {
+        Folder folder = folderService.folder(targetFid);
+        if (folder == null) return false;
+        String parentName = folder.getFolderName();
         Files file = fileMapper.findById(fid).get();
+        if (file == null || file.getFid() == 0) return false;
         file.setParentName(parentName);
         return save(file);
     }
@@ -171,7 +176,7 @@ public class FilesServiceImpl implements FileService2 {
                     //是文件夹
                     zipEntry(f.getParentName() + f.getSelfName() + "/", f, zipOutputStream);
                 } else {
-                    List<OriginFile> originFiles = new ArrayList<>(f.getOriginFile());
+                    List<OriginFile> originFiles = Collections.singletonList((f.getOriginFile()));
                     File file = new File(originFiles.get(originFiles.size() - 1).getPath());
                     FileInputStream fis = new FileInputStream(file);
 
@@ -196,22 +201,33 @@ public class FilesServiceImpl implements FileService2 {
         return;
     }
 
-    @Autowired
-    RecordMapper recordMapper;
 
     @Override
     public boolean addVisitRecord(User user, Files files) {
-        VisitRecord record = new VisitRecord();
-        record.setFiles(files);
-        record.setTime(System.currentTimeMillis());
-        record.setType(files.getType());
-        record.setUser(user);
-        return recordMapper.save(record).getId() != 0;
+        return false;
     }
 
     @Override
     public Files getFiles(String path, String selfName, User user) {
-        return fileMapper.findAllBySelfNameAndUserAndParentName(selfName,user,path).get(0);
+        List<Files> files = fileMapper.findAllBySelfNameAndUserAndParentName(selfName, user, path);
+        if (files == null || files.size() == 0) return null;
+        return files.get(0);
+    }
+
+    @Override
+    public boolean saveRecord(VisitRecord visitRecord) {
+        return recordMapper.save(visitRecord).getId() != 0;
+    }
+
+    @Override
+    public String checkName(String storagePath, String OriginalFilename, User user) {
+        int count = checkFilesCount(storagePath, OriginalFilename, user);
+        String finalName = String.format("%s%s%s",
+                OriginalFilename.substring(0, OriginalFilename.lastIndexOf(".")),
+                count == 0 ? "" : "(" + count + ")",
+                OriginalFilename.substring(OriginalFilename.lastIndexOf("."))
+        );
+        return finalName;
     }
 
     public void zipEntry(String location, Files files, ZipOutputStream zipOutputStream) {
@@ -226,9 +242,8 @@ public class FilesServiceImpl implements FileService2 {
             if (f.getType().equals(Type.Folder.getType())) {
                 continue;
             }
-            List<OriginFile> originFiles = new ArrayList<>(f.getOriginFile());
-            try (
-                    FileInputStream fis = new FileInputStream(new File(originFiles.get(originFiles.size() - 1).getPath()).getAbsolutePath());) {
+            List<OriginFile> originFiles = Collections.singletonList(f.getOriginFile());
+            try (FileInputStream fis = new FileInputStream(new File(originFiles.get(originFiles.size() - 1).getPath()).getAbsolutePath());) {
                 String name = f.getParentName() + f.getSelfName();
                 ZipEntry zipEntry = new ZipEntry("/" + name.replace(location, ""));
                 zipOutputStream.putNextEntry(zipEntry);
@@ -242,5 +257,36 @@ public class FilesServiceImpl implements FileService2 {
                 ex.printStackTrace();
             }
         }
+    }
+
+    public HashMap<String, String> getOriginFileAttruite(Files files) {
+        OriginFile originFile = files.getOriginFile();
+        if (originFile == null)
+            return new HashMap<>();
+        String type = files.getType();
+        return new HashMap<>();
+    }
+
+    public List<String> getZipFileList(Files files) {
+        OriginFile originFile = files.getOriginFile();
+        String filePath = "C:\\Users\\Shinelon\\Downloads\\新建文件夹 (2).zip";
+        List<String> list = new ArrayList<>();
+        if (filePath == null || StringUtils.isEmpty(filePath) || !filePath.endsWith(".zip"))
+            return list;
+
+        try {
+            ZipFile zfile = new ZipFile(filePath);
+            Enumeration zList = zfile.entries();
+            ZipEntry ze = null;
+            while (zList.hasMoreElements()) {
+                ze = (ZipEntry) zList.nextElement();
+                list.add(ze.getName());
+            }
+            zfile.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return list;
+        }
+        return list;
     }
 }

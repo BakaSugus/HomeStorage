@@ -51,7 +51,7 @@ public class DlnaController {
 
             Files files = filesService.findByFid(Long.valueOf(fid));
             hashMap.put("type", "Upnp");
-            OriginFile originFile = FilesUtil.convert(files.getOriginFile());
+            OriginFile originFile = files.getOriginFile();
             HardDiskDevice hardDiskDevice = FilesUtil.convert(originFile.getHardDiskDevice());
             String uri = "http://" +
                     ip +

@@ -46,8 +46,8 @@ public class DeleteFile {
     public DeleteFile(){}
 
     public DeleteFile(Files files) {
-        if (files.getOriginFile()!=null&&files.getOriginFile().size()!=0){
-            OriginFile originFile=files.getOriginFile().iterator().next();
+        if (files.getOriginFile()!=null&&files.getOriginFile().getOid()!=0){
+            OriginFile originFile=files.getOriginFile();
             this.user = files.getUser().get(0);
             this.date = System.currentTimeMillis();
             this.originDiskFileName = files.getSelfName();

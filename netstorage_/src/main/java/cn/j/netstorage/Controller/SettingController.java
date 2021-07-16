@@ -34,34 +34,14 @@ public class SettingController {
 
     @GetMapping("DiskStatus")
     @RequiresRoles(value = {"admin"})
-    public ResultBuilder<List<HardDiskDevice>> hardDiskDeviceResultBuilder() {
+    public ResultBuilder hardDiskDeviceResultBuilder() {
         return new ResultBuilder<>(hardDeviceService.getHardDevices(), StatusCode.SUCCESS);
     }
 
     @GetMapping("/hard_Devices")
     @RequiresRoles(value = {"admin"})
-    public ResultBuilder<List<HardDiskDevice>> hardDiskDevices() {
+    public ResultBuilder hardDiskDevices() {
         return new ResultBuilder<>(hardDeviceService.getHardDevices(), StatusCode.SUCCESS);
-    }
-
-    @PostMapping("/insertHardDevices")
-    @RequiresRoles(value = {"admin"})
-    public ResultBuilder<Boolean> hardDiskDevices(@RequestBody HardDiskDevice hardDiskDevice) {
-        return new ResultBuilder<>(hardDeviceService.add(hardDiskDevice), StatusCode.SUCCESS);
-    }
-
-    @PostMapping("/deleteHardDevice")
-    @RequiresRoles(value = {"admin"})
-    public ResultBuilder<Boolean> hardDiskDevices(String id) {
-        HardDiskDevice hardDiskDevice = new HardDiskDevice();
-        hardDiskDevice.setId(Long.valueOf(id));
-        return new ResultBuilder<>(hardDeviceService.del(hardDiskDevice), StatusCode.SUCCESS);
-    }
-
-    @GetMapping("/PatternData")
-    @RequiresRoles(value = {"admin"})
-    public ResultBuilder<List<HashMap<String,String>>> PatternData(){
-        return new ResultBuilder<>(hardDeviceService.getSpace(), StatusCode.SUCCESS);
     }
 
     @GetMapping("/users")
@@ -117,7 +97,7 @@ public class SettingController {
     public ResultBuilder updatePermission(@RequestBody TreeMap<String,Object> map){
         Long id=Long.valueOf(map.get("id").toString());
         ArrayList<Integer> objects= (ArrayList<Integer>) map.get("permissions");
-        return new ResultBuilder(userService.changePermission(id,objects),StatusCode.SUCCESS);
+        return new ResultBuilder<>(userService.changePermission(id,objects),StatusCode.SUCCESS);
     }
     @GetMapping("/getRoles")
     @RequiresRoles(value = {"admin"})
@@ -137,7 +117,4 @@ public class SettingController {
     public ResultBuilder<Boolean> Roles(@RequestBody Role role) {
         return new ResultBuilder<>(userService.AlterRole(role), StatusCode.SUCCESS);
     }
-
-    @Value("${ip}")
-    private String ip;
 }

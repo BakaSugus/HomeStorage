@@ -8,6 +8,7 @@ import cn.j.netstorage.Service.UserService;
 import cn.j.netstorage.tool.ResultBuilder;
 import cn.j.netstorage.tool.StatusCode;
 
+import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -41,5 +42,6 @@ public class HelloController {
         User user = new User();
         return new ResultBuilder<>(userService.Register(user), StatusCode.SUCCESS);
     }
+
 
 }

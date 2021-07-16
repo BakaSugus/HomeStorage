@@ -12,5 +12,6 @@ public interface RoleService {
 
     Boolean updateUserRole();
 
+    Role role(String roleName);
 
 }

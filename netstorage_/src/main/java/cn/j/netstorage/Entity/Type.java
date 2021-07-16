@@ -13,8 +13,11 @@ public enum Type {
     Common("Common"),
     Torrent("Torrent"),
     Software("Software"),
-    AndroidSoftware("AndroidSoftware");
-
+    AndroidSoftware("AndroidSoftware"),
+    AutoImport("AutoImport"),
+    RAR("RAR"),
+    Setting("Set"),
+    Temp("Temp");
     String type;
 
     public String getType() {
@@ -25,22 +28,25 @@ public enum Type {
         this.type = type;
     }
 
+    static String[] music = {".mp3", ".ape", ".flac", ".ogg", ".acc"};
+    static String[] video = {".mp4", ".mkv", ".avi", ".rmvb", ".flv", ".f4v", ".m4s"};
+    static String[] doc = {".doc", ".docx", ".xls", ".xlsx", ".ppt", ".pptx"};
+    static String[] picture = {".gif", ".jpg", ".jpeg", ".png", ".tif", ".tiff", ".bmp", ".svg"};
+    static String[] pdf = {".pdf"};
+    static String[] common = {".txt", ".log",".java", ".xml", ".md", ".py", ".php", ".html", ".js", ".vue", ".sql", ".config", ".properties", ".ini"};
+    static String[] torrent = {".torrent"};
+    static String[] PCSoftware = {".exe", ".msi"};
+    static String[] androidSoftware = {".apk"};
+    static String[] rar = {".zip",".rar"};
+
     public static Type getInstance(String ext) {
         int index=ext.lastIndexOf(".");
         if (index==-1){
-            return Other;
+            return Common;
         }
         ext = ext.substring(index);
         ext = ext.toLowerCase();
-        String[] music = {".mp3", ".ape", ".flac", ".ogg", ".acc"};
-        String[] video = {".mp4", ".mkv", ".avi", ".rmvb", ".flv", ".f4v", ".m4s"};
-        String[] doc = {".doc", ".docx", ".xls", ".xlsx", ".ppt", ".pptx"};
-        String[] picture = {".gif", ".jpg", ".jpeg", ".png", ".tif", ".tiff", ".bmp", ".svg"};
-        String[] pdf = {".pdf"};
-        String[] common = {".txt", ".java", ".xml", ".md", ".py", ".php", ".html", ".js", ".vue", ".sql", ".config", ".properties", ".ini"};
-        String[] torrent = {".torrent"};
-        String[] PCSoftware = {".exe", ".msi"};
-        String[] androidSoftware = {".apk"};
+
 
         if (Arrays.asList(music).contains(ext))
             return Music;
@@ -69,6 +75,8 @@ public enum Type {
         if (Arrays.asList(androidSoftware).contains(ext))
             return AndroidSoftware;
 
+        if (Arrays.asList(rar).contains(ext))
+            return RAR;
         return Other;
     }
 

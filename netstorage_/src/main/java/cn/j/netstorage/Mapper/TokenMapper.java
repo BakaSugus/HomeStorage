@@ -1,6 +1,6 @@
 package cn.j.netstorage.Mapper;
 
-import cn.j.netstorage.Entity.Token;
+import cn.j.netstorage.Entity.User.Token;
 import cn.j.netstorage.Entity.User.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 

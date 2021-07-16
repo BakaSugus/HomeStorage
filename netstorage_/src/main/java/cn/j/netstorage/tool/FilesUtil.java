@@ -18,6 +18,14 @@ public class FilesUtil {
         return parent;
     }
 
+    public static String appendFolderName(String ... args){
+        StringBuilder sb=new StringBuilder();
+        for (String arg : args) {
+            sb.append(arg).append("/");
+        }
+        return sb.toString();
+    }
+
     public static String[] getFileNameAndExt(String fileName) {
         String[] strings = new String[3];
         strings[0] = "false";

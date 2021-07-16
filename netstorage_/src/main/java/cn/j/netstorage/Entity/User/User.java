@@ -14,25 +14,36 @@ import java.util.Set;
 @Setter
 @Getter
 @ToString
-@Table(name = "t_user",uniqueConstraints = {@UniqueConstraint(columnNames="email")})
+@Table(name = "t_user", uniqueConstraints = {@UniqueConstraint(columnNames = "email")})
 public class User {
 
     @Id
     @GeneratedValue
     private long uid;
+
     @Column(name = "email", nullable = false)
     private String emailAccount;
+
     @Column(name = "nickName", nullable = false, length = 20)
     private String nickName;
-    @Column(name = "password", nullable = false,length = 255)
+
+    @Column(name = "password", nullable = false, length = 255)
     private String password;
+
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "role")
     private Set<Role> role;
     @Column(name = "createDate", nullable = false)
     private Long createDate;
 
-    public void Md5Hash(){
-        this.password=new Md5Hash(this.password, emailAccount, 1024).toHex();
+//    @Column
+//    private boolean status;
+
+    @Column
+    private String token;
+
+
+    public void Md5Hash() {
+        this.password = new Md5Hash(this.password, emailAccount, 1024).toHex();
     }
 }
