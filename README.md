@@ -36,11 +36,11 @@
 - [ ] 文件属性预览
 ***
 # 截图
-![image](https://github.com/BakaSugus/HomeStorage/blob/main/Picture/首页.jpg)
+![image](https://github.com/BakaSugus/HomeStorage/blob/main/Picture/本地存储.jpg)
 
-![image](https://github.com/BakaSugus/HomeStorage/blob/main/Picture/存储位置.jpg)
+![image](https://github.com/BakaSugus/HomeStorage/blob/main/Picture/Cos.jpg)
 
-![image](https://github.com/BakaSugus/HomeStorage/blob/main/Picture/QQ%E6%88%AA%E5%9B%BE20210305001250.jpg)
+![image](https://github.com/BakaSugus/HomeStorage/blob/main/Picture/存储驱动器.jpg)
 
 ***
 # 使用
