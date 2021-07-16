@@ -1,11 +1,12 @@
 package cn.j.netstorage.Service;
 
+import cn.j.netstorage.Entity.File.Files;
 import cn.j.netstorage.Entity.Folder.Folder;
 
 public interface FFmpegService {
 
-    boolean convertVideo(String fullName,String targetExt);
+    boolean convertVideo(Files files);
 
-    boolean splitMusic(String fullName, String parentPath);
+    boolean splitMusic(Files files);
 
 }

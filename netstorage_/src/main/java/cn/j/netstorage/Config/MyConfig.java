@@ -81,40 +81,39 @@ public class MyConfig {
     }
 
     public Oss getBackUpOss(JsonObject content) {
-        if (!has(content, Config.BACKUP_OSS)) return null;
 
-        JsonObject oss = content.getAsJsonObject(Config.BACKUP_OSS);
-
-        String region = oss.get("region").getAsString();
-        String id = oss.get("id").getAsString();
-        String key = oss.get("key").getAsString();
-
-        Oss oss1 = new Oss();
-        oss1.setRegion(region);
-        oss1.setSecretId(id);
-        oss1.setSecretKey(key);
-        return oss1;
+        return null;
     }
 
-    public HashMap<String,String> getDevice(JsonObject content) {
-        if (!has(content, Config.DEVICE)) return null;
-        JsonObject json = content.get(Config.DEVICE).getAsJsonObject();
+    public HashMap<String, String> getDevice(JsonObject content) {
+        JsonObject json = null;
+        if (has(content, Config.DEVICE)) {
+            json = content.get(Config.DEVICE).getAsJsonObject();
+        }
+
         HashMap<String, String> map = new HashMap<>();
         Type[] list = Type.values();
         for (Type type : list) {
-            if (json.has(type.getType())) {
+            if (json!=null&&json.has(type.getType())) {
                 map.put(type.getType(), json.get(type.getType()).getAsString());
             } else {
-                map.put(type.getType(), new File("").getAbsolutePath());
+                map.put(type.getType(), new File("").getAbsolutePath()+"\\WorkSpace\\"+type.getType());
             }
         }
+
         return map;
     }
-
 
     public int Size(JsonObject content) {
         if (!has(content, Config.MAXSIZE)) return -1;
 
         return content.getAsJsonObject(Config.MAXSIZE).getAsInt();
+    }
+
+    public boolean auto_convert(JsonObject content) {
+        if (content.has("auto_convert")) {
+            return content.get("auto_convert").getAsBoolean();
+        }
+        return false;
     }
 }

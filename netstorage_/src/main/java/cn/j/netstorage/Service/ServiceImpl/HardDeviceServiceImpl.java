@@ -29,8 +29,6 @@ public class HardDeviceServiceImpl implements HardDeviceService {
 
     @Autowired
     private DriverService driverService;
-    @Autowired
-    private Config config;
 
     @Override
     public Boolean update(HardDiskDevice hardDiskDevice) {
@@ -72,6 +70,10 @@ public class HardDeviceServiceImpl implements HardDeviceService {
         return hardDeviceMapper.findByFolderName(folderName);
     }
 
+    public HardDiskDevice getByFolderNameAndType(String folderName,String type){
+        return hardDeviceMapper.findByFolderNameAndRules(folderName,type);
+    }
+
     @Override
     public HardDiskDevice getByMapper(String mapper) {
         return null;
@@ -81,14 +83,16 @@ public class HardDeviceServiceImpl implements HardDeviceService {
     public List<HardDeviceDTO> getHardDevices() {
         List<HardDiskDevice> list = hardDeviceMapper.findAll();
         List<HardDeviceDTO> res = new ArrayList<>();
-        for (HardDiskDevice device : list) {
-            res.add(new HardDeviceDTO(device));
-        }
 
         List<Driver> drivers = driverService.getAllDriver();
         for (Driver driver : drivers) {
             res.add(new HardDeviceDTO(driver));
         }
+        for (HardDiskDevice device : list) {
+            res.add(new HardDeviceDTO(device));
+        }
+
+
         return res;
     }
 
@@ -153,7 +157,7 @@ public class HardDeviceServiceImpl implements HardDeviceService {
                 file = file.getParentFile();
             if (!file.exists())
                 file.mkdirs();
-            HardDiskDevice device = getByFolderName(file.getAbsolutePath());
+            HardDiskDevice device = (this.getByFolderNameAndType(new File(value).getAbsolutePath(),key));
             if (device == null || device.getId() == 0) {
                 device = new HardDiskDevice();
                 device.setFolderName(file.getAbsolutePath());
@@ -198,7 +202,7 @@ public class HardDeviceServiceImpl implements HardDeviceService {
         }
         return false;
     }
-    
+
     public static long change(long num) {
         return num / 1024 / 1024 / 1024;
     }

@@ -90,10 +90,23 @@ public class Files {
         return this.user.get(0);
     }
 
-    public String getExt(){
+    public String getExt() {
         int count = this.selfName.lastIndexOf(".");
-        if (count==-1)
+        if (count == -1)
             return "";
-        return this.selfName.substring(count+1);
+        return this.selfName.substring(count + 1);
+    }
+
+    public String getFullName() {
+        return this.parentName + this.selfName;
+    }
+
+    public String getDiskFullName() {
+        return getOriginFile().getPath();
+    }
+
+    public String getName() {
+        int count = this.selfName.lastIndexOf(".");
+        return this.selfName.substring(0,count);
     }
 }

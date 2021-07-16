@@ -42,7 +42,7 @@ public class TypeController {
         List<FilesDTO> filesList = filesService.filesToDTO(filesService.getByType(user, Type.Document),new ArrayList<>());
         List<FilesDTO> commonList=filesService.filesToDTO(filesService.getByType(user,Type.Common),new ArrayList<>());
         filesList.addAll(commonList);
-        return new ResultBuilder(filesList,StatusCode.SUCCESS);
+        return new ResultBuilder<>(filesList,StatusCode.SUCCESS);
     }
 
     @GetMapping("/Video")
@@ -56,13 +56,13 @@ public class TypeController {
     public ResultBuilder getPics() {
         User user = userService.getUser(SecurityUtils.getSubject().getPrincipal().toString());
         List<FilesDTO> filesList=filesService.filesToDTO(filesService.getByType(user,Type.Picture),new ArrayList<>());
-        return new ResultBuilder(filesList,StatusCode.SUCCESS);
+        return new ResultBuilder<>(filesList,StatusCode.SUCCESS);
     }
 
     @GetMapping("/Other")
     public ResultBuilder getSpec(){
         User user = userService.getUser(SecurityUtils.getSubject().getPrincipal().toString());
         List<FilesDTO> filesList=filesService.filesToDTO(filesService.getByType(user,Type.Other),new ArrayList<>());
-        return new ResultBuilder(filesList,StatusCode.SUCCESS);
+        return new ResultBuilder<>(filesList,StatusCode.SUCCESS);
     }
 }

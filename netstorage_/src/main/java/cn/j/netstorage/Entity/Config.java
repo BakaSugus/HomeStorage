@@ -31,11 +31,11 @@ public class Config {
 
     private Integer MaxSize;
 
+    private boolean auto_convert;
+
     public static final String MAXSIZE = "Size";
 
     public static final String EMAIl = "EMAIl";
-
-    public static final String FFMPEG = "FFmpeg";
 
     public static final String EMails = "EMails";
 

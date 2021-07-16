@@ -74,7 +74,8 @@ public class UploadController {
 
 
     @PostMapping("/uploadMerge")
-    public ResultBuilder Merge(String driver, int size, String fileName, String parentName) {
+    public ResultBuilder Merge(String Driver, int size, String fileName, String parentName) {
+        System.out.println(Driver);
         Object object = SecurityUtils.getSubject().getPrincipal();
         if (object == null)
             return new ResultBuilder(StatusCode.FALL);
@@ -84,7 +85,7 @@ public class UploadController {
         Thread runnable =new Thread(new Runnable() {
             @Override
             public void run() {
-                boolean res = uploadService.merge_upload(driver,fileName, null, parentName, 1, size, user);
+                boolean res = uploadService.merge_upload(Driver,fileName, null, parentName, 1, size, user);
             }
         });
         runnable.start();

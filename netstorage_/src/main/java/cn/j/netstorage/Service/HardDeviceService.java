@@ -23,7 +23,6 @@ public interface HardDeviceService {
 
     HardDiskDevice get(Type type);
 
-
     HardDiskDevice getByFolderName(String folderName);
 
     HardDiskDevice getByMapper(String mapper);

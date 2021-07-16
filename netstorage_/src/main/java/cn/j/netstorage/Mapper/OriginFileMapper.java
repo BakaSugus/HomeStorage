@@ -1,9 +1,10 @@
 package cn.j.netstorage.Mapper;
 
+import cn.j.netstorage.Entity.File.HardDiskDevice;
 import cn.j.netstorage.Entity.File.OriginFile;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface OriginFileMapper extends JpaRepository<OriginFile,Long> {
+public interface OriginFileMapper extends JpaRepository<OriginFile, Long> {
 
     OriginFile getOriginFileByFileName(String FileName);
 
@@ -11,5 +12,5 @@ public interface OriginFileMapper extends JpaRepository<OriginFile,Long> {
 
     int countAllByFileName(String name);
 
-
+    OriginFile getOriginFileByFileNameAndHardDiskDevice(String fileName, HardDiskDevice hardDiskDevice);
 }

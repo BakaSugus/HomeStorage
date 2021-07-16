@@ -430,7 +430,6 @@ public class UploadServiceImpl implements UploadService {
 
         Files files = getFinalName(owner_user, user, storagePath, fileName, type, originFile);
         switch (driver) {
-
             case "Default_Hidden":
                 break;
             case "Default_Share":

@@ -59,6 +59,11 @@ public class OriginFileServiceImpl implements OriginFileService {
     }
 
     @Override
+    public OriginFile originFile(String originFileName, HardDiskDevice hardDiskDevice) throws IOException {
+        return originFileMapper.getOriginFileByFileNameAndHardDiskDevice(originFileName,hardDiskDevice);
+    }
+
+    @Override
     public OriginFile originFile(String md5) {
         return originFileMapper.findByMd5(md5);
     }

@@ -28,5 +28,6 @@ public interface Aria2Service {
     Boolean finish(String gid);
 
     Boolean cancel(String gid,User user);
+    
     String getSimpleDetail(String gid);
 }

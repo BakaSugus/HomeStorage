@@ -17,7 +17,7 @@ import java.util.List;
 public interface FilesService {
 
 
-    List<FilesDTO> UserFile(String path, User user,boolean visible);
+    List<FilesDTO> UserFile(String path, User user, boolean visible);
 
     FilesDTO getFilesById(long fid);
 
@@ -33,5 +33,6 @@ public interface FilesService {
 
     List<Files> searchFiles(FilesDTO filesDTO, User user);
 
-    List<FilesDTO> filesToDTO(List<Files> files,List<FilesDTO> target);
+    List<FilesDTO> filesToDTO(List<Files> files, List<FilesDTO> target);
+
 }

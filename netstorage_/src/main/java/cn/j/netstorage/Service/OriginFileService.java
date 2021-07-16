@@ -21,6 +21,8 @@ public interface OriginFileService {
 
     OriginFile originFile(File file, HardDiskDevice hardDiskDevice) throws IOException;
 
+    OriginFile originFile(String originFileName, HardDiskDevice hardDiskDevice) throws IOException;
+
     OriginFile originFile(String md5);
 
     boolean deleteOriginFile(List<OriginFile> originFiles);

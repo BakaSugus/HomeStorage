@@ -27,9 +27,10 @@ public class HardDeviceDTO {
         this.mapperPath = diskDevice.getCustomName();
         this.type = diskDevice.getType();
         File file = diskDevice.get();
-        this.use = file.getUsableSpace();
+
         this.total = file.getTotalSpace();
         this.free = file.getFreeSpace();
+        this.use = total - free;
         this.typeUse = getTotalSizeOfFilesInDir(file);
     }
 

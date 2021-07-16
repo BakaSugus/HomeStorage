@@ -3,30 +3,24 @@ package cn.j.netstorage.Config;
 import cn.j.netstorage.Entity.Config;
 import cn.j.netstorage.Entity.File.Files;
 import cn.j.netstorage.Entity.File.HardDiskDevice;
+import cn.j.netstorage.Entity.File.OriginFile;
 import cn.j.netstorage.Entity.Log.LogTemplate;
 import cn.j.netstorage.Entity.Type;
-import cn.j.netstorage.Entity.Usage;
 import cn.j.netstorage.Entity.User.Permission;
-import cn.j.netstorage.Entity.User.Role;
 import cn.j.netstorage.Entity.User.User;
 import cn.j.netstorage.Entity.oss.Oss;
-import cn.j.netstorage.Mapper.PermissionMapper;
-import cn.j.netstorage.Mapper.RoleMapper;
-import cn.j.netstorage.Mapper.UsageMapper;
 import cn.j.netstorage.Service.*;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonObject;
 import org.apache.shiro.crypto.hash.Md5Hash;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.*;
@@ -50,10 +44,10 @@ public class CheckEnv implements ApplicationRunner {
     private UploadService uploadService;
 
     @Autowired
-    private UsageMapper usageMapper;
+    private FileService2 fileService2;
 
     @Autowired
-    private FileService2 fileService2;
+    private OriginFileService originFileService;
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
@@ -61,6 +55,8 @@ public class CheckEnv implements ApplicationRunner {
         boolean permission = createPermission();
         boolean user = createAdminUser();
         boolean oss = createBackUpOss();
+        //在设置驱动器创建独一无二的config.application 记录额外设置 包括但不限于邮件通知 自动转码
+        boolean config = createConfig();
     }
 
     private boolean createDevice() {
@@ -93,7 +89,6 @@ public class CheckEnv implements ApplicationRunner {
             uploadService.uploadLog(user, "/日志/", "Start.log", LogTemplate.initLog(user, "管理员账户", "", false, e.getMessage()), false);
 
         }
-
 
         this.config.setAdmin(user);
         return true;
@@ -155,30 +150,39 @@ public class CheckEnv implements ApplicationRunner {
         return false;
     }
 
-    public boolean createUsage() {
-        List<Usage> usages = usageMapper.findAll();
-        if (usages == null || usages.size() == 0) return false;
-        List<String> strings = new ArrayList<>();
+    private boolean createConfig() {
 
-        for (Usage usage : usages) {
-            strings.add(usage.getName());
-        }
-
-        List<Usage> list = new LinkedList<>();
-
-        for (Type type : Type.values()) {
-            if (strings.contains(type.getType())) continue;
-            Usage usage = new Usage();
-            usage.setName(type.getType());
-            usage.setSize(0L);
-            list.add(usage);
-        }
-
+        Properties properties = null;
         try {
-            usageMapper.saveAll(list);
-            return true;
-        } catch (Exception ex) {
-            return false;
+            HardDiskDevice device = hardDeviceService.get(Type.Setting);
+            OriginFile originFile = originFileService.originFile("config.properties", device);
+            if (originFile != null) return true;
+            properties = new Properties();
+            File file = device.get();
+            file = new File(file, "config.properties");
+
+            try (OutputStream output = new FileOutputStream(file);) {
+
+                properties.setProperty("sendEmail", "");
+                properties.setProperty("Emails", "");
+                properties.setProperty("auto_encoding", "false");//视频转码
+                properties.setProperty("size", "10");//空间大小限制
+                properties.store(output, "" + new Date().toString());
+
+                originFile = originFileService.originFile(file, device);
+                originFileService.saveOriginFile(originFile);
+
+                if (originFile == null || originFile.getOid() == 0) return false;
+                Files files = fileService2.file("config.properties", originFile, "/设置/", config.getAdmin());
+                return fileService2.save(files);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+        return false;
     }
+
+
 }
