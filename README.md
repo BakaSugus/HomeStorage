@@ -67,7 +67,8 @@
     }
  }
  ```
- 6. 新建json文件(最简单的配置) DEVICE可以不写 会默认生成
+ 7. 启动nginx
+ 8. 新建config.json文件(最简单的配置) DEVICE可以不写 会默认生成
  ```
  {
 		"ADMIN":{
@@ -95,7 +96,13 @@
 }
  ```
 
- 7. 运行jar包
+ 9. 运行jar包
+ 后台运行
  ```
- nohup java -jar netstorage-0.0.1-SNAPSHOT.jar --configPath=上面json文件的位置 --spring.datasource.url=你的数据库链接 --spring.datasource.username=用户名 --spring.datasource.password=数据库密码 &
+ nohup java -jar netstorage-0.0.1-SNAPSHOT.jar --configPath=/xxx/xxx/config.json --spring.datasource.url=你的数据库链接 --spring.datasource.username=用户名 --spring.datasource.password=数据库密码 &
+ ```
+ 
+ 前台运行
+  ```
+  java -jar netstorage-0.0.1-SNAPSHOT.jar --configPath=/xxx/xxx/config.json --spring.datasource.url=你的数据库链接 --spring.datasource.username=用户名 --spring.datasource.password=数据库密码 
  ```
