@@ -87,6 +87,8 @@ public class FileController {
                     fileList = filesService.UserFile(parentName, user, true);
                 }
                 break;
+            case "Only_Folder":
+                fileList = folderService.AllFolders(user, parentName,true);break;
             default:
                 fileList = driverService.Driver(Driver, user, parentName);
         }
@@ -258,19 +260,15 @@ public class FileController {
         }
     }
 
-
-    @GetMapping("/records")
-    public ResultBuilder records(String parentName) {
+    @GetMapping("/Folders")
+    public ResultBuilder folders(String path) {
         Object obj = SecurityUtils.getSubject().getPrincipal();
-        if (obj == null) {
+        if (obj == null)
             return new ResultBuilder(StatusCode.FALL);
-        }
-        User user = userService.getUser(obj.toString());
-        return new ResultBuilder<>(folderService.getRecords(folderService.folders(user, parentName), user), StatusCode.SUCCESS);
+        if (path == null)
+            path = "/";
+        return new ResultBuilder<>(folderService.AllFolders(userService.getUser(obj.toString()), path,true), StatusCode.SUCCESS);
     }
 
-    @GetMapping("/zip")
-    public ResultBuilder fileTest(Long id) {
-        return new ResultBuilder<>(fileService2.getZipFileList(fileService2.files(id).get(0)), StatusCode.SUCCESS);
-    }
+
 }

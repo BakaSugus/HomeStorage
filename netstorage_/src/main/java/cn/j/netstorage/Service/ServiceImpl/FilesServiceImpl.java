@@ -202,10 +202,10 @@ public class FilesServiceImpl implements FileService2 {
     }
 
 
-    @Override
-    public boolean addVisitRecord(User user, Files files) {
-        return false;
-    }
+//    @Override
+//    public boolean addVisitRecord(User user, Files files) {
+//        return false;
+//    }
 
     @Override
     public Files getFiles(String path, String selfName, User user) {
@@ -214,10 +214,10 @@ public class FilesServiceImpl implements FileService2 {
         return files.get(0);
     }
 
-    @Override
-    public boolean saveRecord(VisitRecord visitRecord) {
-        return recordMapper.save(visitRecord).getId() != 0;
-    }
+//    @Override
+//    public boolean saveRecord(VisitRecord visitRecord) {
+//        return recordMapper.save(visitRecord).getId() != 0;
+//    }
 
     @Override
     public String checkName(String storagePath, String OriginalFilename, User user) {

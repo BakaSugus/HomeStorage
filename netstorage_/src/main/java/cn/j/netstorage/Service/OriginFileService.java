@@ -7,6 +7,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 
 public interface OriginFileService {
@@ -28,4 +29,6 @@ public interface OriginFileService {
     boolean deleteOriginFile(List<OriginFile> originFiles);
 
     int count(String path);
+
+    HashMap<String,String> getProperties();
 }

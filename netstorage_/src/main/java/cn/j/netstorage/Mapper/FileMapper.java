@@ -13,12 +13,7 @@ public interface FileMapper extends JpaRepository<Files, Long> {
 
     List<Files> findAllByParentNameAndUserAndType(String parentName, User user, String type);
 
-    List<Files> findAllByParentNameAndUserAndTypeNot(String parentName, User user, String type);
-
-
-    List<Files> findAllByParentNameAndUserAndTypeAndVisible(String parentName, User user, String type, boolean Visible);
-
-    List<Files> findAllByParentNameAndUserAndTypeNotAndVisible(String parentName, User user, String type, boolean Visible);
+    List<Files> findAllByParentNameAndUserAndVisible(String parentName, User user,  boolean Visible);
 
     Files findByParentNameAndUserAndSelfName(String parentName, User user, String selfName);
 

@@ -91,8 +91,6 @@ public class HardDeviceServiceImpl implements HardDeviceService {
         for (HardDiskDevice device : list) {
             res.add(new HardDeviceDTO(device));
         }
-
-
         return res;
     }
 

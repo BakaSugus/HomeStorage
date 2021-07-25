@@ -1,5 +1,6 @@
 package cn.j.netstorage.Entity.Folder;
 
+import cn.j.netstorage.Entity.Driver.Driver;
 import cn.j.netstorage.Entity.File.Files;
 import cn.j.netstorage.Entity.User.User;
 import lombok.Getter;
@@ -42,6 +43,9 @@ public class Folder {
 
     @Column
     private boolean inherit;
+
+    @OneToMany
+    private Set<Driver> drivers;
 
     public String getParent(){
         String fullName = getFolderName();

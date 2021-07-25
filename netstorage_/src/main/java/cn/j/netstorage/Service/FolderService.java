@@ -9,7 +9,6 @@ import cn.j.netstorage.Entity.User.User;
 import cn.j.netstorage.Entity.VisitRecord;
 
 import java.util.List;
-import java.util.Set;
 
 public interface FolderService {
 
@@ -53,4 +52,6 @@ public interface FolderService {
     List<FolderDTO> Filing(User user);
 
     void changeFolderUsage(Folder folder, User user, Files files);
+
+    List<FilesDTO> AllFolders(User user, String parentName,boolean visible);
 }

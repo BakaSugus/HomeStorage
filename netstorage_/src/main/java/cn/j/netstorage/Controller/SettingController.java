@@ -7,6 +7,7 @@ import cn.j.netstorage.Entity.User.User;
 import cn.j.netstorage.Entity.Vo.UserVo;
 import cn.j.netstorage.Service.FilesService;
 import cn.j.netstorage.Service.HardDeviceService;
+import cn.j.netstorage.Service.OriginFileService;
 import cn.j.netstorage.Service.UserService;
 import cn.j.netstorage.tool.FilesUtil;
 import cn.j.netstorage.tool.ResultBuilder;
@@ -28,9 +29,10 @@ public class SettingController {
     FilesService filesService;
     @Autowired
     UserService userService;
-
     @Autowired
     HardDeviceService hardDeviceService;
+    @Autowired
+    private OriginFileService originFileService;
 
     @GetMapping("DiskStatus")
     @RequiresRoles(value = {"admin"})
@@ -41,7 +43,7 @@ public class SettingController {
     @GetMapping("getConfig")
     @RequiresRoles(value = {"admin"})
     public ResultBuilder getConfig() {
-        return new ResultBuilder<>(true, StatusCode.SUCCESS);
+        return new ResultBuilder<>(originFileService.getProperties(), StatusCode.SUCCESS);
     }
 
     @GetMapping("/hard_Devices")
@@ -74,7 +76,7 @@ public class SettingController {
     public ResultBuilder UpdateUserRoles(@RequestBody TreeMap<String, Object> treeMap) {
         Long id = Long.valueOf(treeMap.get("id").toString());
         ArrayList<Integer> objects = (ArrayList<Integer>) treeMap.get("rids");
-        return new ResultBuilder(userService.changeUserPermission(id, objects), StatusCode.SUCCESS);
+        return new ResultBuilder<>(userService.changeUserPermission(id, objects), StatusCode.SUCCESS);
     }
 
     @GetMapping("/AlterUser")

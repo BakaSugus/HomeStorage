@@ -46,8 +46,7 @@ public class FileServiceImpl implements FilesService {
 
     @Override
     public List<FilesDTO> UserFile(String path, User user, boolean visible) {
-        List<FilesDTO> files1 = new ArrayList<>();
-        List<Files> folders = null;
+        List<FilesDTO> folders = null;
         List<Files> files = null;
 
         Folder self = folderService.folders(user, path);
@@ -55,27 +54,16 @@ public class FileServiceImpl implements FilesService {
             user = self.getOriginUser();
         }
 
-        if (visible) {
-            folders = fileMapper.findAllByParentNameAndUserAndTypeAndVisible(path, user, Type.Folder.getType(), true);
-            files = fileMapper.findAllByParentNameAndUserAndTypeNotAndVisible(path, user, Type.Folder.getType(), true);
-        } else {
-            System.out.println("隐藏文件");
-            folders = fileMapper.findAllByParentNameAndUserAndType(path, user, Type.Folder.getType());
-            files = fileMapper.findAllByParentNameAndUserAndTypeNot(path, user, Type.Folder.getType());
-            System.out.println(path+"\t"+files);
-        }
+        folders = folderService.AllFolders(user, path, visible);
+        files = fileMapper.findAllByParentNameAndUserAndVisible(path, user, visible);
 
-        for (Files folder : folders) {
-            FilesDTO filesDTO = new FilesDTO(folder);
-            files1.add(filesDTO);
-        }
-
+        if (folders == null) folders = new ArrayList<>();
         for (Files file : files) {
             FilesDTO filesDTO = new FilesDTO(file);
-            files1.add(filesDTO);
+            folders.add(filesDTO);
         }
 
-        return files1;
+        return folders;
     }
 
     @Override

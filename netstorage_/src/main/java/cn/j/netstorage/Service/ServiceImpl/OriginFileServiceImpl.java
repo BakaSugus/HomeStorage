@@ -2,25 +2,32 @@ package cn.j.netstorage.Service.ServiceImpl;
 
 import cn.j.netstorage.Entity.File.HardDiskDevice;
 import cn.j.netstorage.Entity.File.OriginFile;
+import cn.j.netstorage.Entity.MapperConfig;
+import cn.j.netstorage.Entity.Type;
 import cn.j.netstorage.Mapper.OriginFileMapper;
+import cn.j.netstorage.Service.HardDeviceService;
 import cn.j.netstorage.Service.OriginFileService;
 import cn.j.netstorage.tool.HashCodeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.support.PropertiesLoaderUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class OriginFileServiceImpl implements OriginFileService {
 
     @Autowired
     OriginFileMapper originFileMapper;
+
+    @Autowired
+    HardDeviceService hardDeviceService;
 
     @Override
     public OriginFile saveOriginFile(OriginFile originFile) {
@@ -60,7 +67,7 @@ public class OriginFileServiceImpl implements OriginFileService {
 
     @Override
     public OriginFile originFile(String originFileName, HardDiskDevice hardDiskDevice) throws IOException {
-        return originFileMapper.getOriginFileByFileNameAndHardDiskDevice(originFileName,hardDiskDevice);
+        return originFileMapper.getOriginFileByFileNameAndHardDiskDevice(originFileName, hardDiskDevice);
     }
 
     @Override
@@ -86,6 +93,27 @@ public class OriginFileServiceImpl implements OriginFileService {
     public int count(String path) {
         if (StringUtils.isEmpty(path)) return -1;
         return originFileMapper.countAllByFileName(path);
+    }
+
+    public HashMap<String, String> getProperties() {
+        HardDiskDevice device = hardDeviceService.get(Type.Setting);
+        OriginFile originFile = null;
+        try {
+            originFile = originFile("config.properties", device);
+            if (originFile != null) return null;
+            Properties properties = new Properties();
+            File file = device.get();
+            file = new File(file, "config.properties");
+            BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
+            properties.load(bufferedReader);
+            String change = properties.getProperty("auto_encoding", "false");
+            String size = properties.getProperty("size", "100");
+            return MapperConfig.getCustomTemplate(change, size);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return new HashMap<>();
+
     }
 
 }

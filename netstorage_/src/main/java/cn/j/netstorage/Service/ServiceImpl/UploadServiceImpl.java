@@ -541,7 +541,7 @@ public class UploadServiceImpl implements UploadService {
             } else {
                 backup = VisitRecord.setFiles(files, user, VisitRecord.BACKUP, files.getFid() == 0, String.format("%s %s%s自动上传失败", DateFormat.getDateTimeInstance(), files.getParentName(), files.getSelfName()), "不存在备份Oss,请检查");
             }
-            fileService2.saveRecord(backup);
+            //fileService2.saveRecord(backup);
         }
     }
 

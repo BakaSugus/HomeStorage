@@ -235,4 +235,15 @@ public class FolderServiceImpl implements FolderService {
     public void changeFolderUsage(Folder folder, User user, Files files) {
 
     }
+
+    @Override
+
+    public List<FilesDTO> AllFolders(User user, String parentName,boolean visible) {
+        List<Folder> list = folderMapper.findAllByOriginUserAndFolder_ParentNameAndFolder_Visible(user,parentName,visible);
+        List<FilesDTO> res = new ArrayList<>();
+        for (Folder folder : list) {
+            res.add(new FolderDTO(folder));
+        }
+        return res;
+    }
 }

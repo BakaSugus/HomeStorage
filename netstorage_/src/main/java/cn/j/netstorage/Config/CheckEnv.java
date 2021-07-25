@@ -168,12 +168,12 @@ public class CheckEnv implements ApplicationRunner {
                 properties.setProperty("auto_encoding", "false");//视频转码
                 properties.setProperty("size", "10");//空间大小限制
                 properties.store(output, "" + new Date().toString());
-
                 originFile = originFileService.originFile(file, device);
                 originFileService.saveOriginFile(originFile);
 
                 if (originFile == null || originFile.getOid() == 0) return false;
                 Files files = fileService2.file("config.properties", originFile, "/设置/", config.getAdmin());
+                files.setVisible(false);
                 return fileService2.save(files);
             } catch (Exception ex) {
                 ex.printStackTrace();

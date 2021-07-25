@@ -32,32 +32,13 @@ public interface FileService2 {
 
     int checkFilesCount(String parentName, String fileName, User user);
 
-//    //共享文件夹
-//    boolean shareFolder(Long fid, Long[] permissionId, User user);
-
-//    Folder getFolder(Files files);
-//
-//    List<FilesDTO> folders(User user);
-//
-//    Boolean deleteFolders(Long shareId);
-//
-//    Folder getFolder(Long id);
-//
-//    Folder getFolder(User user, String FolderName);
-
     Boolean RenameFile(User user, long fid, String targetName);
 
     Boolean moveFiles(User user, long fid, long targetFid);
 
     void zip(ZipOutputStream zipOutputStream, User user, Long... fid);
 
-//    Boolean RenameFolder();
-
-    boolean addVisitRecord(User user, Files files);
-
     Files getFiles(String path,String selfName,User user);
-
-    boolean saveRecord(VisitRecord visitRecord);
 
     String checkName(String storagePath,String OriginalFilename,User user);
 
