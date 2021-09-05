@@ -1,10 +1,12 @@
 package cn.j.netstorage.Entity;
 
+import cn.j.netstorage.Entity.File.Files;
 import cn.j.netstorage.Entity.User.User;
 import cn.j.netstorage.Entity.oss.Oss;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.apache.shiro.crypto.hash.Hash;
 
 import java.io.File;
 import java.util.HashMap;
@@ -32,6 +34,8 @@ public class Config {
     private Integer MaxSize;
 
     private boolean auto_convert;
+
+    private HashMap<String,Files> log_table;
 
     public static final String MAXSIZE = "Size";
 

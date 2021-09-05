@@ -26,4 +26,13 @@ public interface FolderMapper extends JpaRepository<Folder,Long> {
     List<Folder> findAllByOriginUserAndFolderNameContaining(User user,String folderName);
 
     List<Folder> findAllByOriginUserAndFolder_ParentNameAndFolder_Visible(User user,String parentName,boolean visible);
+
+    List<Folder> findAllByOriginUserAndFolder_ParentName(User user,String parentName);
+
+    List<Folder> findAllByShareUserAndFolder_ParentNameAndFolder_Visible(User user,String parentName,boolean visible);
+
+    List<Folder> findAllByShareUserAndFolder_ParentName(User user,String parentName);
+
+
+
 }

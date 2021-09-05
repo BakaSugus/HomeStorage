@@ -14,10 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.*;
 
 @Service
@@ -31,6 +28,7 @@ public class OriginFileServiceImpl implements OriginFileService {
 
     @Override
     public OriginFile saveOriginFile(OriginFile originFile) {
+        if (originFile==null)return null;
         return originFileMapper.save(originFile);
     }
 
@@ -48,6 +46,17 @@ public class OriginFileServiceImpl implements OriginFileService {
     public OriginFile originFile(MultipartFile file, HardDiskDevice hardDiskDevice) throws IOException {
         return originFile(file.getResource().getFile(), hardDiskDevice);
     }
+
+//    public OriginFile originFile(InputStream content, HardDiskDevice hardDiskDevice,String self) throws IOException {
+//        OutputStream outputStream=new FileOutputStream(new File(hardDiskDevice.getFolderName(),self));
+//        byte[] buffer = new byte[4096];
+//        int bytes = content.read(buffer, 0, buffer.length);
+//        while (bytes != -1) {
+//            .write(buffer, 0, bytes);
+//            bytes = bfi.read(buffer, 0, buffer.length);
+//        }
+//        return originFile(file.getResource().getFile(), hardDiskDevice);
+//    }
 
     @Override
     public OriginFile originFile(File file, HardDiskDevice hardDiskDevice) throws IOException {

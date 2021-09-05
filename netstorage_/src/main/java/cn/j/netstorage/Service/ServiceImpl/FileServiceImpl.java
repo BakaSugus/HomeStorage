@@ -1,7 +1,6 @@
 package cn.j.netstorage.Service.ServiceImpl;
 
 import cn.j.netstorage.Entity.DTO.FilesDTO;
-import cn.j.netstorage.Entity.DTO.OriginFileDTO;
 import cn.j.netstorage.Entity.File.Files;
 import cn.j.netstorage.Entity.File.HardDiskDevice;
 import cn.j.netstorage.Entity.File.OriginFile;
@@ -13,15 +12,10 @@ import cn.j.netstorage.Mapper.FileMapper;
 import cn.j.netstorage.Service.FileService2;
 import cn.j.netstorage.Service.FilesService;
 import cn.j.netstorage.Service.FolderService;
-import cn.j.netstorage.Service.UserService;
 import cn.j.netstorage.tool.FilesUtil;
 import cn.j.netstorage.tool.HashCodeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Example;
-import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
@@ -53,9 +47,15 @@ public class FileServiceImpl implements FilesService {
         if (self != null) {
             user = self.getOriginUser();
         }
+        if (visible){
+            folders = folderService.AllFolders(user, path, true);
+            files = fileMapper.findAllByParentNameAndUserAndVisibleAndTypeNot(path, user, true, Type.Folder.getType());
 
-        folders = folderService.AllFolders(user, path, visible);
-        files = fileMapper.findAllByParentNameAndUserAndVisible(path, user, visible);
+        }else{
+            folders = folderService.AllFolders(user, path, false);
+            files = fileMapper.findAllByParentNameAndUserAndTypeNot(path,user,Type.Folder.getType());
+        }
+
 
         if (folders == null) folders = new ArrayList<>();
         for (Files file : files) {
@@ -148,7 +148,7 @@ public class FileServiceImpl implements FilesService {
     }
 
     @Override
-    public Boolean saveOriginFiles(OriginFile originFile) {
+    public boolean saveOriginFiles(OriginFile originFile) {
         OriginFile originFile1 = originFileMapper.save(originFile);
         return originFile1.getOid() != 0;
     }

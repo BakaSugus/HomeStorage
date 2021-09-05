@@ -54,4 +54,7 @@ public interface FolderService {
     void changeFolderUsage(Folder folder, User user, Files files);
 
     List<FilesDTO> AllFolders(User user, String parentName,boolean visible);
+
+    List<FilesDTO> MyShareFolders(User user, String parentName,boolean visible);
+
 }

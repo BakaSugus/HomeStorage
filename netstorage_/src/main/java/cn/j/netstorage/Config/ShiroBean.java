@@ -91,9 +91,8 @@ public class ShiroBean {
         map.put("/logout", "logout");
         // 对所有用户认证
         map.put("/User/login", "anon");
-        map.put("/storage/**", "authc");
-        map.put("/download/finish","anon");
-        map.put("/**", "user");
+
+        map.put("/webdav/*","anon");
 
         bean.setFilterChainDefinitionMap(map);
         bean.setLoginUrl("/User/login");

@@ -85,7 +85,13 @@ public class FilesServiceImpl implements FileService2 {
 
     @Override
     public Boolean move(Files files, String path) {
-        return null;
+        if (!StringUtils.hasText(path)) return false;
+        System.out.println("path : "+path);
+        String parent = files.getParentName();
+        String res = parent.replaceFirst(parent, path);
+        files.setParentName(res);
+
+        return save(files);
     }
 
     @Override
@@ -100,6 +106,11 @@ public class FilesServiceImpl implements FileService2 {
 
     @Override
     public Files file(String finalName, OriginFile originFile, String storagePath, User user) {
+        return file(finalName, originFile, storagePath, user, true);
+    }
+
+    @Override
+    public Files file(String finalName, OriginFile originFile, String storagePath, User user, boolean v) {
         Files files = new Files();
         files.setParentName(storagePath);
         files.setUser(Collections.singletonList(user));
@@ -109,7 +120,7 @@ public class FilesServiceImpl implements FileService2 {
 
         Type type = Type.getInstance(FilesUtil.getExt(finalName));
         files.setType(type.getType());
-
+        files.setVisible(v);
         return files;
     }
 
@@ -151,7 +162,17 @@ public class FilesServiceImpl implements FileService2 {
         }
 
         files = filesList.get(0);
-        files.setSelfName(targetName);
+        String finalName = checkName(files.getParentName(), targetName, user);
+        ;
+        files.setSelfName(finalName);
+        return save(files);
+    }
+
+    @Override
+    public boolean RenameFile(User user, Files files, String targetName) {
+        if (files == null) return false;
+        String finalName = checkName(files.getParentName(), targetName, user);
+        files.setSelfName(finalName);
         return save(files);
     }
 
@@ -201,11 +222,6 @@ public class FilesServiceImpl implements FileService2 {
         return;
     }
 
-
-//    @Override
-//    public boolean addVisitRecord(User user, Files files) {
-//        return false;
-//    }
 
     @Override
     public Files getFiles(String path, String selfName, User user) {

@@ -55,11 +55,11 @@ public class FileController {
     @PostMapping("/uploadFolder")
     @RequiresUser
     @RequiresPermissions("上传")
-    public ResultBuilder<Boolean> createFolder(@RequestBody FilesDTO filesDTO) {
+    public ResultBuilder createFolder(@RequestBody FilesDTO filesDTO) {
         UserDTO userDTO = new UserDTO(userService.getUser(SecurityUtils.getSubject().getPrincipal().toString()));
         Files files = filesDTO.ConvertFiles();
         files.setUser(userDTO.convertUsers());
-        Boolean result = uploadService.common_upload_Folder(files);
+        boolean result = uploadService.common_upload_Folder(files);
         return new ResultBuilder<>(result, result ? StatusCode.SUCCESS : StatusCode.FALL);
     }
 
@@ -89,6 +89,8 @@ public class FileController {
                 break;
             case "Only_Folder":
                 fileList = folderService.AllFolders(user, parentName,true);break;
+            case"My_Share":
+                fileList = folderService.MyShareFolders(user, parentName,true);break;
             default:
                 fileList = driverService.Driver(Driver, user, parentName);
         }

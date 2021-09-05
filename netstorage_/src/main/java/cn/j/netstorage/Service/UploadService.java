@@ -5,9 +5,11 @@ import cn.j.netstorage.Entity.File.OriginFile;
 import cn.j.netstorage.Entity.Log.Log;
 import cn.j.netstorage.Entity.Type;
 import cn.j.netstorage.Entity.User.User;
+import jdk.internal.util.xml.impl.Input;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.io.InputStream;
 import java.util.List;
 
 public interface UploadService {
@@ -35,6 +37,8 @@ public interface UploadService {
     Boolean merge_upload(String Driver,String fileName, String diskPath, String storagePath, int start, int end, User user);
 
     Boolean common_upload(MultipartFile uploadFile, String storagePath, User user);
+
+    boolean common_upload(InputStream inputStream,String parent,String self,User user);
 
     String createAutoUploadPath(String token,String projectName,String desc);
 

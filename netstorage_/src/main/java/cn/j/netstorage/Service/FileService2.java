@@ -30,6 +30,8 @@ public interface FileService2 {
 
     Files file(String finalName, OriginFile originFile, String storagePath, User user);
 
+    Files file(String finalName, OriginFile originFile, String storagePath, User user,boolean v);
+
     int checkFilesCount(String parentName, String fileName, User user);
 
     Boolean RenameFile(User user, long fid, String targetName);
@@ -43,4 +45,6 @@ public interface FileService2 {
     String checkName(String storagePath,String OriginalFilename,User user);
 
     List<String> getZipFileList(Files files);
+
+    boolean RenameFile(User user, Files files, String targetName);
 }

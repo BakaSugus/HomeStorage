@@ -1,5 +1,6 @@
 package cn.j.netstorage.Service.ServiceImpl;
 
+import cn.j.netstorage.Config.log;
 import cn.j.netstorage.Entity.Config;
 import cn.j.netstorage.Entity.Driver.Driver;
 import cn.j.netstorage.Entity.File.Files;
@@ -20,6 +21,7 @@ import cn.j.netstorage.tool.FilesUtil;
 import cn.j.netstorage.tool.HashCodeUtil;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -56,8 +58,10 @@ public class UploadServiceImpl implements UploadService {
 
     @Autowired
     private TextService textService;
+
     @Autowired
     private DriverService driverService;
+
     @Autowired
     private Config config;
 
@@ -101,6 +105,50 @@ public class UploadServiceImpl implements UploadService {
     }
 
     @Override
+    public boolean common_upload(InputStream inputStream, String parent, String self, User user) {
+        Type type = Type.getInstance(self);
+        HardDiskDevice hardDiskDevice = hardDeviceService.get(type);
+        File newFile = new File(hardDiskDevice.getFolderName() + "/" +
+                +System.currentTimeMillis()
+                + self.substring(self.lastIndexOf(".")));
+        try (OutputStream outputStream = new FileOutputStream(newFile);) {
+            byte[] buffer = new byte[4096];
+            int bytes = inputStream.read(buffer, 0, buffer.length);
+            while (bytes != -1) {
+                outputStream.write(buffer, 0, bytes);
+                bytes = inputStream.read(buffer, 0, buffer.length);
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+
+
+        OriginFile originFile= null;
+        try {
+            originFile = originFileService.originFile(newFile,hardDiskDevice);
+            originFileService.saveOriginFile(originFile);
+            if (originFile.getOid() == 0) return false;
+
+            String finalName = fileService2.checkName(parent, self, user);
+            //如果folder 有自动上传这个属性就自动上传
+            Files files = fileService2.file(finalName, originFile, parent, user);
+            fileService2.save(files);
+
+            Log upload = LogTemplate.UploadLog(user, files.getParentName() + files.getSelfName(), files.getFid() == 0, null);
+            uploadLog(user, files.getParentName(), "", upload, false);
+            Folder folder = folderService.folders(files.getUser().get(0), files.getParentName());
+
+            backup(folder, user, files);
+
+            if (files.getFid() == 0) return false;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
+
+    @Override
     public Boolean AutoUploadComplete(String token, String projectName, List<File> files) {
         return null;
     }
@@ -124,48 +172,11 @@ public class UploadServiceImpl implements UploadService {
     @Override
     public boolean uploadLog(User user, String filePath, String fileName, Log log, boolean visible) {
         //先找这个东西存不存在 不存在就干死他
-        int count = fileService2.checkFilesCount(filePath, fileName, user);
-        System.out.println("count:\t" + count);
-        if (count == 0) {
-            HardDiskDevice setting = hardDeviceService.get(Type.Setting);
-            String diskName = System.currentTimeMillis() + ".log";
-            File file = new File(setting.getFolderName(), diskName);
-            try {
-                boolean res = file.createNewFile();
-                if (res) {
-                    try (FileOutputStream fos = new FileOutputStream(file, true);
-                         OutputStreamWriter osw = new OutputStreamWriter(fos, "utf-8");) {
-                        osw.write(log.toString()); //写入内容
-                        osw.write("\r\n");  //换行
-                    } catch (IOException ex) {
-                        return false;
-                    }
-                    OriginFile originFile = originFileService.originFile(file, setting);
-
-                    originFileService.saveOriginFile(originFile);
-
-                    Files files = fileService2.file(fileName, originFile, filePath, user);
-                    files.setVisible(visible);
-                    return fileService2.save(files);
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        } else {
-            Files files = fileService2.getFiles(filePath, fileName, user);
-            System.out.println(files);
-            if (files == null) return false;
-            OriginFile originFile = files.getOriginFile();
-            boolean res = textService.setText(log.toString(), originFile.getPath(), true);
-            if (res) {
-                originFile.setSize(new File(originFile.getPath()).length());
-                originFileService.saveOriginFile(originFile);
-            } else {
-                return false;
-            }
-
-        }
-        return false;
+        Files files = textService.GetOrCreateFolderLog(filePath, fileName, user);
+        System.out.println(files);
+        boolean res = textService.AppendLine(files, log.toString(), user);
+        System.out.println("update result : " + res);
+        return res;
     }
 
     //最初传进来的是文件夹 在网盘里的位置，
@@ -276,7 +287,7 @@ public class UploadServiceImpl implements UploadService {
 
         User user = file.getUser().get(0);
 
-        uploadLog(user, FilesUtil.append(file.getParentName(), file.getSelfName()) + "/", "folder.log", LogTemplate.initLog(user, file.getParentName() + file.getSelfName() + "文件夹", "", res, null), false);
+        uploadLog(user, file.getParentName(), log.folder_log_file, LogTemplate.initLog(user, file.getParentName() + file.getSelfName() + "文件夹", "", res, null), false);
 
         return res;
     }
@@ -444,9 +455,10 @@ public class UploadServiceImpl implements UploadService {
         files.setVisible(true);
         files = fileService2.saveAndGet(files);
 
-        uploadLog(user, files.getParentName(), "Folder.log", LogTemplate.initLog(user, "上传了文件", "", files.getFid() != 0, null), false);
+        uploadLog(user, files.getParentName(), log.folder_log_file, LogTemplate.initLog(user, "上传了文件:" + files.getSelfName(), "", files.getFid() != 0, null), false);
 
         backup(folder, user, files);
+
         folderService.changeFolderUsage(folder, user, files);
         return files.getFid() != 0;
     }

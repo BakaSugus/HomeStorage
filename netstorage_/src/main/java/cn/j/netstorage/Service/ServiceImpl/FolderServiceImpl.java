@@ -239,7 +239,28 @@ public class FolderServiceImpl implements FolderService {
     @Override
 
     public List<FilesDTO> AllFolders(User user, String parentName,boolean visible) {
-        List<Folder> list = folderMapper.findAllByOriginUserAndFolder_ParentNameAndFolder_Visible(user,parentName,visible);
+        List<Folder> list=null;
+
+        if (visible) {
+            list = folderMapper.findAllByOriginUserAndFolder_ParentNameAndFolder_Visible(user, parentName, visible);
+        }else {
+            list = folderMapper.findAllByOriginUserAndFolder_ParentName(user,parentName);
+        }
+        List<FilesDTO> res = new ArrayList<>();
+        for (Folder folder : list) {
+            res.add(new FolderDTO(folder));
+        }
+        return res;
+    }
+
+    @Override
+    public List<FilesDTO> MyShareFolders(User user, String parentName, boolean visible) {
+        List<Folder> list=null;
+        if (visible) {
+            list = folderMapper.findAllByShareUserAndFolder_ParentNameAndFolder_Visible(user, parentName, visible);
+        }else {
+            list = folderMapper.findAllByShareUserAndFolder_ParentName(user,parentName);
+        }
         List<FilesDTO> res = new ArrayList<>();
         for (Folder folder : list) {
             res.add(new FolderDTO(folder));

@@ -49,6 +49,9 @@ public class CheckEnv implements ApplicationRunner {
     @Autowired
     private OriginFileService originFileService;
 
+    @Autowired
+    private TextService textService;
+
     @Override
     public void run(ApplicationArguments args) throws Exception {
         boolean device = createDevice();
@@ -57,6 +60,7 @@ public class CheckEnv implements ApplicationRunner {
         boolean oss = createBackUpOss();
         //在设置驱动器创建独一无二的config.application 记录额外设置 包括但不限于邮件通知 自动转码
         boolean config = createConfig();
+        createLog();
     }
 
     private boolean createDevice() {
@@ -184,5 +188,14 @@ public class CheckEnv implements ApplicationRunner {
         return false;
     }
 
+    void createLog(){
+        HashMap<String,Files> log_table = new HashMap<>();
 
+        log_table.put(log.login_log_file, textService.getOrCreateAdminLogFile(log.login_log_file));
+        log_table.put(log.init_log_file, textService.getOrCreateAdminLogFile(log.init_log_file));
+        log_table.put(log.upload_log_file,textService. getOrCreateAdminLogFile(log.upload_log_file));
+        log_table.put(log.error_log_file, textService.getOrCreateAdminLogFile(log.error_log_file));
+
+        this.config.setLog_table(log_table);
+    }
 }

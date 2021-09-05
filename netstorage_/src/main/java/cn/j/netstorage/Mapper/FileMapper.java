@@ -11,9 +11,9 @@ import java.util.List;
 
 public interface FileMapper extends JpaRepository<Files, Long> {
 
-    List<Files> findAllByParentNameAndUserAndType(String parentName, User user, String type);
+    List<Files> findAllByParentNameAndUserAndTypeNot(String parentName, User user, String type);
 
-    List<Files> findAllByParentNameAndUserAndVisible(String parentName, User user,  boolean Visible);
+    List<Files> findAllByParentNameAndUserAndVisibleAndTypeNot(String parentName, User user,  boolean Visible,String type);
 
     Files findByParentNameAndUserAndSelfName(String parentName, User user, String selfName);
 

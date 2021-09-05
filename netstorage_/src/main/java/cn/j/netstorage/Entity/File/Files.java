@@ -74,8 +74,31 @@ public class Files {
         return new Files();
     }
 
-    public static Files setCommonFile() {
-        return new Files();
+    public static Files setCommonFile(User user,String prefix,String name,OriginFile originFile,String spec) {
+        Files files = new Files();
+        files.setVisible(true);
+        files.setSelfName(name);
+        files.setParentName(prefix);
+        files.setCreateDate(new Date());
+        files.setOriginFile(Collections.singleton(originFile));
+        files.setUser(Collections.singletonList(user));
+        files.setSpec(spec);
+        files.setType(Type.getInstance(files.getExt()).getType());
+
+        return files;
+    }
+
+    public static Files setHideFile(User user,String prefix,String name,OriginFile originFile,String spec) {
+        Files files = new Files();
+        files.setVisible(false);
+        files.setSelfName(name);
+        files.setParentName(prefix);
+        files.setCreateDate(new Date());
+        files.setOriginFile(Collections.singleton(originFile));
+        files.setUser(Collections.singletonList(user));
+        files.setSpec(spec);
+        files.setType(Type.getInstance(files.getExt()).getType());
+        return files;
     }
 
 

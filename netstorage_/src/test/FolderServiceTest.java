@@ -21,12 +21,12 @@ public class FolderServiceTest {
     @Autowired
     private UploadService uploadService;
 
-    @Test
-    public void check(){
-        folderService.ShareToMe(FilesUtil.setUser(88L)).forEach(value->{
-            System.out.println(value.getName());
-        });
-    }
+//    @Test
+//    public void check(){
+//        folderService.ShareToMe(FilesUtil.setUser(88L)).forEach(value->{
+//            System.out.println(value.getName());
+//        });
+//    }
 
     @Test
     public void shareToMe(){

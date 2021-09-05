@@ -1,16 +1,11 @@
 package cn.j.netstorage.Service;
 
 import cn.j.netstorage.Entity.DTO.FilesDTO;
-import cn.j.netstorage.Entity.DTO.OriginFileDTO;
 import cn.j.netstorage.Entity.File.Files;
-import cn.j.netstorage.Entity.File.HardDiskDevice;
 import cn.j.netstorage.Entity.File.OriginFile;
 import cn.j.netstorage.Entity.Type;
 import cn.j.netstorage.Entity.User.User;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
 
 
@@ -25,7 +20,7 @@ public interface FilesService {
 
     Files findByFid(Long fid);
 
-    Boolean saveOriginFiles(OriginFile originFile);
+    boolean saveOriginFiles(OriginFile originFile);
 
     OriginFile insertFolder();
 

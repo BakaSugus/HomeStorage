@@ -20,6 +20,7 @@ public class FolderDTO extends FilesDTO {
     private boolean Share;
     private Set<DriverDTO> drivers;
     private Set<UserDTO> shareUser;
+
     public FolderDTO() {
     }
 
@@ -29,12 +30,16 @@ public class FolderDTO extends FilesDTO {
         this.Inherit = folder.isInherit();
         this.Share = folder.isShare();
 
-        Set<Driver> drivers = folder.getDrivers();
-        this.drivers = new HashSet<>();
+        try {
+            Set<Driver> drivers = folder.getDrivers();
+            this.drivers = new HashSet<>();
+            if (drivers != null) {
+                for (Driver driver : drivers) {
+                    this.drivers.add(new DriverDTO(driver));
+                }
+            }
+        }catch (Exception ex){}
 
-        for (Driver driver : drivers) {
-            this.drivers.add(new DriverDTO(driver));
-        }
 
         Set<User> user = folder.getShareUser();
         shareUser = new HashSet<>();
